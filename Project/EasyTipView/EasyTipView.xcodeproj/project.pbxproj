@@ -79,7 +79,7 @@
 		13F27DF31AC2BB3800855C3F /* EasyTipView */ = {
 			isa = PBXGroup;
 			children = (
-				13F27E161AC2BB4700855C3F /* EasyTipView.swift */,
+				E81FAA111B57EF2C00902A97 /* EasyTipView */,
 				13F27DF61AC2BB3800855C3F /* AppDelegate.swift */,
 				13F27DF81AC2BB3800855C3F /* ViewController.swift */,
 				13F27DFA1AC2BB3800855C3F /* Main.storyboard */,
@@ -113,6 +113,14 @@
 				13F27E0B1AC2BB3800855C3F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E81FAA111B57EF2C00902A97 /* EasyTipView */ = {
+			isa = PBXGroup;
+			children = (
+				13F27E161AC2BB4700855C3F /* EasyTipView.swift */,
+			);
+			name = EasyTipView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

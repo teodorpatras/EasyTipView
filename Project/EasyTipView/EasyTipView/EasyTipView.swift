@@ -9,10 +9,10 @@
 import UIKit
 
 @objc protocol EasyTipViewDelegate {
-    func tipViewDidDismiss(tipView : EasyTipView)
+    func easyTipViewDidDismiss(tipView : EasyTipView)
 }
 
-class EasyTipView: UIView {
+class EasyTipView: UIView, Printable {
     
     
     // MARK:- Nested types -
@@ -26,8 +26,8 @@ class EasyTipView: UIView {
         var systemFontSize          :   CGFloat                =   15
         var textColor               :   UIColor                =   UIColor.whiteColor()
         var bubbleColor             :   UIColor                =   UIColor.redColor()
-        var arrowPosition           :   ArrowPosition   =   .Bottom
-        var font                    :   UIFont?                =   nil
+        var arrowPosition           :   ArrowPosition          =   .Bottom
+        var font                    :   UIFont?
         var textAlignment           :   NSTextAlignment        =   NSTextAlignment.Center
     }
     
@@ -58,7 +58,15 @@ class EasyTipView: UIView {
         }
     }
     
-    private var arrowTip        :   CGPoint       =     CGPointZero
+    override var description : String {
+        
+        let type = _stdlib_getDemangledTypeName(self).componentsSeparatedByString(".").last!
+        
+        return "<< \(type) with text : '\(self.text)' >>"
+    }
+    
+    private weak var    presentingView : UIView?
+    private var arrowTip        =   CGPointZero
     private var preferences     :   Preferences
     
     weak var delegate           :   EasyTipViewDelegate?
@@ -82,7 +90,7 @@ class EasyTipView: UIView {
         }
         
         return textSize
-        }()
+    }()
     
     private lazy var contentSize : CGSize = {
         
@@ -91,7 +99,7 @@ class EasyTipView: UIView {
         var contentSize = CGSizeMake(self.textSize.width + Constants.textHInset * 2 + Constants.bubbleHInset * 2, self.textSize.height + Constants.textVInset * 2 + Constants.bubbleVInset * 2 + Constants.arrowHeight)
         
         return contentSize
-        }()
+    }()
     
     // MARK:- Static preferences -
     
@@ -129,6 +137,22 @@ class EasyTipView: UIView {
         
         super.init(frame : CGRectZero)
         self.backgroundColor = UIColor.clearColor()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleRotation", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    }
+    
+    deinit
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func handleRotation () {
+        if let view = self.presentingView, sview = self.superview {
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.arrangeInSuperview(sview)
+                self.setNeedsDisplay()
+            })
+        }
     }
 
     /**
@@ -160,13 +184,6 @@ class EasyTipView: UIView {
     
     // MARK:- Instance methods -
     
-    func description () -> String {
-        
-        let type = _stdlib_getDemangledTypeName(self).componentsSeparatedByString(".").last!
-        
-        return "<< \(type) with text : '\(self.text)' >>"
-    }
-    
     func showForItem(item : UIBarButtonItem, withinSuperView sview : UIView?, animated : Bool) {
         if let view = item.customView {
             self.showForView(view, withinSuperview: sview, animated : animated)
@@ -177,18 +194,39 @@ class EasyTipView: UIView {
         }
     }
     
-    func showForView (view : UIView, withinSuperview sview : UIView?, animated : Bool) {
+    func showForView(view : UIView, withinSuperview sview : UIView?, animated : Bool) {
         
         if let v = sview {
             assert(view.hasSuperview(v), "The supplied superview <\(v)> is not a direct nor an indirect superview of the supplied reference view <\(view)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip on the window, pass nil as the superview parameter.")
         }
         
-        var position = self.preferences.arrowPosition
+        let superview = sview ?? UIApplication.sharedApplication().windows.last as! UIView
+        self.presentingView = view
         
-        var superview = sview == nil ? (UIApplication.sharedApplication().windows.last as UIView) : sview
+        self.arrangeInSuperview(superview)
         
-        let refViewOrigin = view.originWithinDistantSuperView(superview)
-        let refViewSize = view.frame.size
+        self.transform = CGAffineTransformMakeScale(0, 0)
+        
+        var tap = UITapGestureRecognizer(target: self, action: "handleTap")
+        self.addGestureRecognizer(tap)
+        
+        superview.addSubview(self)
+        
+        if animated {
+            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+                self.transform = CGAffineTransformIdentity
+            }, completion: nil)
+        }else{
+            self.transform = CGAffineTransformIdentity
+        }
+    }
+    
+    private func arrangeInSuperview(superview : UIView) {
+        
+        let position = self.preferences.arrowPosition
+        
+        let refViewOrigin = self.presentingView!.originWithinDistantSuperView(superview)
+        let refViewSize = self.presentingView!.frame.size
         let refViewCenter = CGPointMake(refViewOrigin.x + refViewSize.width / 2, refViewOrigin.y + refViewSize.height / 2)
         
         let xOrigin = refViewCenter.x - self.contentSize.width / 2
@@ -198,12 +236,12 @@ class EasyTipView: UIView {
         
         if frame.origin.x < 0 {
             frame.origin.x =  0
-        } else if CGRectGetMaxX(frame) > CGRectGetWidth(superview!.frame){
-            frame.origin.x = superview!.frame.width - CGRectGetWidth(frame)
+        } else if CGRectGetMaxX(frame) > CGRectGetWidth(superview.frame){
+            frame.origin.x = superview.frame.width - CGRectGetWidth(frame)
         }
         
         if position == .Top {
-            if CGRectGetMaxY(frame) > CGRectGetHeight(superview!.frame){
+            if CGRectGetMaxY(frame) > CGRectGetHeight(superview.frame){
                 self.preferences.arrowPosition = .Bottom
                 frame.origin.y = refViewOrigin.y - self.contentSize.height
             }
@@ -216,31 +254,15 @@ class EasyTipView: UIView {
         
         self.arrowTip = CGPointMake(abs(frame.origin.x - refViewOrigin.x) + refViewSize.width / 2, self.preferences.arrowPosition == .Top ? Constants.bubbleVInset : self.contentSize.height - Constants.bubbleVInset)
         self.frame = frame
-        
-        self.transform = CGAffineTransformMakeScale(0, 0)
-        
-        var tap = UITapGestureRecognizer(target: self, action: "handleTap")
-        self.addGestureRecognizer(tap)
-        
-        superview!.addSubview(self)
-        
-        if animated {
-            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-                self.transform = CGAffineTransformIdentity
-            }, completion: nil)
-        }else{
-            self.transform = CGAffineTransformIdentity
-        }
     }
+    
     
     func dismissWithCompletion(completion : ((finished : Bool) -> Void)?){
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.transform = CGAffineTransformMakeScale(0.3, 0.3)
             self.alpha = 0
             }) { (finished) -> Void in
-                if completion != nil {
-                    completion!(finished: finished)
-                }
+                completion?(finished: finished)
                 self.removeFromSuperview()
         }
     }
@@ -249,9 +271,7 @@ class EasyTipView: UIView {
     
     func handleTap () {
         self.dismissWithCompletion { (finished) -> Void in
-            if let dlg = self.delegate {
-                dlg.tipViewDidDismiss(self)
-            }
+            self.delegate?.easyTipViewDidDismiss(self)
         }
     }
     

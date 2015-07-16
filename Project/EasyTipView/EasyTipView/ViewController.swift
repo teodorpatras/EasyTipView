@@ -39,7 +39,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
         self.toolbarItemAction()
     }
     
-    func tipViewDidDismiss(tipView: EasyTipView) {
+    func easyTipViewDidDismiss(tipView: EasyTipView) {
         println("\(tipView) did dismiss!")
     }
     
@@ -61,7 +61,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.font = UIFont(name: "HelveticaNeue-Regular", size: 10)
             preferences.textAlignment = NSTextAlignment.Center
             
-            var view = EasyTipView(text: "Tip view within the green superview. Tap to dismiss.", preferences: preferences, delegate: nil)
+            let view = EasyTipView(text: "Tip view within the green superview. Tap to dismiss.", preferences: preferences, delegate: nil)
             view.showForView(buttonA, withinSuperview: self.smallContainerView, animated: true)
             
         case buttonB:
@@ -71,7 +71,12 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.font = UIFont(name: "HelveticaNeue-Light", size: 14)
             preferences.textAlignment = NSTextAlignment.Justified
             
-            EasyTipView.showAnimated(true, forView: self.buttonB, withinSuperview: self.navigationController?.view, text: "Tip view inside the navigation controller's view. Tap to dismiss!", preferences: preferences, delegate: nil)
+            EasyTipView.showAnimated(true,
+                forView: self.buttonB,
+                withinSuperview: self.navigationController?.view,
+                text: "Tip view inside the navigation controller's view. Tap to dismiss!",
+                preferences: preferences,
+                delegate: nil)
             
         case buttonC:
             
