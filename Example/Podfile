@@ -1,0 +1,7 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'EasyTipView', :exclusive => true do
+  pod "EasyTipView", :path => "../"
+end
+
