@@ -1,0 +1,511 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		12966361B4A3F5DBE3FF322B2E329DBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D300C523D20C3F91C49CBE791DEAB5F4 /* Foundation.framework */; };
+		40A8A4A20B93166ACCA537B852B4AC30 /* Pods-EasyTipView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F91421EBEB7CECFC33916AB49984DF0A /* Pods-EasyTipView-dummy.m */; };
+		4DBA9ECF9DB5308AF3AB55FA36F176A8 /* Pods-EasyTipView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D8C4A2534723EA59BF9E63B8BF853B /* Pods-EasyTipView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AB73FC0C5ECA50823978C482006110CD /* EasyTipView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD986705887E6870FCA38DE686FE0525 /* EasyTipView-dummy.m */; };
+		D1342655CD38FE8674A8EF3FCC833D99 /* EasyTipView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0365B2F0F90DC7009BD59ECB555416FD /* EasyTipView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA714B2CB60A2811D816241ADAD7061F /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59089FB4AE66BA93960A417A8D394BF9 /* EasyTipView.swift */; };
+		F0DB970D680499CE55F9CB3C025618D4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D300C523D20C3F91C49CBE791DEAB5F4 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E4E527D6C759D539D74C1392615B9C2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BDEA2302164B650737B1A82DFD53B53D;
+			remoteInfo = EasyTipView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0365B2F0F90DC7009BD59ECB555416FD /* EasyTipView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EasyTipView-umbrella.h"; sourceTree = "<group>"; };
+		159CADD1DFCF8CF97602907FB7F89A04 /* Pods-EasyTipView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EasyTipView.release.xcconfig"; sourceTree = "<group>"; };
+		1D49E19E8E06150C6B8F03C4ADDC6824 /* Pods-EasyTipView-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EasyTipView-resources.sh"; sourceTree = "<group>"; };
+		1E1EF6897FA5BD38B0CF830B37A5165C /* EasyTipView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = EasyTipView.modulemap; sourceTree = "<group>"; };
+		24D8FF454DADCED480AF2A4C60FC9DF2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		261AFCD4EEEFAD25BA4191FCE6DBB439 /* Pods_EasyTipView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyTipView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		307F3AEC34EE91D8C3E02186828EF89D /* Pods-EasyTipView-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EasyTipView-frameworks.sh"; sourceTree = "<group>"; };
+		59089FB4AE66BA93960A417A8D394BF9 /* EasyTipView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EasyTipView.swift; sourceTree = "<group>"; };
+		619A5FB992C5956B09C990DB56A7BB89 /* EasyTipView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyTipView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65D8C4A2534723EA59BF9E63B8BF853B /* Pods-EasyTipView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EasyTipView-umbrella.h"; sourceTree = "<group>"; };
+		7A0814B54F01F17D25CF79C353D46A0D /* EasyTipView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EasyTipView.xcconfig; sourceTree = "<group>"; };
+		817BB984364C971F632A1329E10DCBB5 /* Pods-EasyTipView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-EasyTipView.modulemap"; sourceTree = "<group>"; };
+		9DCB135CCB01C1DD2E215651C1CCD91F /* EasyTipView-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "EasyTipView-Private.xcconfig"; sourceTree = "<group>"; };
+		B0406CD0EB6BA5F531DAD4FD169B7F6C /* Pods-EasyTipView-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EasyTipView-acknowledgements.plist"; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BCFF3ED46644C9D767583C1F8E1A669B /* Pods-EasyTipView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EasyTipView.debug.xcconfig"; sourceTree = "<group>"; };
+		CC1C81C4A1F810F49B4B0D4BFB335CDB /* Pods-EasyTipView-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EasyTipView-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D300C523D20C3F91C49CBE791DEAB5F4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		DD986705887E6870FCA38DE686FE0525 /* EasyTipView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "EasyTipView-dummy.m"; sourceTree = "<group>"; };
+		E7F5952CA21ECA0AA334859E3812FC9E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5E67E9AFEAEE7182622B07E4C392B3C /* EasyTipView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EasyTipView-prefix.pch"; sourceTree = "<group>"; };
+		F91421EBEB7CECFC33916AB49984DF0A /* Pods-EasyTipView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EasyTipView-dummy.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2E930390940BC7FF7731899C3CD53C69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12966361B4A3F5DBE3FF322B2E329DBA /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80495146F7A3FC66A474749AB0DB36E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0DB970D680499CE55F9CB3C025618D4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0378D7205A9309C3B855122B04E2C1AA /* EasyTipView */ = {
+			isa = PBXGroup;
+			children = (
+				FF5FD0F343A483FE93AA0ACAC13DB067 /* EasyTipView */,
+				96DFF6F182812B03A37AF18252E73D69 /* Support Files */,
+			);
+			name = EasyTipView;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		0E320593B729C03F3AB7D29D3F208F6A /* Pods-EasyTipView */ = {
+			isa = PBXGroup;
+			children = (
+				24D8FF454DADCED480AF2A4C60FC9DF2 /* Info.plist */,
+				817BB984364C971F632A1329E10DCBB5 /* Pods-EasyTipView.modulemap */,
+				CC1C81C4A1F810F49B4B0D4BFB335CDB /* Pods-EasyTipView-acknowledgements.markdown */,
+				B0406CD0EB6BA5F531DAD4FD169B7F6C /* Pods-EasyTipView-acknowledgements.plist */,
+				F91421EBEB7CECFC33916AB49984DF0A /* Pods-EasyTipView-dummy.m */,
+				307F3AEC34EE91D8C3E02186828EF89D /* Pods-EasyTipView-frameworks.sh */,
+				1D49E19E8E06150C6B8F03C4ADDC6824 /* Pods-EasyTipView-resources.sh */,
+				65D8C4A2534723EA59BF9E63B8BF853B /* Pods-EasyTipView-umbrella.h */,
+				BCFF3ED46644C9D767583C1F8E1A669B /* Pods-EasyTipView.debug.xcconfig */,
+				159CADD1DFCF8CF97602907FB7F89A04 /* Pods-EasyTipView.release.xcconfig */,
+			);
+			name = "Pods-EasyTipView";
+			path = "Target Support Files/Pods-EasyTipView";
+			sourceTree = "<group>";
+		};
+		525BF4C094355AA753DB58B3D69791E2 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0378D7205A9309C3B855122B04E2C1AA /* EasyTipView */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		53F661C0CA7190D2CF05023FB33D61E4 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D300C523D20C3F91C49CBE791DEAB5F4 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				525BF4C094355AA753DB58B3D69791E2 /* Development Pods */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				CCA510CFBEA2D207524CDA0D73C3B561 /* Products */,
+				D70D189F599969807C71A25C1393D10B /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		96DFF6F182812B03A37AF18252E73D69 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1E1EF6897FA5BD38B0CF830B37A5165C /* EasyTipView.modulemap */,
+				7A0814B54F01F17D25CF79C353D46A0D /* EasyTipView.xcconfig */,
+				9DCB135CCB01C1DD2E215651C1CCD91F /* EasyTipView-Private.xcconfig */,
+				DD986705887E6870FCA38DE686FE0525 /* EasyTipView-dummy.m */,
+				F5E67E9AFEAEE7182622B07E4C392B3C /* EasyTipView-prefix.pch */,
+				0365B2F0F90DC7009BD59ECB555416FD /* EasyTipView-umbrella.h */,
+				E7F5952CA21ECA0AA334859E3812FC9E /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/EasyTipView";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53F661C0CA7190D2CF05023FB33D61E4 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CCA510CFBEA2D207524CDA0D73C3B561 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				619A5FB992C5956B09C990DB56A7BB89 /* EasyTipView.framework */,
+				261AFCD4EEEFAD25BA4191FCE6DBB439 /* Pods_EasyTipView.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D70D189F599969807C71A25C1393D10B /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E320593B729C03F3AB7D29D3F208F6A /* Pods-EasyTipView */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		FF5FD0F343A483FE93AA0ACAC13DB067 /* EasyTipView */ = {
+			isa = PBXGroup;
+			children = (
+				59089FB4AE66BA93960A417A8D394BF9 /* EasyTipView.swift */,
+			);
+			path = EasyTipView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		140AE92BA8AE30B283D8D0AF8939A6C8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1342655CD38FE8674A8EF3FCC833D99 /* EasyTipView-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A06EE46709E8145413FEDB20C5C95CE4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DBA9ECF9DB5308AF3AB55FA36F176A8 /* Pods-EasyTipView-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2E04DC025791EB4D18E29E5903FBF929 /* Pods-EasyTipView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E079ED87AF62E7772BC7339E6AE77006 /* Build configuration list for PBXNativeTarget "Pods-EasyTipView" */;
+			buildPhases = (
+				D47B0C6BD2BAC52BB78009C0B1EE63A2 /* Sources */,
+				2E930390940BC7FF7731899C3CD53C69 /* Frameworks */,
+				A06EE46709E8145413FEDB20C5C95CE4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3552CADB33E9A17525BD28B4B2BDE0FC /* PBXTargetDependency */,
+			);
+			name = "Pods-EasyTipView";
+			productName = "Pods-EasyTipView";
+			productReference = 261AFCD4EEEFAD25BA4191FCE6DBB439 /* Pods_EasyTipView.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BDEA2302164B650737B1A82DFD53B53D /* EasyTipView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57430DC561DC3B45668F2880DF3FC7F9 /* Build configuration list for PBXNativeTarget "EasyTipView" */;
+			buildPhases = (
+				4E29B00BB2D7A20F941ECBB6DF399517 /* Sources */,
+				80495146F7A3FC66A474749AB0DB36E2 /* Frameworks */,
+				140AE92BA8AE30B283D8D0AF8939A6C8 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EasyTipView;
+			productName = EasyTipView;
+			productReference = 619A5FB992C5956B09C990DB56A7BB89 /* EasyTipView.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = CCA510CFBEA2D207524CDA0D73C3B561 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BDEA2302164B650737B1A82DFD53B53D /* EasyTipView */,
+				2E04DC025791EB4D18E29E5903FBF929 /* Pods-EasyTipView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4E29B00BB2D7A20F941ECBB6DF399517 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB73FC0C5ECA50823978C482006110CD /* EasyTipView-dummy.m in Sources */,
+				DA714B2CB60A2811D816241ADAD7061F /* EasyTipView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D47B0C6BD2BAC52BB78009C0B1EE63A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A8A4A20B93166ACCA537B852B4AC30 /* Pods-EasyTipView-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3552CADB33E9A17525BD28B4B2BDE0FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EasyTipView;
+			target = BDEA2302164B650737B1A82DFD53B53D /* EasyTipView */;
+			targetProxy = E4E527D6C759D539D74C1392615B9C2A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0DC21CE689C7BBB46DF7EBDD2D5E5D06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 159CADD1DFCF8CF97602907FB7F89A04 /* Pods-EasyTipView.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-EasyTipView/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-EasyTipView/Pods-EasyTipView.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_EasyTipView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		295D8B24B9C453CF4A2EAB38863F0C67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCFF3ED46644C9D767583C1F8E1A669B /* Pods-EasyTipView.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-EasyTipView/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-EasyTipView/Pods-EasyTipView.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_EasyTipView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		6E512C927C897F3DA8C263AF437614CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DCB135CCB01C1DD2E215651C1CCD91F /* EasyTipView-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 0.1.0;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 0.1.0;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/EasyTipView/EasyTipView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/EasyTipView/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/EasyTipView/EasyTipView.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = EasyTipView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		F460D0E1A57AFA38843A7BB57341D275 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DCB135CCB01C1DD2E215651C1CCD91F /* EasyTipView-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 0.1.0;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 0.1.0;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/EasyTipView/EasyTipView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/EasyTipView/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/EasyTipView/EasyTipView.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = EasyTipView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FB45FFD90572718D82AB9092B750F0CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */,
+				FB45FFD90572718D82AB9092B750F0CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57430DC561DC3B45668F2880DF3FC7F9 /* Build configuration list for PBXNativeTarget "EasyTipView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F460D0E1A57AFA38843A7BB57341D275 /* Debug */,
+				6E512C927C897F3DA8C263AF437614CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E079ED87AF62E7772BC7339E6AE77006 /* Build configuration list for PBXNativeTarget "Pods-EasyTipView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				295D8B24B9C453CF4A2EAB38863F0C67 /* Debug */,
+				0DC21CE689C7BBB46DF7EBDD2D5E5D06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EasyTipView
 
 class ViewController: UIViewController, EasyTipViewDelegate {
     

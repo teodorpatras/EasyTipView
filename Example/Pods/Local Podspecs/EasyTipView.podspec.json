@@ -1,0 +1,17 @@
+{
+  "name": "EasyTipView",
+  "version": "0.1.0",
+  "summary": "A short description of EasyTipView.",
+  "description": "An optional longer description of EasyTipView\n\n* Markdown format.\n* Don't worry about the indent, we strip it!",
+  "homepage": "https://github.com/teodorpatras/EasyTipView",
+  "license": "MIT",
+  "source": {
+    "git": "https://github.com/teodorpatras/EasyTipView.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "EasyTipView/*.swift"
+}

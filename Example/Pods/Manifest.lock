@@ -1,0 +1,14 @@
+PODS:
+  - EasyTipView (0.1.0)
+
+DEPENDENCIES:
+  - EasyTipView (from `../`)
+
+EXTERNAL SOURCES:
+  EasyTipView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  EasyTipView: 6365ed7b5fc8c44267307cbd7a314e44cb88be7e
+
+COCOAPODS: 0.38.2

@@ -13,7 +13,7 @@
 		13F27DFE1AC2BB3800855C3F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13F27DFD1AC2BB3800855C3F /* Images.xcassets */; };
 		13F27E011AC2BB3800855C3F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13F27DFF1AC2BB3800855C3F /* LaunchScreen.xib */; };
 		13F27E0D1AC2BB3800855C3F /* EasyTipViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F27E0C1AC2BB3800855C3F /* EasyTipViewTests.swift */; };
-		13F27E171AC2BB4700855C3F /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F27E161AC2BB4700855C3F /* EasyTipView.swift */; };
+		497A4C2E2680D69D3D49E3AA /* Pods_EasyTipView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE3CE4B07322883226B143C /* Pods_EasyTipView.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +27,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0BE3CE4B07322883226B143C /* Pods_EasyTipView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyTipView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F4BED498257C75A2A38BDEC /* Pods-EasyTipView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyTipView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EasyTipView/Pods-EasyTipView.debug.xcconfig"; sourceTree = "<group>"; };
 		13F27DF11AC2BB3800855C3F /* EasyTipView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyTipView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13F27DF51AC2BB3800855C3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13F27DF61AC2BB3800855C3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +39,7 @@
 		13F27E061AC2BB3800855C3F /* EasyTipViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyTipViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13F27E0B1AC2BB3800855C3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13F27E0C1AC2BB3800855C3F /* EasyTipViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyTipViewTests.swift; sourceTree = "<group>"; };
-		13F27E161AC2BB4700855C3F /* EasyTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTipView.swift; sourceTree = "<group>"; };
+		3B5ADA31651BA6A77498DE83 /* Pods-EasyTipView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyTipView.release.xcconfig"; path = "Pods/Target Support Files/Pods-EasyTipView/Pods-EasyTipView.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				497A4C2E2680D69D3D49E3AA /* Pods_EasyTipView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +61,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09189110571A6BD17311E875 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0F4BED498257C75A2A38BDEC /* Pods-EasyTipView.debug.xcconfig */,
+				3B5ADA31651BA6A77498DE83 /* Pods-EasyTipView.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		13F27DE81AC2BB3800855C3F = {
 			isa = PBXGroup;
 			children = (
 				13F27DF31AC2BB3800855C3F /* EasyTipView */,
 				13F27E091AC2BB3800855C3F /* EasyTipViewTests */,
 				13F27DF21AC2BB3800855C3F /* Products */,
+				09189110571A6BD17311E875 /* Pods */,
+				3C7811E96B8DF46B72951605 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,7 +93,6 @@
 		13F27DF31AC2BB3800855C3F /* EasyTipView */ = {
 			isa = PBXGroup;
 			children = (
-				E81FAA111B57EF2C00902A97 /* EasyTipView */,
 				13F27DF61AC2BB3800855C3F /* AppDelegate.swift */,
 				13F27DF81AC2BB3800855C3F /* ViewController.swift */,
 				13F27DFA1AC2BB3800855C3F /* Main.storyboard */,
@@ -115,12 +128,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E81FAA111B57EF2C00902A97 /* EasyTipView */ = {
+		3C7811E96B8DF46B72951605 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				13F27E161AC2BB4700855C3F /* EasyTipView.swift */,
+				0BE3CE4B07322883226B143C /* Pods_EasyTipView.framework */,
 			);
-			name = EasyTipView;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,9 +143,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13F27E101AC2BB3800855C3F /* Build configuration list for PBXNativeTarget "EasyTipView" */;
 			buildPhases = (
+				D432B55964F901430B89DAB5 /* Check Pods Manifest.lock */,
 				13F27DED1AC2BB3800855C3F /* Sources */,
 				13F27DEE1AC2BB3800855C3F /* Frameworks */,
 				13F27DEF1AC2BB3800855C3F /* Resources */,
+				7F216BE996DBA9B0FC85B00C /* Embed Pods Frameworks */,
+				A239923E4ED1520CC359A23C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -218,6 +234,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7F216BE996DBA9B0FC85B00C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EasyTipView/Pods-EasyTipView-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A239923E4ED1520CC359A23C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EasyTipView/Pods-EasyTipView-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D432B55964F901430B89DAB5 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		13F27DED1AC2BB3800855C3F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -225,7 +289,6 @@
 			files = (
 				13F27DF91AC2BB3800855C3F /* ViewController.swift in Sources */,
 				13F27DF71AC2BB3800855C3F /* AppDelegate.swift in Sources */,
-				13F27E171AC2BB4700855C3F /* EasyTipView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +409,7 @@
 		};
 		13F27E111AC2BB3800855C3F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F4BED498257C75A2A38BDEC /* Pods-EasyTipView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = EasyTipView/Info.plist;
@@ -357,6 +421,7 @@
 		};
 		13F27E121AC2BB3800855C3F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B5ADA31651BA6A77498DE83 /* Pods-EasyTipView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = EasyTipView/Info.plist;
