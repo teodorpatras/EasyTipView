@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  EasyTipView
 //
-//  Created by Teodor Patras on 25.03.15.
-//  Copyright (c) 2015 Teodor Patras. All rights reserved.
+//  Created by Teodor Patraş on 08/16/2015.
+//  Copyright (c) 2015 Teodor Patraş. All rights reserved.
 //
 
 import UIKit

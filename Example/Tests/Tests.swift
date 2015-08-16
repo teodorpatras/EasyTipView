@@ -1,15 +1,8 @@
-//
-//  EasyTipViewTests.swift
-//  EasyTipViewTests
-//
-//  Created by Teodor Patras on 25.03.15.
-//  Copyright (c) 2015 Teodor Patras. All rights reserved.
-//
-
 import UIKit
 import XCTest
+import EasyTipView
 
-class EasyTipViewTests: XCTestCase {
+class Tests: XCTestCase {
     
     override func setUp() {
         super.setUp()

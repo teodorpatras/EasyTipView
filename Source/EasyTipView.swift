@@ -1,34 +1,58 @@
 //
-//  EasyTipView.swift
-//  EasyTipView
+// EasyTipView.swift
 //
-//  Created by Teodor Patras on 25.03.15.
-//  Copyright (c) 2015 Teodor Patras. All rights reserved.
+// Copyright (c) 2015 Teodor Patraş
 //
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 import UIKit
 
-@objc protocol EasyTipViewDelegate {
+@objc public protocol EasyTipViewDelegate {
     func easyTipViewDidDismiss(tipView : EasyTipView)
 }
 
-class EasyTipView: UIView, Printable {
+public class EasyTipView: UIView, Printable {
     
     
     // MARK:- Nested types -
     
-    enum ArrowPosition {
+    public enum ArrowPosition {
         case Top
         case Bottom
     }
     
-    struct Preferences {
-        var systemFontSize          :   CGFloat                =   15
-        var textColor               :   UIColor                =   UIColor.whiteColor()
-        var bubbleColor             :   UIColor                =   UIColor.redColor()
-        var arrowPosition           :   ArrowPosition          =   .Bottom
-        var font                    :   UIFont?
-        var textAlignment           :   NSTextAlignment        =   NSTextAlignment.Center
+    public struct Preferences {
+        
+        public var systemFontSize          :   CGFloat
+        public var textColor               :   UIColor
+        public var bubbleColor             :   UIColor
+        public var arrowPosition           :   ArrowPosition
+        public var font                    :   UIFont?
+        public var textAlignment           :   NSTextAlignment
+        
+        public init() {
+            systemFontSize = 15
+            textColor = UIColor.whiteColor()
+            bubbleColor = UIColor.redColor()
+            arrowPosition = .Bottom
+            textAlignment = .Center
+        }
     }
     
     
@@ -47,7 +71,7 @@ class EasyTipView: UIView, Printable {
     
     // MARK:- Variables -
     
-    override var backgroundColor : UIColor? {
+    override public var backgroundColor : UIColor? {
         didSet {
             if let color = backgroundColor {
                 if color != UIColor.clearColor() {
@@ -58,21 +82,20 @@ class EasyTipView: UIView, Printable {
         }
     }
     
-    override var description : String {
+    override public var description : String {
         
         let type = _stdlib_getDemangledTypeName(self).componentsSeparatedByString(".").last!
         
         return "<< \(type) with text : '\(self.text)' >>"
     }
     
-    private weak var    presentingView : UIView?
-    private var arrowTip        =   CGPointZero
-    private var preferences     :   Preferences
+    private weak var presentingView :   UIView?
+    private var arrowTip            =   CGPointZero
+    private var preferences         :   Preferences
+    weak var delegate               :   EasyTipViewDelegate?
     
-    weak var delegate           :   EasyTipViewDelegate?
-    
-    private let font            :   UIFont
-    private let text            :   NSString
+    private let font                :   UIFont
+    private let text                :   NSString
     
     private lazy var textSize : CGSize = {
         
@@ -90,7 +113,7 @@ class EasyTipView: UIView, Printable {
         }
         
         return textSize
-    }()
+        }()
     
     private lazy var contentSize : CGSize = {
         
@@ -99,7 +122,7 @@ class EasyTipView: UIView, Printable {
         var contentSize = CGSizeMake(self.textSize.width + Constants.textHInset * 2 + Constants.bubbleHInset * 2, self.textSize.height + Constants.textVInset * 2 + Constants.bubbleVInset * 2 + Constants.arrowHeight)
         
         return contentSize
-    }()
+        }()
     
     // MARK:- Static preferences -
     
@@ -107,17 +130,17 @@ class EasyTipView: UIView, Printable {
         private static var preferences : Preferences = Preferences()
     }
     
-    class func setGlobalPreferences (preferences : Preferences) {
+    public class func setGlobalPreferences (preferences : Preferences) {
         GlobalPreferences.preferences = preferences
     }
     
-    class func globalPreferences() -> Preferences {
+    public class func globalPreferences() -> Preferences {
         return GlobalPreferences.preferences
     }
     
     // MARK:- Initializer -
     
-    init (text : NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?){
+    public init (text : NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?){
         
         self.text = text
         
@@ -154,24 +177,24 @@ class EasyTipView: UIView, Printable {
             })
         }
     }
-
+    
     /**
-        NSCoding not supported. Use init(text, preferences, delegate) instead!
+    NSCoding not supported. Use init(text, preferences, delegate) instead!
     */
-    required init(coder aDecoder: NSCoder) {
+    required public init(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported. Use init(text, preferences, delegate) instead!")
     }
     
     // MARK:- Class functions -
     
-    class func showAnimated(animated : Bool, forView view : UIView, withinSuperview superview : UIView?, text :  NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?){
+    public class func showAnimated(animated : Bool, forView view : UIView, withinSuperview superview : UIView?, text :  NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?){
         
         var ev = EasyTipView(text: text, preferences : preferences, delegate : delegate)
         
         ev.showForView(view, withinSuperview: superview, animated: animated)
     }
     
-    class func showAnimated(animated : Bool, forItem item : UIBarButtonItem, withinSuperview superview : UIView?, text : NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?){
+    public class func showAnimated(animated : Bool, forItem item : UIBarButtonItem, withinSuperview superview : UIView?, text : NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?){
         
         if let view = item.customView {
             self.showAnimated(animated, forView: view, withinSuperview: superview, text: text, preferences: preferences, delegate: delegate)
@@ -184,7 +207,7 @@ class EasyTipView: UIView, Printable {
     
     // MARK:- Instance methods -
     
-    func showForItem(item : UIBarButtonItem, withinSuperView sview : UIView?, animated : Bool) {
+    public func showForItem(item : UIBarButtonItem, withinSuperView sview : UIView?, animated : Bool) {
         if let view = item.customView {
             self.showForView(view, withinSuperview: sview, animated : animated)
         }else{
@@ -194,7 +217,7 @@ class EasyTipView: UIView, Printable {
         }
     }
     
-    func showForView(view : UIView, withinSuperview sview : UIView?, animated : Bool) {
+    public func showForView(view : UIView, withinSuperview sview : UIView?, animated : Bool) {
         
         if let v = sview {
             assert(view.hasSuperview(v), "The supplied superview <\(v)> is not a direct nor an indirect superview of the supplied reference view <\(view)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip on the window, pass nil as the superview parameter.")
@@ -215,7 +238,7 @@ class EasyTipView: UIView, Printable {
         if animated {
             UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
                 self.transform = CGAffineTransformIdentity
-            }, completion: nil)
+                }, completion: nil)
         }else{
             self.transform = CGAffineTransformIdentity
         }
@@ -257,7 +280,7 @@ class EasyTipView: UIView, Printable {
     }
     
     
-    func dismissWithCompletion(completion : ((finished : Bool) -> Void)?){
+    public func dismissWithCompletion(completion : ((finished : Bool) -> Void)?){
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.transform = CGAffineTransformMakeScale(0.3, 0.3)
             self.alpha = 0
@@ -269,7 +292,7 @@ class EasyTipView: UIView, Printable {
     
     // MARK:- Callbacks -
     
-    func handleTap () {
+    public func handleTap () {
         self.dismissWithCompletion { (finished) -> Void in
             self.delegate?.easyTipViewDidDismiss(self)
         }
@@ -277,7 +300,7 @@ class EasyTipView: UIView, Printable {
     
     // MARK:- Drawing -
     
-    override func drawRect(rect: CGRect) {
+    override public func drawRect(rect: CGRect) {
         
         let bubbleWidth = self.contentSize.width - 2 * Constants.bubbleHInset
         let bubbleHeight = self.contentSize.height - 2 * Constants.bubbleVInset - Constants.arrowHeight
@@ -290,7 +313,7 @@ class EasyTipView: UIView, Printable {
         let context = UIGraphicsGetCurrentContext()
         
         CGContextSaveGState (context)
-
+        
         var contourPath = CGPathCreateMutable()
         
         CGPathMoveToPoint(contourPath, nil, self.arrowTip.x, self.arrowTip.y)
