@@ -275,7 +275,15 @@ public class EasyTipView: UIView, Printable {
             }
         }
         
-        self.arrowTip = CGPointMake(abs(frame.origin.x - refViewOrigin.x) + refViewSize.width / 2, self.preferences.arrowPosition == .Top ? Constants.bubbleVInset : self.contentSize.height - Constants.bubbleVInset)
+        var arrowTipXOrigin : CGFloat
+        
+        if CGRectGetWidth(frame) < refViewSize.width {
+            arrowTipXOrigin = self.contentSize.width / 2
+        } else {
+            arrowTipXOrigin = abs(frame.origin.x - refViewOrigin.x) + refViewSize.width / 2
+        }
+        
+        self.arrowTip = CGPointMake(arrowTipXOrigin, self.preferences.arrowPosition == .Top ? Constants.bubbleVInset : self.contentSize.height - Constants.bubbleVInset)
         self.frame = frame
     }
     

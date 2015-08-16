@@ -1,5 +1,9 @@
 # EasyTipView
 
+[![Version](https://img.shields.io/cocoapods/v/EasyTipView.svg?style=flat)](http://cocoapods.org/pods/EasyTipView)
+[![License](https://img.shields.io/cocoapods/l/EasyTipView.svg?style=flat)](http://cocoapods.org/pods/EasyTipView)
+[![Platform](https://img.shields.io/cocoapods/p/EasyTipView.svg?style=flat)](http://cocoapods.org/pods/EasyTipView)
+
 Purpose
 --------------
 
@@ -7,6 +11,37 @@ EasyTipView is a custom tooltip view written in Swift that can be used as a call
 any ``UIBarButtonItem`` or ``UIView`` subclass. In addition it handles automatically orientation changes and will always point to the correct view or item.
 
 ![Example](/../master/images/preview.gif)
+
+Installation
+--------------
+
+### CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
+
+CocoaPods 0.36 adds supports for Swift and embedded frameworks. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+To integrate EasyTipView into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'EasyTipView', '~> 0.1.0'
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
+In case Xcode complains (<i>"Cannot load underlying module for EasyTipView"</i>) go to Product and choose Clean (or simply press <kbd>⇧</kbd><kbd>⌘</kbd><kbd>K</kbd>).
 
 Usage
 --------------
