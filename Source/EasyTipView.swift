@@ -37,7 +37,7 @@ public class EasyTipView: UIView, Printable {
         case Bottom
     }
     
-    public struct Preferences {
+    @objc public class Preferences {
         
         public var systemFontSize          :   CGFloat
         public var textColor               :   UIColor
