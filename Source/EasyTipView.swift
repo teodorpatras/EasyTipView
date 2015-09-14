@@ -46,12 +46,24 @@ public class EasyTipView: UIView, Printable {
         public var font                    :   UIFont?
         public var textAlignment           :   NSTextAlignment
         
+        public var arrowHeight             :   CGFloat
+        public var arrowWidth              :   CGFloat
+        public var textHInset              :   CGFloat
+        public var textVInset              :   CGFloat
+        public var bubbleCornerRadius      :   CGFloat
+        
         public init() {
             systemFontSize = 15
             textColor = UIColor.whiteColor()
             bubbleColor = UIColor.redColor()
             arrowPosition = .Bottom
             textAlignment = .Center
+            
+            arrowHeight = 5
+            arrowWidth = 10
+            bubbleCornerRadius = 5
+            textHInset = 10
+            textVInset = 5
         }
     }
     
@@ -59,13 +71,8 @@ public class EasyTipView: UIView, Printable {
     // MARK:- Constants -
     
     private struct Constants {
-        static let arrowHeight          :   CGFloat =   5
-        static let arrowWidth           :   CGFloat =   10
         static let bubbleHInset         :   CGFloat =   10
         static let bubbleVInset         :   CGFloat =   1
-        static let textHInset           :   CGFloat =   10
-        static let textVInset           :   CGFloat =   5
-        static let bubbleCornerRadius   :   CGFloat =   5
         static let maxWidth             :   CGFloat =   200
     }
     
@@ -108,8 +115,8 @@ public class EasyTipView: UIView, Printable {
         textSize.width = ceil(textSize.width)
         textSize.height = ceil(textSize.height)
         
-        if textSize.width < EasyTipView.Constants.arrowWidth {
-            textSize.width = EasyTipView.Constants.arrowWidth
+        if textSize.width < self.preferences.arrowWidth {
+            textSize.width = self.preferences.arrowWidth
         }
         
         return textSize
@@ -119,7 +126,7 @@ public class EasyTipView: UIView, Printable {
         
         [unowned self] in
         
-        var contentSize = CGSizeMake(self.textSize.width + Constants.textHInset * 2 + Constants.bubbleHInset * 2, self.textSize.height + Constants.textVInset * 2 + Constants.bubbleVInset * 2 + Constants.arrowHeight)
+        var contentSize = CGSizeMake(self.textSize.width + self.preferences.textHInset * 2 + Constants.bubbleHInset * 2, self.textSize.height + self.preferences.textVInset * 2 + Constants.bubbleVInset * 2 + self.preferences.arrowHeight)
         
         return contentSize
         }()
@@ -311,12 +318,12 @@ public class EasyTipView: UIView, Printable {
     override public func drawRect(rect: CGRect) {
         
         let bubbleWidth = self.contentSize.width - 2 * Constants.bubbleHInset
-        let bubbleHeight = self.contentSize.height - 2 * Constants.bubbleVInset - Constants.arrowHeight
+        let bubbleHeight = self.contentSize.height - 2 * Constants.bubbleVInset - self.preferences.arrowHeight
         
         let arrowPosition = self.preferences.arrowPosition
         
         let bubbleXOrigin = Constants.bubbleHInset
-        let bubbleYOrigin = arrowPosition == .Bottom ? Constants.bubbleVInset : Constants.bubbleVInset + Constants.arrowHeight
+        let bubbleYOrigin = arrowPosition == .Bottom ? Constants.bubbleVInset : Constants.bubbleVInset + self.preferences.arrowHeight
         
         let context = UIGraphicsGetCurrentContext()
         
@@ -325,23 +332,23 @@ public class EasyTipView: UIView, Printable {
         var contourPath = CGPathCreateMutable()
         
         CGPathMoveToPoint(contourPath, nil, self.arrowTip.x, self.arrowTip.y)
-        CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x - Constants.arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * Constants.arrowHeight)
+        CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x - self.preferences.arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * self.preferences.arrowHeight)
         
         if arrowPosition == .Top {
             
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin, bubbleXOrigin, bubbleYOrigin + bubbleHeight, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin + bubbleHeight, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, bubbleXOrigin + bubbleWidth, bubbleYOrigin, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin, bubbleXOrigin, bubbleYOrigin, Constants.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin, bubbleXOrigin, bubbleYOrigin + bubbleHeight, self.preferences.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin + bubbleHeight, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, self.preferences.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, bubbleXOrigin + bubbleWidth, bubbleYOrigin, self.preferences.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin, bubbleXOrigin, bubbleYOrigin, self.preferences.bubbleCornerRadius)
             
         } else {
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin + bubbleHeight, bubbleXOrigin, bubbleYOrigin, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin, bubbleXOrigin + bubbleWidth, bubbleYOrigin, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, bubbleXOrigin, bubbleYOrigin + bubbleHeight, Constants.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin + bubbleHeight, bubbleXOrigin, bubbleYOrigin, self.preferences.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin, bubbleXOrigin + bubbleWidth, bubbleYOrigin, self.preferences.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, self.preferences.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, bubbleXOrigin, bubbleYOrigin + bubbleHeight, self.preferences.bubbleCornerRadius)
         }
         
-        CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x + Constants.arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * Constants.arrowHeight)
+        CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x + self.preferences.arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * self.preferences.arrowHeight)
         
         CGPathCloseSubpath(contourPath)
         CGContextAddPath(context, contourPath)
