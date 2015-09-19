@@ -27,7 +27,7 @@ import UIKit
     func easyTipViewDidDismiss(tipView : EasyTipView)
 }
 
-public class EasyTipView: UIView, Printable {
+public class EasyTipView: UIView {
     
     
     // MARK:- Nested types -
@@ -101,7 +101,7 @@ public class EasyTipView: UIView, Printable {
         
         [unowned self] in
         
-        var attributes : [NSObject : AnyObject] = [NSFontAttributeName : self.font]
+        var attributes : [String : AnyObject] = [NSFontAttributeName : self.font]
         
         var textSize = self.text.boundingRectWithSize(CGSizeMake(EasyTipView.Constants.maxWidth, CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributes, context: nil).size
         
