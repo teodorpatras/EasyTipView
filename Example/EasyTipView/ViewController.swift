@@ -56,7 +56,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     }
     
     func easyTipViewDidDismiss(tipView: EasyTipView) {
-        println("\(tipView) did dismiss!")
+        print("\(tipView) did dismiss!")
     }
     
     @IBAction func barButtonAction(sender: UIBarButtonItem) {
@@ -113,7 +113,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     }
     
     func configureUI () {
-        var color = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
+        let color = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
         
         buttonA.backgroundColor = UIColor(hue:0.58, saturation:0.1, brightness:1, alpha:1)
         

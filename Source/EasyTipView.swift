@@ -27,7 +27,7 @@ import UIKit
     func easyTipViewDidDismiss(tipView : EasyTipView)
 }
 
-public class EasyTipView: UIView, Printable {
+public class EasyTipView: UIView {
     
     
     // MARK:- Nested types -
@@ -73,12 +73,11 @@ public class EasyTipView: UIView, Printable {
     
     override public var backgroundColor : UIColor? {
         didSet {
-            if let color = backgroundColor {
-                if color != UIColor.clearColor() {
-                    self.preferences.bubbleColor = color
-                    backgroundColor = UIColor.clearColor()
-                }
-            }
+            guard let color = backgroundColor
+                where color != UIColor.clearColor() else {return}
+            
+            self.preferences.bubbleColor = color
+            backgroundColor = UIColor.clearColor()
         }
     }
     
@@ -101,7 +100,7 @@ public class EasyTipView: UIView, Printable {
         
         [unowned self] in
         
-        var attributes : [NSObject : AnyObject] = [NSFontAttributeName : self.font]
+        var attributes : [String : AnyObject] = [NSFontAttributeName : self.font]
         
         var textSize = self.text.boundingRectWithSize(CGSizeMake(EasyTipView.Constants.maxWidth, CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributes, context: nil).size
         
@@ -170,18 +169,19 @@ public class EasyTipView: UIView, Printable {
     }
     
     func handleRotation () {
-        if let view = self.presentingView, sview = self.superview {
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                self.arrangeInSuperview(sview)
-                self.setNeedsDisplay()
-            })
-        }
+        guard let sview = self.superview
+            where self.presentingView != nil else { return }
+        
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.arrangeInSuperview(sview)
+            self.setNeedsDisplay()
+        })
     }
     
     /**
     NSCoding not supported. Use init(text, preferences, delegate) instead!
     */
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported. Use init(text, preferences, delegate) instead!")
     }
     
@@ -189,7 +189,7 @@ public class EasyTipView: UIView, Printable {
     
     public class func showAnimated(animated : Bool, forView view : UIView, withinSuperview superview : UIView?, text :  NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?){
         
-        var ev = EasyTipView(text: text, preferences : preferences, delegate : delegate)
+        let ev = EasyTipView(text: text, preferences : preferences, delegate : delegate)
         
         ev.showForView(view, withinSuperview: superview, animated: animated)
     }
@@ -223,14 +223,15 @@ public class EasyTipView: UIView, Printable {
             assert(view.hasSuperview(v), "The supplied superview <\(v)> is not a direct nor an indirect superview of the supplied reference view <\(view)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip on the window, pass nil as the superview parameter.")
         }
         
-        let superview = sview ?? UIApplication.sharedApplication().windows.last as! UIView
+        let superview = sview ?? UIApplication.sharedApplication().windows.last!
+        
         self.presentingView = view
         
         self.arrangeInSuperview(superview)
         
         self.transform = CGAffineTransformMakeScale(0, 0)
         
-        var tap = UITapGestureRecognizer(target: self, action: "handleTap")
+        let tap = UITapGestureRecognizer(target: self, action: "handleTap")
         self.addGestureRecognizer(tap)
         
         superview.addSubview(self)
@@ -322,7 +323,7 @@ public class EasyTipView: UIView, Printable {
         
         CGContextSaveGState (context)
         
-        var contourPath = CGPathCreateMutable()
+        let contourPath = CGPathCreateMutable()
         
         CGPathMoveToPoint(contourPath, nil, self.arrowTip.x, self.arrowTip.y)
         CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x - Constants.arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * Constants.arrowHeight)
@@ -350,12 +351,12 @@ public class EasyTipView: UIView, Printable {
         CGContextSetFillColorWithColor(context, self.preferences.bubbleColor.CGColor)
         CGContextFillRect(context, self.bounds)
         
-        var paragraphStyle = NSMutableParagraphStyle()
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = self.preferences.textAlignment
         paragraphStyle.lineBreakMode = NSLineBreakMode.ByWordWrapping
         
         
-        var textRect = CGRectMake(bubbleXOrigin + (bubbleWidth - self.textSize.width) / 2, bubbleYOrigin + (bubbleHeight - self.textSize.height) / 2, textSize.width, textSize.height)
+        let textRect = CGRectMake(bubbleXOrigin + (bubbleWidth - self.textSize.width) / 2, bubbleYOrigin + (bubbleHeight - self.textSize.height) / 2, textSize.width, textSize.height)
         
         
         self.text.drawInRect(textRect, withAttributes: [NSFontAttributeName : self.font, NSForegroundColorAttributeName : self.preferences.textColor, NSParagraphStyleAttributeName : paragraphStyle])
