@@ -91,6 +91,11 @@ struct Preferences {
   var arrowPosition           :   ArrowPosition          =   .Bottom
   var font                    :   UIFont?
   var textAlignment           :   NSTextAlignment        =   NSTextAlignment.Center
+  var arrowHeight             :   CGFloat                =   5
+  var arrowWidth              :   CGFloat                =   10
+  var bubbleCornerRadius      :   CGFloat                =   5
+  var textHInset              :   CGFloat                =   10
+  var textVInset              :   CGFloat                =   5
 }
 ```
 Custom structure which encapsulates all the customizable properties of the ``EasyTipView``. If the font is not specified, the tip view will default to the ``UIFont.systemFontOfSize(preferences.systemFontSize)``.
