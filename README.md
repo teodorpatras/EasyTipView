@@ -88,8 +88,9 @@ struct Preferences {
   var systemFontSize          :   CGFloat                =   15
   var textColor               :   UIColor                =   UIColor.whiteColor()
   var bubbleColor             :   UIColor                =   UIColor.redColor()
-  var borderColor             :   UIColor                =   UIColor.clearColor()
-  var borderWidth             :   CGFloat                =   0.0
+  var shouldDrawBorder        :   Bool      			 =	 false
+  var borderColor             :   UIColor                =   UIColor.blueColor()
+  var borderWidth             :   CGFloat                =   1.0
   var arrowPosition           :   ArrowPosition          =   .Bottom
   var font                    :   UIFont?
   var textAlignment           :   NSTextAlignment        =   NSTextAlignment.Center
