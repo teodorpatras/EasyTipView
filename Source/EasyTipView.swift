@@ -42,6 +42,7 @@ public class EasyTipView: UIView {
         public var systemFontSize          :   CGFloat
         public var textColor               :   UIColor
         public var bubbleColor             :   UIColor
+        public var shouldDrawBorder        :   Bool
         public var borderColor             :   UIColor
         public var borderWidth             :   CGFloat
         public var arrowPosition           :   ArrowPosition
@@ -52,8 +53,9 @@ public class EasyTipView: UIView {
             systemFontSize = 15
             textColor = UIColor.whiteColor()
             bubbleColor = UIColor.redColor()
-            borderColor = UIColor.clearColor()
-            borderWidth = 0.0
+            shouldDrawBorder = false
+            borderColor = UIColor.blueColor()
+            borderWidth = 1.0
             arrowPosition = .Bottom
             textAlignment = .Center
         }
@@ -355,11 +357,12 @@ public class EasyTipView: UIView {
         CGContextSetFillColorWithColor(context, self.preferences.bubbleColor.CGColor)
         CGContextFillRect(context, self.bounds)
         
-        CGContextAddPath(context, contourPath)
-        CGContextSetStrokeColorWithColor(context, self.preferences.borderColor.CGColor)
-        CGContextSetLineWidth(context, self.preferences.borderWidth)
-        
-        CGContextStrokePath(context)
+        if self.preferences.shouldDrawBorder {
+            CGContextAddPath(context, contourPath)
+            CGContextSetStrokeColorWithColor(context, self.preferences.borderColor.CGColor)
+            CGContextSetLineWidth(context, self.preferences.borderWidth)
+            CGContextStrokePath(context)
+        }
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = self.preferences.textAlignment
