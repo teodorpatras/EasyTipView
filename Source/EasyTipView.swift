@@ -58,15 +58,17 @@ public class EasyTipView: UIView {
     
     // MARK:- Constants -
     
-    private struct Constants {
-        static let arrowHeight          :   CGFloat =   5
-        static let arrowWidth           :   CGFloat =   10
-        static let bubbleHInset         :   CGFloat =   10
-        static let bubbleVInset         :   CGFloat =   1
-        static let textHInset           :   CGFloat =   10
-        static let textVInset           :   CGFloat =   5
-        static let bubbleCornerRadius   :   CGFloat =   5
-        static let maxWidth             :   CGFloat =   200
+    public struct Constants {
+        public var arrowHeight          :   CGFloat =   5
+        public var arrowWidth           :   CGFloat =   10
+        public var bubbleHInset         :   CGFloat =   10
+        public var bubbleVInset         :   CGFloat =   1
+        public var textHInset           :   CGFloat =   10
+        public var textVInset           :   CGFloat =   5
+        public var bubbleCornerRadius   :   CGFloat =   5
+        public var maxWidth             :   CGFloat =   200
+
+        public init() { }
     }
     
     // MARK:- Variables -
@@ -91,6 +93,7 @@ public class EasyTipView: UIView {
     private weak var presentingView :   UIView?
     private var arrowTip            =   CGPointZero
     private var preferences         :   Preferences
+    private let constants           :   Constants
     weak var delegate               :   EasyTipViewDelegate?
     
     private let font                :   UIFont
@@ -102,13 +105,14 @@ public class EasyTipView: UIView {
         
         var attributes : [String : AnyObject] = [NSFontAttributeName : self.font]
         
-        var textSize = self.text.boundingRectWithSize(CGSizeMake(EasyTipView.Constants.maxWidth, CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributes, context: nil).size
         
+        var textSize = self.text.boundingRectWithSize(CGSizeMake(self.constants.maxWidth, CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributes, context: nil).size
         textSize.width = ceil(textSize.width)
         textSize.height = ceil(textSize.height)
         
-        if textSize.width < EasyTipView.Constants.arrowWidth {
-            textSize.width = EasyTipView.Constants.arrowWidth
+
+        if textSize.width < self.constants.arrowWidth {
+            textSize.width = self.constants.arrowWidth
         }
         
         return textSize
@@ -118,8 +122,8 @@ public class EasyTipView: UIView {
         
         [unowned self] in
         
-        var contentSize = CGSizeMake(self.textSize.width + Constants.textHInset * 2 + Constants.bubbleHInset * 2, self.textSize.height + Constants.textVInset * 2 + Constants.bubbleVInset * 2 + Constants.arrowHeight)
         
+        var contentSize = CGSizeMake(self.textSize.width + self.constants.textHInset * 2 + self.constants.bubbleHInset * 2, self.textSize.height + self.constants.textVInset * 2 + self.constants.bubbleVInset * 2 + self.constants.arrowHeight)
         return contentSize
         }()
     
@@ -139,16 +143,13 @@ public class EasyTipView: UIView {
     
     // MARK:- Initializer -
     
-    public init (text : NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?){
         
+    public init (text : NSString, preferences: Preferences = EasyTipView.GlobalPreferences.preferences, constants: Constants = Constants(), delegate : EasyTipViewDelegate?){
         self.text = text
         
-        if let p = preferences {
-            self.preferences = p
-        } else {
-            self.preferences = EasyTipView.GlobalPreferences.preferences
-        }
         
+        self.preferences = preferences
+        self.constants = constants
         if let font = self.preferences.font {
             self.font = font
         }else{
@@ -187,20 +188,20 @@ public class EasyTipView: UIView {
     
     // MARK:- Class functions -
     
-    public class func showAnimated(animated : Bool, forView view : UIView, withinSuperview superview : UIView?, text :  NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?){
         
-        let ev = EasyTipView(text: text, preferences : preferences, delegate : delegate)
         
+    public class func showAnimated(animated : Bool, forView view : UIView, withinSuperview superview : UIView?, text :  NSString, preferences: Preferences = GlobalPreferences.preferences, constants: Constants = Constants(), delegate : EasyTipViewDelegate?){
+        let ev = EasyTipView(text: text, preferences : preferences, constants : constants, delegate : delegate)
         ev.showForView(view, withinSuperview: superview, animated: animated)
     }
     
-    public class func showAnimated(animated : Bool, forItem item : UIBarButtonItem, withinSuperview superview : UIView?, text : NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?){
         
+    public class func showAnimated(animated : Bool, forItem item : UIBarButtonItem, withinSuperview superview : UIView?, text : NSString, preferences: Preferences = GlobalPreferences.preferences, constants: Constants = Constants(), delegate : EasyTipViewDelegate?){
         if let view = item.customView {
-            self.showAnimated(animated, forView: view, withinSuperview: superview, text: text, preferences: preferences, delegate: delegate)
+            self.showAnimated(animated, forView: view, withinSuperview: superview, text: text, preferences: preferences, constants: constants, delegate: delegate)
         }else{
             if let view = item.valueForKey("view") as? UIView {
-                self.showAnimated(animated, forView: view, withinSuperview: superview, text: text, preferences: preferences, delegate: delegate)
+                self.showAnimated(animated, forView: view, withinSuperview: superview, text: text, preferences: preferences, constants: constants, delegate: delegate)
             }
         }
     }
@@ -284,7 +285,7 @@ public class EasyTipView: UIView {
             arrowTipXOrigin = abs(frame.origin.x - refViewOrigin.x) + refViewSize.width / 2
         }
         
-        self.arrowTip = CGPointMake(arrowTipXOrigin, self.preferences.arrowPosition == .Top ? Constants.bubbleVInset : self.contentSize.height - Constants.bubbleVInset)
+        self.arrowTip = CGPointMake(arrowTipXOrigin, self.preferences.arrowPosition == .Top ? self.constants.bubbleVInset : self.contentSize.height - self.constants.bubbleVInset)
         self.frame = frame
     }
     
@@ -311,14 +312,14 @@ public class EasyTipView: UIView {
     
     override public func drawRect(rect: CGRect) {
         
-        let bubbleWidth = self.contentSize.width - 2 * Constants.bubbleHInset
-        let bubbleHeight = self.contentSize.height - 2 * Constants.bubbleVInset - Constants.arrowHeight
         
+        let bubbleWidth = self.contentSize.width - 2 * self.constants.bubbleHInset
+        let bubbleHeight = self.contentSize.height - 2 * self.constants.bubbleVInset - self.constants.arrowHeight
         let arrowPosition = self.preferences.arrowPosition
         
-        let bubbleXOrigin = Constants.bubbleHInset
-        let bubbleYOrigin = arrowPosition == .Bottom ? Constants.bubbleVInset : Constants.bubbleVInset + Constants.arrowHeight
         
+        let bubbleXOrigin = self.constants.bubbleHInset
+        let bubbleYOrigin = arrowPosition == .Bottom ? self.constants.bubbleVInset : self.constants.bubbleVInset + self.constants.arrowHeight
         let context = UIGraphicsGetCurrentContext()
         
         CGContextSaveGState (context)
@@ -326,24 +327,24 @@ public class EasyTipView: UIView {
         let contourPath = CGPathCreateMutable()
         
         CGPathMoveToPoint(contourPath, nil, self.arrowTip.x, self.arrowTip.y)
-        CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x - Constants.arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * Constants.arrowHeight)
         
+        CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x - self.constants.arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * self.constants.arrowHeight)
         if arrowPosition == .Top {
             
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin, bubbleXOrigin, bubbleYOrigin + bubbleHeight, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin + bubbleHeight, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, bubbleXOrigin + bubbleWidth, bubbleYOrigin, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin, bubbleXOrigin, bubbleYOrigin, Constants.bubbleCornerRadius)
             
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin, bubbleXOrigin, bubbleYOrigin + bubbleHeight, self.constants.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin + bubbleHeight, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, self.constants.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, bubbleXOrigin + bubbleWidth, bubbleYOrigin, self.constants.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin, bubbleXOrigin, bubbleYOrigin, self.constants.bubbleCornerRadius)
         } else {
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin + bubbleHeight, bubbleXOrigin, bubbleYOrigin, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin, bubbleXOrigin + bubbleWidth, bubbleYOrigin, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, Constants.bubbleCornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, bubbleXOrigin, bubbleYOrigin + bubbleHeight, Constants.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin + bubbleHeight, bubbleXOrigin, bubbleYOrigin, self.constants.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin, bubbleXOrigin + bubbleWidth, bubbleYOrigin, self.constants.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, self.constants.bubbleCornerRadius)
+            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, bubbleXOrigin, bubbleYOrigin + bubbleHeight, self.constants.bubbleCornerRadius)
         }
         
-        CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x + Constants.arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * Constants.arrowHeight)
         
+        CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x + self.constants.arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * self.constants.arrowHeight)
         CGPathCloseSubpath(contourPath)
         CGContextAddPath(context, contourPath)
         CGContextClip(context)
