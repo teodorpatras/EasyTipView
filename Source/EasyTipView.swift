@@ -40,15 +40,16 @@ public class EasyTipView: UIView {
     public struct Preferences {
         
         public struct Drawing {
-            public var bubbleCornerRadius  = CGFloat(5)
+            public var cornerRadius        = CGFloat(5)
             public var arrowHeight         = CGFloat(5)
             public var arrowWidth          = CGFloat(10)
-            public var systemFontSize      = CGFloat(15)
-            public var textColor           = UIColor.whiteColor()
-            public var bubbleColor         = UIColor.redColor()
+            public var foregroundColor     = UIColor.whiteColor()
+            public var backgroundColor     = UIColor.redColor()
             public var arrowPosition       = ArrowPosition.Bottom
             public var textAlignment       = NSTextAlignment.Center
-            public var font                : UIFont?
+            public var borderWidth         = CGFloat(0)
+            public var borderColor         = UIColor.clearColor()
+            public var font                = UIFont.systemFontOfSize(15)
         }
         
         public struct Positioning {
@@ -61,15 +62,10 @@ public class EasyTipView: UIView {
         
         public var drawing      = Drawing()
         public var positioning  = Positioning()
-        
-        private var font : UIFont {
-            if let font = self.drawing.font {
-                return font
-            }else{
-                return UIFont.systemFontOfSize(self.drawing.systemFontSize)
-            }
+        public var hasBorder : Bool {
+            return self.drawing.borderWidth > 0 && self.drawing.borderColor != UIColor.clearColor()
         }
-        
+
         public init() {}
     }
     
@@ -80,7 +76,7 @@ public class EasyTipView: UIView {
             guard let color = backgroundColor
                 where color != UIColor.clearColor() else {return}
             
-            self.preferences.drawing.bubbleColor = color
+            self.preferences.drawing.backgroundColor = color
             backgroundColor = UIColor.clearColor()
         }
     }
@@ -104,7 +100,7 @@ public class EasyTipView: UIView {
         
         [unowned self] in
         
-        var attributes : [String : AnyObject] = [NSFontAttributeName : self.preferences.font]
+        var attributes : [String : AnyObject] = [NSFontAttributeName : self.preferences.drawing.font]
         
         var textSize = self.text.boundingRectWithSize(CGSizeMake(self.preferences.positioning.maxWidth, CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributes, context: nil).size
         
@@ -293,39 +289,24 @@ public class EasyTipView: UIView {
     
     // MARK:- Drawing -
     
-    override public func drawRect(rect: CGRect) {
+    private func drawBubble(bubbleFrame : CGRect, arrowPosition : ArrowPosition,  context : CGContext) {
         
-        let bubbleWidth = self.contentSize.width - 2 * self.preferences.positioning.bubbleHInset
-        let bubbleHeight = self.contentSize.height - 2 * self.preferences.positioning.bubbleVInset - self.preferences.drawing.arrowHeight
         let arrowWidth = self.preferences.drawing.arrowWidth
         let arrowHeight = self.preferences.drawing.arrowHeight
-        let cornerRadius = self.preferences.drawing.bubbleCornerRadius
-        let arrowPosition = self.preferences.drawing.arrowPosition
-        let bubbleXOrigin = self.preferences.positioning.bubbleHInset
-        let bubbleYOrigin = arrowPosition == .Bottom ? self.preferences.positioning.bubbleVInset : self.preferences.positioning.bubbleVInset + arrowHeight
-        
-        let context = UIGraphicsGetCurrentContext()
-        
-        CGContextSaveGState (context)
+        let cornerRadius = self.preferences.drawing.cornerRadius
         
         let contourPath = CGPathCreateMutable()
         
         CGPathMoveToPoint(contourPath, nil, self.arrowTip.x, self.arrowTip.y)
         CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x - arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * arrowHeight)
         
-        if arrowPosition == .Top {
-            
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin, bubbleXOrigin, bubbleYOrigin + bubbleHeight, cornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin + bubbleHeight, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, cornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, bubbleXOrigin + bubbleWidth, bubbleYOrigin, cornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin, bubbleXOrigin, bubbleYOrigin, cornerRadius)
-            
-        } else {
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin + bubbleHeight, bubbleXOrigin, bubbleYOrigin, cornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin, bubbleYOrigin, bubbleXOrigin + bubbleWidth, bubbleYOrigin, cornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, cornerRadius)
-            CGPathAddArcToPoint(contourPath, nil, bubbleXOrigin + bubbleWidth, bubbleYOrigin + bubbleHeight, bubbleXOrigin, bubbleYOrigin + bubbleHeight, cornerRadius)
+        var method = self.drawBubbleTopShape
+        
+        if arrowPosition == .Bottom {
+            method = self.drawBubbleBottomShape
         }
+        
+        method(bubbleFrame, cornerRadius : cornerRadius, path : contourPath)
         
         CGPathAddLineToPoint(contourPath, nil, self.arrowTip.x + arrowWidth / 2, self.arrowTip.y + (arrowPosition == .Bottom ? -1 : 1) * arrowHeight)
         
@@ -333,20 +314,87 @@ public class EasyTipView: UIView {
         CGContextAddPath(context, contourPath)
         CGContextClip(context)
         
-        CGContextSetFillColorWithColor(context, self.preferences.drawing.bubbleColor.CGColor)
-        CGContextFillRect(context, self.bounds)
+        self.paintBubble(context)
         
+        if self.preferences.hasBorder {
+            self.drawBorder(contourPath, context: context)
+        }
+    }
+    
+    private func drawBubbleBottomShape(frame : CGRect, cornerRadius : CGFloat, path : CGMutablePath) {
+        CGPathAddArcToPoint(path, nil, frame.x, frame.y + frame.height, frame.x, frame.y, cornerRadius)
+        CGPathAddArcToPoint(path, nil, frame.x, frame.y, frame.x + frame.width, frame.y, cornerRadius)
+        CGPathAddArcToPoint(path, nil, frame.x + frame.width, frame.y, frame.x + frame.width, frame.y + frame.height, cornerRadius)
+        CGPathAddArcToPoint(path, nil, frame.x + frame.width, frame.y + frame.height, frame.x, frame.y + frame.height, cornerRadius)
+    }
+    
+    private func drawBubbleTopShape(frame : CGRect, cornerRadius : CGFloat, path : CGMutablePath) {
+        CGPathAddArcToPoint(path, nil, frame.x, frame.y, frame.x, frame.y + frame.height, cornerRadius)
+        CGPathAddArcToPoint(path, nil, frame.x, frame.y + frame.height, frame.x + frame.width, frame.y + frame.height, cornerRadius)
+        CGPathAddArcToPoint(path, nil, frame.x + frame.width, frame.y + frame.height, frame.x + frame.width, frame.y, cornerRadius)
+        CGPathAddArcToPoint(path, nil, frame.x + frame.width, frame.y, frame.x, frame.y, cornerRadius)
+    }
+    
+    private func paintBubble(context: CGContext) {
+        CGContextSetFillColorWithColor(context, self.preferences.drawing.backgroundColor.CGColor)
+        CGContextFillRect(context, self.bounds)
+    }
+    
+    private func drawBorder(borderPath: CGPath, context : CGContext) {
+        CGContextAddPath(context, borderPath)
+        CGContextSetStrokeColorWithColor(context, self.preferences.drawing.borderColor.CGColor)
+        CGContextSetLineWidth(context, self.preferences.drawing.borderWidth)
+        CGContextStrokePath(context)
+    }
+    
+    private func drawText(bubbleFrame : CGRect, context : CGContext) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = self.preferences.drawing.textAlignment
         paragraphStyle.lineBreakMode = NSLineBreakMode.ByWordWrapping
         
         
-        let textRect = CGRectMake(bubbleXOrigin + (bubbleWidth - self.textSize.width) / 2, bubbleYOrigin + (bubbleHeight - self.textSize.height) / 2, textSize.width, textSize.height)
+        let textRect = CGRectMake(bubbleFrame.origin.x + (bubbleFrame.size.width - self.textSize.width) / 2, bubbleFrame.origin.y + (bubbleFrame.size.height - self.textSize.height) / 2, textSize.width, textSize.height)
         
         
-        self.text.drawInRect(textRect, withAttributes: [NSFontAttributeName : self.preferences.font, NSForegroundColorAttributeName : self.preferences.drawing.textColor, NSParagraphStyleAttributeName : paragraphStyle])
+        self.text.drawInRect(textRect, withAttributes: [NSFontAttributeName : self.preferences.drawing.font, NSForegroundColorAttributeName : self.preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
+    }
+    
+    override public func drawRect(rect: CGRect) {
+        
+        let arrowPosition = self.preferences.drawing.arrowPosition
+        let bubbleWidth = self.contentSize.width - 2 * self.preferences.positioning.bubbleHInset
+        let bubbleHeight = self.contentSize.height - 2 * self.preferences.positioning.bubbleVInset - self.preferences.drawing.arrowHeight
+        let bubbleXOrigin = self.preferences.positioning.bubbleHInset
+        let bubbleYOrigin = arrowPosition == .Bottom ? self.preferences.positioning.bubbleVInset : self.preferences.positioning.bubbleVInset + self.preferences.drawing.arrowHeight
+        let bubbleFrame = CGRectMake(bubbleXOrigin, bubbleYOrigin, bubbleWidth, bubbleHeight)
+        
+        let context = UIGraphicsGetCurrentContext()!
+        CGContextSaveGState (context)
+        
+        self.drawBubble(bubbleFrame, arrowPosition: self.preferences.drawing.arrowPosition, context: context)
+        self.drawText(bubbleFrame, context: context)
         
         CGContextRestoreGState(context)
+    }
+}
+
+// MARK:- CGRect extension -
+
+private extension CGRect {
+    var x : CGFloat {
+        return self.origin.x
+    }
+    
+    var y : CGFloat {
+        return self.origin.y
+    }
+    
+    var width : CGFloat {
+        return self.size.width
+    }
+    
+    var height : CGFloat {
+        return self.size.height
     }
 }
 
@@ -367,7 +415,7 @@ private extension UIView {
         return viewHasSuperview(self, superview: superview)
     }
     
-    func viewHasSuperview (view : UIView, superview : UIView) -> Bool {
+    private func viewHasSuperview (view : UIView, superview : UIView) -> Bool {
         if let sview = view.superview {
             if sview === superview {
                 return true
@@ -379,7 +427,7 @@ private extension UIView {
         }
     }
     
-    func viewOriginInSuperview(sview : UIView, subviewOrigin sorigin: CGPoint, refSuperview : UIView?) -> CGPoint {
+    private func viewOriginInSuperview(sview : UIView, subviewOrigin sorigin: CGPoint, refSuperview : UIView?) -> CGPoint {
         
         if let superview = sview.superview {
             if let ref = refSuperview {

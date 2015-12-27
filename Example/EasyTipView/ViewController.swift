@@ -42,9 +42,9 @@ class ViewController: UIViewController, EasyTipViewDelegate {
         
         var preferences = EasyTipView.Preferences()
         
-        preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)
-        preferences.drawing.textColor = UIColor.whiteColor()
-        preferences.drawing.bubbleColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
+        preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
+        preferences.drawing.foregroundColor = UIColor.whiteColor()
+        preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
         preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Top
         
         EasyTipView.globalPreferences = preferences
@@ -60,7 +60,10 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     }
     
     @IBAction func barButtonAction(sender: UIBarButtonItem) {
-        EasyTipView.showAnimated(true, forItem: self.navBarItem, withinSuperview: self.navigationController?.view, text: "Tip view for bar button item displayed within the navigation controller's view. Tap to dismiss.", delegate: self)
+        EasyTipView.showAnimated(forItem: self.navBarItem,
+            withinSuperview: self.navigationController?.view,
+            text: "Tip view for bar button item displayed within the navigation controller's view. Tap to dismiss.",
+            delegate: self)
     }
     
     @IBAction func toolbarItemAction() {
@@ -72,43 +75,47 @@ class ViewController: UIViewController, EasyTipViewDelegate {
         case buttonA:
             
             var preferences = EasyTipView.Preferences()
-            preferences.drawing.bubbleColor = UIColor(hue:0.58, saturation:0.1, brightness:1, alpha:1)
-            preferences.drawing.textColor = UIColor.darkGrayColor()
-            preferences.drawing.font = UIFont(name: "HelveticaNeue-Regular", size: 10)
+            preferences.drawing.backgroundColor = UIColor(hue:0.58, saturation:0.1, brightness:1, alpha:1)
+            preferences.drawing.foregroundColor = UIColor.darkGrayColor()
             preferences.drawing.textAlignment = NSTextAlignment.Center
+            preferences.drawing.borderWidth = 5
+            preferences.drawing.borderColor = UIColor(red:0.32, green:0.11, blue:0.55, alpha:1)
             
-            let view = EasyTipView(text: "Tip view within the green superview. Tap to dismiss.", preferences: preferences, delegate: nil)
-            view.showForView(buttonA, withinSuperview: self.smallContainerView, animated: true)
+            let view = EasyTipView(text: "Tip view within the green superview. Tap to dismiss.", preferences: preferences)
+            view.showForView(buttonA, withinSuperview: self.smallContainerView)
             
         case buttonB:
             
             var preferences = EasyTipView.globalPreferences
-            preferences.drawing.textColor = UIColor.whiteColor()
-            preferences.drawing.font = UIFont(name: "HelveticaNeue-Light", size: 14)
+            preferences.drawing.foregroundColor = UIColor.whiteColor()
+            preferences.drawing.font = UIFont(name: "HelveticaNeue-Light", size: 14)!
             preferences.drawing.textAlignment = NSTextAlignment.Justified
             
-            EasyTipView.showAnimated(true,
-                forView: self.buttonB,
+            EasyTipView.showAnimated(forView: self.buttonB,
                 withinSuperview: self.navigationController?.view,
                 text: "Tip view inside the navigation controller's view. Tap to dismiss!",
-                preferences: preferences,
-                delegate: nil)
+                preferences: preferences)
             
         case buttonC:
             
             var preferences = EasyTipView.globalPreferences
-            preferences.drawing.bubbleColor = buttonC.backgroundColor!
+            preferences.drawing.backgroundColor = buttonC.backgroundColor!
             
-            EasyTipView.showAnimated(true, forView: buttonC, withinSuperview: self.navigationController?.view, text: "This tip view cannot be presented with the arrow on the top position, so position bottom has been chosen instead. Tap to dismiss.", preferences: preferences, delegate: nil)
+            EasyTipView.showAnimated(forView: buttonC,
+                withinSuperview: self.navigationController?.view,
+                text: "This tip view cannot be presented with the arrow on the top position, so position bottom has been chosen instead. Tap to dismiss.",
+                preferences: preferences)
             
         default:
             
             var preferences = EasyTipView.globalPreferences
             preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Bottom
             preferences.drawing.font = UIFont.systemFontOfSize(14)
-            preferences.drawing.bubbleColor = buttonD.backgroundColor!
+            preferences.drawing.backgroundColor = buttonD.backgroundColor!
             
-            EasyTipView.showAnimated(true, forView: buttonD, withinSuperview: nil, text: "Tip view within the topmost window. Tap to dismiss.", preferences: preferences, delegate: nil)
+            EasyTipView.showAnimated(forView: buttonD,
+                text: "Tip view within the topmost window. Tap to dismiss.",
+                preferences: preferences)
         }
     }
     
@@ -121,7 +128,6 @@ class ViewController: UIViewController, EasyTipViewDelegate {
         
         self.buttonB.backgroundColor = color
         self.smallContainerView.backgroundColor = color
-        
     }
 }
 

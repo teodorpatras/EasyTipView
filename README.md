@@ -32,7 +32,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'EasyTipView', '~> 0.1.0'
+pod 'EasyTipView', '~> 0.1.3'
 ```
 
 Then, run the following command:
@@ -50,12 +50,18 @@ Usage
 ```swift
   
   var preferences = EasyTipView.Preferences()
-  preferences.bubbleColor = UIColor(hue:0.58, saturation:0.1, brightness:1, alpha:1)
-  preferences.textColor = UIColor.darkGrayColor()
-  preferences.font = UIFont(name: "HelveticaNeue-Regular", size: 10)
-  preferences.textAlignment = NSTextAlignment.Center
+  preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
+  preferences.drawing.foregroundColor = UIColor.whiteColor()
+  preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
+  preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Top
+  
+  /*
+   * Optionally you can make these preferences global for all EasyTipViews
+   */
+  EasyTipView.globalPreferences = preferences
   
 ```
+
 2) Secondly you call the ``showAnimated:forView:withinSuperview:text:preferences:delegate:`` method:
 ```swift
   EasyTipView.showAnimated(true, 
@@ -66,34 +72,57 @@ Usage
   delegate: self)
 ```
 
+**Note that if you set the ```EasyTipView.globalPreferences```, you can ommit the ```preferences``` parameter.**
+
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 7.0 (Xcode 6.x)
+* Supported build target - iOS 8.0 (Xcode 6.x)
 
 Custom types
 --------------
 
 ```swift 
 
-@objc protocol EasyTipViewDelegate {
+public protocol EasyTipViewDelegate : class {
     func easyTipViewDidDismiss(tipView : EasyTipView)
 }
 
 ```
 
 Custom protocol which defines one method to be called on the delegate after the ``EasyTipView`` has been dismissed.
+
 ```swift
-struct Preferences {
-  var systemFontSize          :   CGFloat                =   15
-  var textColor               :   UIColor                =   UIColor.whiteColor()
-  var bubbleColor             :   UIColor                =   UIColor.redColor()
-  var arrowPosition           :   ArrowPosition          =   .Bottom
-  var font                    :   UIFont?
-  var textAlignment           :   NSTextAlignment        =   NSTextAlignment.Center
-}
+public struct Preferences {
+        
+      public struct Drawing {
+          public var cornerRadius        = CGFloat(5)
+          public var arrowHeight         = CGFloat(5)
+          public var arrowWidth          = CGFloat(10)
+          public var foregroundColor     = UIColor.whiteColor()
+          public var backgroundColor     = UIColor.redColor()
+          public var arrowPosition       = ArrowPosition.Bottom
+          public var textAlignment       = NSTextAlignment.Center
+          public var borderWidth         = CGFloat(0)
+          public var borderColor         = UIColor.clearColor()
+          public var font                = UIFont.systemFontOfSize(15)
+      }
+        
+      public struct Positioning {
+          public var bubbleHInset         = CGFloat(10)
+          public var bubbleVInset         = CGFloat(1)
+          public var textHInset           = CGFloat(10)
+          public var textVInset           = CGFloat(10)
+          public var maxWidth             = CGFloat(200)
+      }
+        
+      public var drawing      = Drawing()
+      public var positioning  = Positioning()
+  }
 ```
-Custom structure which encapsulates all the customizable properties of the ``EasyTipView``. If the font is not specified, the tip view will default to the ``UIFont.systemFontOfSize(preferences.systemFontSize)``.
+Custom structure which encapsulates all the customizable properties of the ``EasyTipView``. These preferences have been split into two structures:
+* ```Drawing``` - encapsulates customizable properties specifying how ```EastTipView``` will be drawn on screen.
+* ```Positioning``` - encapsulates customizable properties specifying where ```EasyTipView``` will be drawn within its own bounds.
 
 ```swift
 enum ArrowPosition {
@@ -101,38 +130,38 @@ enum ArrowPosition {
   case Bottom
 }
 ```
-Custom enumeration which defines the position that the bubble arrow can take.
+Custom enumeration which defines the supported arrow positions.
 
 Methods
 --------------
 
 ```swift
-class func showAnimated(animated : Bool, forView view : UIView, withinSuperview superview : UIView?, text :  NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?)
+class func showAnimated(animated : Bool = true, forView view : UIView, withinSuperview superview : UIView? = nil, text :  NSString, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil)
 ```
 
-Call this class method when you want to display the ``EasyTipView`` pointing to a ``UIView`` subclass. **superview parameter is optional. If you do not specify a superview, the ``EasyTipView`` will be displayed within the main window.**
+Call this class method when you want to display ``EasyTipView`` pointing to a ``UIView`` subclass. **If you do not specify a superview, ``EasyTipView`` will be displayed within the main window.**
 
 ```swift
-func showForView(view : UIView, withinSuperview sview : UIView?, animated : Bool)
+func showForView(view : UIView, withinSuperview sview : UIView? = nil, animated : Bool = true)
 ```
 
-The same as the above method, only difference is that this is an instance method.
+The same as the above method, only difference being that this is an instance method.
 
 ```swift
-class func showAnimated(animated : Bool, forItem item : UIBarButtonItem, withinSuperview superview : UIView?, text : NSString, preferences: Preferences?, delegate : EasyTipViewDelegate?)
+class func showAnimated(animated : Bool = true, forItem item : UIBarButtonItem, withinSuperview superview : UIView? = nil, text : NSString, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil)
 ```
 
-Call this class method when you want to display the ``EasyTipView`` pointing to a ``UIBarButtonItem`` subclass. **superview parameter is optional. If you do not specify a superview, the ``EasyTipView`` will be displayed within the main window.**
+Call this class method when you want to display ``EasyTipView`` pointing to a ``UIBarButtonItem`` subclass. **If you do not specify a superview, ``EasyTipView`` will be displayed within the main window.**
 
 
 ```swift
-func showForItem(item : UIBarButtonItem, withinSuperView sview : UIView?, animated : Bool)
+func showForItem(item : UIBarButtonItem, withinSuperView sview : UIView? = nil, animated : Bool = true)
 ```
 
-The same as the above method, only difference is that this is an instance method.
+The same as the above method, only difference being that this is an instance method.
 
 ```swift
 func dismissWithCompletion(completion : ((finished : Bool) -> Void)?)
 ```
 
-Use this method to programmatically hide the ``EasyTipView`` view.
+Use this method to programmatically hide an ``EasyTipView``.
