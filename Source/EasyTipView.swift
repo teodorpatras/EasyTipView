@@ -27,8 +27,111 @@ public protocol EasyTipViewDelegate : class {
     func easyTipViewDidDismiss(tipView : EasyTipView)
 }
 
-public class EasyTipView: UIView {
+
+// MARK: - Public methods extension
+
+public extension EasyTipView {
     
+    // MARK:- Class methods -
+    
+    /**
+    Presents an EasyTipView pointing to a particular UIBarButtonItem instance within the specified superview
+    
+    - parameter animated:    Pass true to animate the presentation.
+    - parameter item:        The UIBarButtonItem instance which the EasyTipView will be pointing to.
+    - parameter superview:   A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+    - parameter text:        The text to be displayed.
+    - parameter preferences: The preferences which will configure the EasyTipView.
+    - parameter delegate:    The delegate.
+    */
+    public class func show(animated animated : Bool = true, forItem item : UIBarButtonItem, withinSuperview superview : UIView? = nil, text : String, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil){
+        
+        if let view = item.customItemView {
+            self.show(animated: animated, forView: view, withinSuperview: superview, text: text, preferences: preferences, delegate: delegate)
+        }
+    }
+    
+    /**
+     Presents an EasyTipView pointing to a particular UIView instance within the specified superview
+    
+     - parameter animated:    Pass true to animate the presentation.
+     - parameter view:        The UIView instance which the EasyTipView will be pointing to.
+     - parameter superview:   A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+     - parameter text:        The text to be displayed.
+     - parameter preferences: The preferences which will configure the EasyTipView.
+     - parameter delegate:    The delegate.
+    */
+    public class func show(animated animated : Bool = true, forView view : UIView, withinSuperview superview : UIView? = nil, text :  String, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil){
+        
+        let ev = EasyTipView(text: text, preferences : preferences, delegate : delegate)
+        ev.show(animated: animated, forView: view, withinSuperview: superview)
+    }
+    
+    // MARK:- Instance methods -
+    
+    /**
+    Presents an EasyTipView pointing to a particular UIBarButtonItem instance within the specified superview
+    
+    - parameter animated:  Pass true to animate the presentation.
+    - parameter item:      The UIBarButtonItem instance which the EasyTipView will be pointing to.
+    - parameter superview: A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+    */
+    public func show(animated animated : Bool = true, forItem item : UIBarButtonItem, withinSuperView superview : UIView? = nil) {
+        if let view = item.customItemView {
+            self.show(animated: animated, forView: view, withinSuperview: superview)
+        }
+    }
+    
+    /**
+     Presents an EasyTipView pointing to a particular UIView instance within the specified superview
+     
+     - parameter animated:  Pass true to animate the presentation.
+     - parameter view:      The UIView instance which the EasyTipView will be pointing to.
+     - parameter superview: A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+     */
+    public func show(animated animated : Bool = true, forView view : UIView, withinSuperview superview : UIView? = nil) {
+        
+        precondition(superview == nil || view.hasSuperview(superview!), "The supplied superview <\(superview!)> is not a direct nor an indirect superview of the supplied reference view <\(view)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip within the main window, ignore the superview parameter.")
+        
+        let superview = superview ?? UIApplication.sharedApplication().windows.first!
+        
+        self.presentingView = view
+        self.arrange(withinSuperview: superview)
+        self.transform = CGAffineTransformMakeScale(0, 0)
+        
+        let tap = UITapGestureRecognizer(target: self, action: "handleTap")
+        self.addGestureRecognizer(tap)
+        
+        superview.addSubview(self)
+        
+        if animated {
+            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: UIViewAnimationOptions.CurveEaseOut, animations: { _ in
+                self.transform = CGAffineTransformIdentity
+                }, completion: nil)
+        }else{
+            self.transform = CGAffineTransformIdentity
+        }
+    }
+    
+    /**
+     Dismisses the EasyTipView
+     
+     - parameter completion: Completion block to be executed after the EasyTipView is dismissed.
+     */
+    public func dismiss(withCompletion completion : (() -> ())? = nil){
+        UIView.animateWithDuration(0.2, animations: { _ in
+            self.transform = CGAffineTransformMakeScale(0.3, 0.3)
+            self.alpha = 0
+            }) { (finished) -> Void in
+                completion?()
+                self.removeFromSuperview()
+        }
+    }
+}
+
+// MARK: - EasyTipView class implementation -
+
+public class EasyTipView: UIView {
     
     // MARK:- Nested types -
     
@@ -65,7 +168,7 @@ public class EasyTipView: UIView {
         public var hasBorder : Bool {
             return self.drawing.borderWidth > 0 && self.drawing.borderColor != UIColor.clearColor()
         }
-
+        
         public init() {}
     }
     
@@ -91,8 +194,8 @@ public class EasyTipView: UIView {
     private weak var presentingView :   UIView?
     private var arrowTip            =   CGPointZero
     private var preferences         :   Preferences
-    weak var delegate               :   EasyTipViewDelegate?
-    private let text                :   NSString
+    private weak var delegate       :   EasyTipViewDelegate?
+    private let text                :   String
     
     // MARK: - Lazy variables -
     
@@ -112,7 +215,7 @@ public class EasyTipView: UIView {
         }
         
         return textSize
-    }()
+        }()
     
     private lazy var contentSize : CGSize = {
         
@@ -121,7 +224,7 @@ public class EasyTipView: UIView {
         var contentSize = CGSizeMake(self.textSize.width + self.preferences.positioning.textHInset * 2 + self.preferences.positioning.bubbleHInset * 2, self.textSize.height + self.preferences.positioning.textVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
         
         return contentSize
-    }()
+        }()
     
     // MARK: - Static variables -
     
@@ -129,7 +232,7 @@ public class EasyTipView: UIView {
     
     // MARK:- Initializer -
     
-    public init (text : NSString, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil){
+    public init (text : String, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil){
         
         self.text = text
         self.preferences = preferences
@@ -147,8 +250,8 @@ public class EasyTipView: UIView {
     }
     
     /**
-    NSCoding not supported. Use init(text, preferences, delegate) instead!
-    */
+     NSCoding not supported. Use init(text, preferences, delegate) instead!
+     */
     required public init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported. Use init(text, preferences, delegate) instead!")
     }
@@ -159,73 +262,15 @@ public class EasyTipView: UIView {
         guard let sview = self.superview
             where self.presentingView != nil else { return }
         
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.arrangeInSuperview(sview)
+        UIView.animateWithDuration(0.3, animations: { _ in
+            self.arrange(withinSuperview: sview)
             self.setNeedsDisplay()
         })
     }
     
-    // MARK:- Class functions -
+    // MARK: - Private methods -
     
-    public class func showAnimated(animated : Bool = true, forView view : UIView, withinSuperview superview : UIView? = nil, text :  NSString, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil){
-        
-        let ev = EasyTipView(text: text, preferences : preferences, delegate : delegate)
-        
-        ev.showForView(view, withinSuperview: superview, animated: animated)
-    }
-    
-    public class func showAnimated(animated : Bool = true, forItem item : UIBarButtonItem, withinSuperview superview : UIView? = nil, text : NSString, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil){
-        
-        if let view = item.customView {
-            self.showAnimated(animated, forView: view, withinSuperview: superview, text: text, preferences: preferences, delegate: delegate)
-        }else{
-            if let view = item.valueForKey("view") as? UIView {
-                self.showAnimated(animated, forView: view, withinSuperview: superview, text: text, preferences: preferences, delegate: delegate)
-            }
-        }
-    }
-    
-    // MARK:- Instance methods -
-    
-    public func showForItem(item : UIBarButtonItem, withinSuperView sview : UIView? = nil, animated : Bool = true) {
-        if let view = item.customView {
-            self.showForView(view, withinSuperview: sview, animated : animated)
-        }else{
-            if let view = item.valueForKey("view") as? UIView {
-                self.showForView(view, withinSuperview: sview, animated: animated)
-            }
-        }
-    }
-    
-    public func showForView(view : UIView, withinSuperview sview : UIView? = nil, animated : Bool = true) {
-        
-        if let v = sview {
-            assert(view.hasSuperview(v), "The supplied superview <\(v)> is not a direct nor an indirect superview of the supplied reference view <\(view)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip on the window, pass nil as the superview parameter.")
-        }
-        
-        let superview = sview ?? UIApplication.sharedApplication().windows.last!
-        
-        self.presentingView = view
-        
-        self.arrangeInSuperview(superview)
-        
-        self.transform = CGAffineTransformMakeScale(0, 0)
-        
-        let tap = UITapGestureRecognizer(target: self, action: "handleTap")
-        self.addGestureRecognizer(tap)
-        
-        superview.addSubview(self)
-        
-        if animated {
-            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-                self.transform = CGAffineTransformIdentity
-                }, completion: nil)
-        }else{
-            self.transform = CGAffineTransformIdentity
-        }
-    }
-    
-    private func arrangeInSuperview(superview : UIView) {
+    private func arrange(withinSuperview superview : UIView) {
         
         let position = self.preferences.drawing.arrowPosition
         
@@ -268,21 +313,10 @@ public class EasyTipView: UIView {
         self.frame = frame
     }
     
-    
-    public func dismissWithCompletion(completion : ((finished : Bool) -> Void)?){
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
-            self.transform = CGAffineTransformMakeScale(0.3, 0.3)
-            self.alpha = 0
-            }) { (finished) -> Void in
-                completion?(finished: finished)
-                self.removeFromSuperview()
-        }
-    }
-    
     // MARK:- Callbacks -
     
-    public func handleTap () {
-        self.dismissWithCompletion { (finished) -> Void in
+    func handleTap () {
+        self.dismiss {
             self.delegate?.easyTipViewDidDismiss(self)
         }
     }
@@ -395,6 +429,20 @@ private extension CGRect {
     
     var height : CGFloat {
         return self.size.height
+    }
+}
+
+// MARK: - UIBarButtonItem extension -
+
+private extension UIBarButtonItem {
+    var customItemView : UIView? {
+        if let view = self.customView {
+            return view
+        } else if let view = self.valueForKey("view") as? UIView {
+            return view
+        } else {
+            return nil
+        }
     }
 }
 
