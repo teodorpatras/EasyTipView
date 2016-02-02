@@ -67,7 +67,7 @@ Usage
 
 ```
 
-2) Secondly you call the ``showAnimated:forView:withinSuperview:text:preferences:delegate:`` method:
+2) Secondly call the ``show(animated : forView: withinSuperview : text : preferences: delegate:)`` method:
 ```swift
   EasyTipView.show(forView: self.buttonB,
   withinSuperview: self.navigationController?.view,
