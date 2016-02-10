@@ -78,6 +78,17 @@ Usage
 
 **Note that if you set the ```EasyTipView.globalPreferences```, you can ommit the ```preferences``` parameter.**
 
+*Alternatively, if you want to dismiss the ``EasyTipView`` programmatically later on, you can use one of the instance methods:*
+
+```swift
+ 
+ let tipView = EasyTipView(text: "Some text", preferences: preferences)
+ tipView.show(forView: someView, withinSuperview: someSuperview)
+ 
+ // later on you can dismiss it
+ tipView.dismiss()
+```
+
 Custom types
 --------------
 
