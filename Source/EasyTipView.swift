@@ -195,7 +195,7 @@ public class EasyTipView: UIView {
     private var arrowTip            =   CGPointZero
     private var preferences         :   Preferences
     private weak var delegate       :   EasyTipViewDelegate?
-    private let text                :   String
+    public let text                 :   String
     
     // MARK: - Lazy variables -
     
