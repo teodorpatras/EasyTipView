@@ -22,6 +22,7 @@
 // SOFTWARE.
 
 import UIKit
+import Darwin
 import EasyTipView
 
 class ViewController: UIViewController, EasyTipViewDelegate {
@@ -67,7 +68,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     }
     
     @IBAction func toolbarItemAction() {
-        EasyTipView.show(forItem: self.toolbarItem, text: "EasyTipView is an easy to use tooltip view. Tap the buttons to see other tooltips.")
+        EasyTipView.show(forItem: self.toolbarItem, text: "EasyTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips.")
     }
     
     @IBAction func buttonAction(sender : UIButton) {
@@ -78,8 +79,12 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.drawing.backgroundColor = UIColor(hue:0.58, saturation:0.1, brightness:1, alpha:1)
             preferences.drawing.foregroundColor = UIColor.darkGrayColor()
             preferences.drawing.textAlignment = NSTextAlignment.Center
-            preferences.drawing.borderWidth = 5
-            preferences.drawing.borderColor = UIColor(red:0.92, green:0.46, blue:0.42, alpha:1)
+            
+            preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(100, 0)
+            preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(-100, 0)
+            preferences.animating.showInitialAlpha = 0
+            preferences.animating.showDuration = 1
+            preferences.animating.dismissDuration = 1
             
             let view = EasyTipView(text: "Tip view within the green superview. Tap to dismiss.", preferences: preferences)
             view.show(forView: buttonA, withinSuperview: self.smallContainerView)
@@ -91,6 +96,12 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.drawing.font = UIFont(name: "HelveticaNeue-Light", size: 14)!
             preferences.drawing.textAlignment = NSTextAlignment.Justified
             
+            preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(0, -15)
+            preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(0, 15)
+            preferences.animating.showInitialAlpha = 0
+            preferences.animating.showDuration = 1
+            preferences.animating.dismissDuration = 1
+            
             EasyTipView.show(forView: self.buttonB,
                 withinSuperview: self.navigationController?.view,
                 text: "Tip view inside the navigation controller's view. Tap to dismiss!",
@@ -100,6 +111,12 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             
             var preferences = EasyTipView.globalPreferences
             preferences.drawing.backgroundColor = buttonC.backgroundColor!
+            
+            preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(0, -15)
+            preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(0, -15)
+            preferences.animating.showInitialAlpha = 0
+            preferences.animating.showDuration = 1.5
+            preferences.animating.dismissDuration = 1.5
             
             EasyTipView.show(forView: self.buttonC,
                 withinSuperview: self.navigationController?.view,
@@ -113,6 +130,11 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.drawing.font = UIFont.systemFontOfSize(14)
             preferences.drawing.backgroundColor = buttonD.backgroundColor!
             
+            preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(100, 0)
+            preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(100, 0)
+            preferences.animating.showInitialAlpha = 0
+            preferences.animating.showDuration = 1
+            preferences.animating.dismissDuration = 1
             
             EasyTipView.show(forView: self.buttonD,
                 text: "Tip view within the topmost window. Tap to dismiss.",
