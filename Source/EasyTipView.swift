@@ -112,13 +112,15 @@ public extension EasyTipView {
         
         superview.addSubview(self)
         
-        if animated {
-            UIView.animateWithDuration(preferences.animating.showDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: UIViewAnimationOptions.CurveEaseInOut, animations: { _ in
-                self.transform = finalTransform
-                self.alpha = 1
-                }, completion: nil)
-        }else{
+        let animations : () -> () = {
             self.transform = finalTransform
+            self.alpha = 1
+        }
+        
+        if animated {
+            UIView.animateWithDuration(preferences.animating.showDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: UIViewAnimationOptions.CurveEaseInOut, animations: animations, completion: nil)
+        }else{
+            animations()
         }
     }
     
