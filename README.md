@@ -62,26 +62,26 @@ Usage
 1) First you should customize the preferences:
 ```swift
 
-  var preferences = EasyTipView.Preferences()
-  preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
-  preferences.drawing.foregroundColor = UIColor.whiteColor()
-  preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
-  preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Top
+var preferences = EasyTipView.Preferences()
+preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
+preferences.drawing.foregroundColor = UIColor.whiteColor()
+preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
+preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Top
 
-  /*
-   * Optionally you can make these preferences global for all future EasyTipViews
-   */
-  EasyTipView.globalPreferences = preferences
+/*
+ * Optionally you can make these preferences global for all future EasyTipViews
+ */
+EasyTipView.globalPreferences = preferences
 
 ```
 
 2) Secondly call the ``show(animated : forView: withinSuperview : text : preferences: delegate:)`` method:
 ```swift
-  EasyTipView.show(forView: self.buttonB,
-  withinSuperview: self.navigationController?.view,
-  text: "Tip view inside the navigation controller's view. Tap to dismiss!",
-  preferences: preferences,
-  delegate: self)
+EasyTipView.show(forView: self.buttonB,
+withinSuperview: self.navigationController?.view,
+text: "Tip view inside the navigation controller's view. Tap to dismiss!",
+preferences: preferences,
+delegate: self)
 ```
 
 **Note that if you set the ```EasyTipView.globalPreferences```, you can ommit the ```preferences``` parameter in all calls.**
@@ -90,11 +90,11 @@ Usage
 
 ```swift
 
- let tipView = EasyTipView(text: "Some text", preferences: preferences)
- tipView.show(forView: someView, withinSuperview: someSuperview)
+let tipView = EasyTipView(text: "Some text", preferences: preferences)
+tipView.show(forView: someView, withinSuperview: someSuperview)
 
- // later on you can dismiss it
- tipView.dismiss()
+// later on you can dismiss it
+tipView.dismiss()
 ```
 
 Customising the presentation or dismissal animations
@@ -103,11 +103,11 @@ Customising the presentation or dismissal animations
 The default animations for showing or dismissing are scale up and down. If you want to change the default behaviour, you need to change the attributes of the ``animating`` property within the preferences. An example could be:
 
 ```swift
-  preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(0, -15)
-  preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(0, -15)
-  preferences.animating.showInitialAlpha = 0
-  preferences.animating.showDuration = 1.5
-  preferences.animating.dismissDuration = 1.5
+preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(0, -15)
+preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(0, -15)
+preferences.animating.showInitialAlpha = 0
+preferences.animating.showDuration = 1.5
+preferences.animating.dismissDuration = 1.5
 ```
 
 This produces the following animations:
