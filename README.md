@@ -164,9 +164,6 @@ public struct Preferences {
         public var showDuration           = 0.7
         public var dismissDuration        = 0.7
       }
-
-      public var drawing      = Drawing()
-      public var positioning  = Positioning()
   }
 ```
 Custom structure which encapsulates all the customizable properties of the ``EasyTipView``. These preferences have been split into three structures:
