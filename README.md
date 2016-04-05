@@ -84,7 +84,7 @@ preferences: preferences,
 delegate: self)
 ```
 
-**Note that if you set the ```EasyTipView.globalPreferences```, you can ommit the ```preferences``` parameter in all calls. Additionally, you can also ommit the** ``withinSuperview`` **parameter and the** ``EasyTipView`` **will be shown within the main application window**.
+**Note that if you set the** ```EasyTipView.globalPreferences```**, you can ommit the** ```preferences``` **parameter in all calls. Additionally, you can also ommit the** ``withinSuperview`` **parameter and the** ``EasyTipView`` **will be shown within the main application window**.
 
 *Alternatively, if you want to dismiss the ``EasyTipView`` programmatically later on, you can use one of the instance methods:*
 
