@@ -51,10 +51,29 @@ $ pod install
 
 In case Xcode complains (<i>"Cannot load underlying module for EasyTipView"</i>) go to Product and choose Clean (or simply press <kbd>⇧</kbd><kbd>⌘</kbd><kbd>K</kbd>).
 
+### Carthage
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized manager for Cocoa.
+
+To integrate EasyTipView into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```
+github "teodorpatras/EasyTipView"
+```
+
+Then, run the following command:
+```bash
+$ carthage update 
+```
+
+This will generate a `.framework` artifact in your `Carthage/Builds` folder. In XCode, navigate to your target, choose the General tab and add this artifact in the `Linked Frameworks and Libraries` section. 
+
+If you have any problems, follow this [guide](https://www.raywenderlich.com/109330/carthage-tutorial-getting-started) for adding frameworks to your project.
+
+
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 8.0 (Xcode 6.x)
+* Supported build target - iOS 8.0 (Xcode 7.3)
 
 Usage
 --------------
