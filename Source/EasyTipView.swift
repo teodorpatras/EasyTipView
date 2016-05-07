@@ -176,6 +176,8 @@ public class EasyTipView: UIView {
             public var textHInset           = CGFloat(10)
             public var textVInset           = CGFloat(10)
             public var maxWidth             = CGFloat(200)
+            public var iconWidth            = CGFloat(30)
+            public var iconHeight           = CGFloat(30)
         }
         
         public struct Animating {
@@ -224,6 +226,8 @@ public class EasyTipView: UIView {
     private var arrowTip            =   CGPointZero
     private var preferences         :   Preferences
     public let text                 :   String
+    public var icon                 :   UIImage?
+    private var iconView            :   UIImageView?
     
     // MARK: - Lazy variables -
     
@@ -260,11 +264,12 @@ public class EasyTipView: UIView {
     
     // MARK:- Initializer -
     
-    public init (text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
+    public init (text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil, icon: UIImage? = nil){
         
         self.text = text
         self.preferences = preferences
         self.delegate = delegate
+        self.icon = icon
         
         super.init(frame: CGRectZero)
         
@@ -420,6 +425,13 @@ public class EasyTipView: UIView {
         
         text.drawInRect(textRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
     }
+
+    private func drawIcon(bubbleFrame: CGRect, context : CGContext) {
+
+        let iconView = UIImageView(frame: CGRectMake(bubbleFrame.origin.x, bubbleFrame.origin.y, 30, 30))
+        iconView.image = icon
+
+    }
     
     override public func drawRect(rect: CGRect) {
         
@@ -434,6 +446,13 @@ public class EasyTipView: UIView {
         CGContextSaveGState (context)
         
         drawBubble(bubbleFrame, arrowPosition: preferences.drawing.arrowPosition, context: context)
+
+        if(icon != nil) {
+
+            drawIcon(bubbleFrame, context: context)
+
+        }
+
         drawText(bubbleFrame, context: context)
         
         CGContextRestoreGState(context)
