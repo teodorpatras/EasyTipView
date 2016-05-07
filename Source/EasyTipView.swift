@@ -430,6 +430,7 @@ public class EasyTipView: UIView {
 
         let iconView = UIImageView(frame: CGRectMake(bubbleFrame.origin.x, bubbleFrame.origin.y, 30, 30))
         iconView.image = icon
+        self.addSubview(iconView)
 
     }
     
