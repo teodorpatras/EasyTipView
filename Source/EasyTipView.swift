@@ -178,6 +178,8 @@ public class EasyTipView: UIView {
             public var maxWidth             = CGFloat(200)
             public var iconWidth            = CGFloat(10)
             public var iconHeight           = CGFloat(10)
+            public var iconXPadding         = CGFloat(10)
+            public var iconYPadding         = CGFloat(10)
         }
         
         public struct Animating {
@@ -428,7 +430,7 @@ public class EasyTipView: UIView {
 
     private func drawIcon(bubbleFrame: CGRect, context : CGContext) {
 
-        let iconView = UIImageView(frame: CGRectMake(bubbleFrame.origin.x + 5, bubbleFrame.origin.y + 5, self.preferences.positioning.iconWidth, self.preferences.positioning.iconHeight))
+        let iconView = UIImageView(frame: CGRectMake(bubbleFrame.origin.x + self.preferences.positioning.iconXPadding, bubbleFrame.origin.y + self.preferences.positioning.iconYPadding, self.preferences.positioning.iconWidth, self.preferences.positioning.iconHeight))
         iconView.image = icon
         self.addSubview(iconView)
 
