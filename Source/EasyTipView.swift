@@ -176,8 +176,8 @@ public class EasyTipView: UIView {
             public var textHInset           = CGFloat(10)
             public var textVInset           = CGFloat(10)
             public var maxWidth             = CGFloat(200)
-            public var iconWidth            = CGFloat(30)
-            public var iconHeight           = CGFloat(30)
+            public var iconWidth            = CGFloat(10)
+            public var iconHeight           = CGFloat(10)
         }
         
         public struct Animating {
@@ -420,7 +420,7 @@ public class EasyTipView: UIView {
         paragraphStyle.lineBreakMode = NSLineBreakMode.ByWordWrapping
         
         
-        let textRect = CGRectMake(bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2, bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, textSize.width, textSize.height)
+        let textRect = CGRectMake((bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2) + (icon != nil ? self.preferences.positioning.iconWidth : 0), bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, textSize.width - (icon != nil ? self.preferences.positioning.iconWidth : 0), textSize.height)
         
         
         text.drawInRect(textRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
@@ -428,7 +428,7 @@ public class EasyTipView: UIView {
 
     private func drawIcon(bubbleFrame: CGRect, context : CGContext) {
 
-        let iconView = UIImageView(frame: CGRectMake(bubbleFrame.origin.x, bubbleFrame.origin.y, 30, 30))
+        let iconView = UIImageView(frame: CGRectMake(bubbleFrame.origin.x + 5, bubbleFrame.origin.y + 5, self.preferences.positioning.iconWidth, self.preferences.positioning.iconHeight))
         iconView.image = icon
         self.addSubview(iconView)
 
