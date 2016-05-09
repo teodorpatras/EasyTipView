@@ -97,6 +97,12 @@ tipView.show(forView: someView, withinSuperview: someSuperview)
 tipView.dismiss()
 ```
 
+An icon may be added to the ``EasyTipView`` by passing a UIImage to the icon parameter:
+
+```swift
+EasyTipView(text: "Text for the EasyToolTip", preferences: preferences, icon: image)
+```
+
 Customising the presentation or dismissal animations
 --------------
 
@@ -151,6 +157,10 @@ public struct Preferences {
           public var textHInset           = CGFloat(10)
           public var textVInset           = CGFloat(10)
           public var maxWidth             = CGFloat(200)
+          public var iconWidth            = CGFloat(10)
+          public var iconHeight           = CGFloat(10)
+          public var iconXPadding         = CGFloat(10)
+          public var iconYPadding         = CGFloat(10)
       }
 
       public struct Animating {
