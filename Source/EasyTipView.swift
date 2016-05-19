@@ -168,6 +168,7 @@ public class EasyTipView: UIView {
             public var borderWidth         = CGFloat(0)
             public var borderColor         = UIColor.clearColor()
             public var font                = UIFont.systemFontOfSize(15)
+            public var textAttributes: [String: AnyObject]?
         }
         
         public struct Positioning {
@@ -231,7 +232,7 @@ public class EasyTipView: UIView {
         
         [unowned self] in
         
-        var attributes = [NSFontAttributeName : self.preferences.drawing.font]
+        var attributes = self.preferences.drawing.textAttributes ?? [NSFontAttributeName : self.preferences.drawing.font]
         
         var textSize = self.text.boundingRectWithSize(CGSizeMake(self.preferences.positioning.maxWidth, CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributes, context: nil).size
         
@@ -417,8 +418,9 @@ public class EasyTipView: UIView {
         
         let textRect = CGRectMake(bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2, bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, textSize.width, textSize.height)
         
+        let textAttributes = preferences.drawing.textAttributes ?? [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle]
         
-        text.drawInRect(textRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
+        text.drawInRect(textRect, withAttributes: textAttributes)
     }
     
     override public func drawRect(rect: CGRect) {
