@@ -179,7 +179,7 @@ public class EasyTipView: UIView {
         }
         
         public struct Animating {
-            public var dismissTransform     = CGAffineTransformMakeScale(0.1, 0.1)
+            public var dismissTransform     = CGAffineTransformIdentity
             public var showInitialTransform = CGAffineTransformMakeScale(0, 0)
             public var showFinalTransform   = CGAffineTransformIdentity
             public var springDamping        = CGFloat(0.7)
