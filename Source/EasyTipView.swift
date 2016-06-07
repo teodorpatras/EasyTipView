@@ -140,6 +140,7 @@ public extension EasyTipView {
         }) { (finished) -> Void in
             completion?()
             self.removeFromSuperview()
+            self.transform = CGAffineTransformIdentity
         }
     }
 }
