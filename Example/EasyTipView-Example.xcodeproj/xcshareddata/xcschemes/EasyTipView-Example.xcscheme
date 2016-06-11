@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-               BuildableName = "EasyTipView_Example.app"
-               BlueprintName = "EasyTipView_Example"
-               ReferencedContainer = "container:EasyTipView.xcodeproj">
+               BuildableName = "EasyTipView-Example_Example.app"
+               BlueprintName = "EasyTipView-Example"
+               ReferencedContainer = "container:EasyTipView-Example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
                BuildableName = "EasyTipView_Tests.xctest"
                BlueprintName = "EasyTipView_Tests"
-               ReferencedContainer = "container:EasyTipView.xcodeproj">
+               ReferencedContainer = "container:EasyTipView-Example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
                BuildableName = "EasyTipView_Tests.xctest"
                BlueprintName = "EasyTipView_Tests"
-               ReferencedContainer = "container:EasyTipView.xcodeproj">
+               ReferencedContainer = "container:EasyTipView-Example.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "EasyTipView_Example.app"
-            BlueprintName = "EasyTipView_Example"
-            ReferencedContainer = "container:EasyTipView.xcodeproj">
+            BuildableName = "EasyTipView-Example_Example.app"
+            BlueprintName = "EasyTipView-Example"
+            ReferencedContainer = "container:EasyTipView-Example.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "EasyTipView_Example.app"
-            BlueprintName = "EasyTipView_Example"
-            ReferencedContainer = "container:EasyTipView.xcodeproj">
+            BuildableName = "EasyTipView-Example_Example.app"
+            BlueprintName = "EasyTipView-Example"
+            ReferencedContainer = "container:EasyTipView-Example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -99,9 +99,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "EasyTipView_Example.app"
-            BlueprintName = "EasyTipView_Example"
-            ReferencedContainer = "container:EasyTipView.xcodeproj">
+            BuildableName = "EasyTipView-Example_Example.app"
+            BlueprintName = "EasyTipView-Example"
+            ReferencedContainer = "container:EasyTipView-Example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

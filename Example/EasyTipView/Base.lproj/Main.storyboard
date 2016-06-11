@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GeS-P3-dnS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GeS-P3-dnS">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -22,7 +21,7 @@
             </objects>
             <point key="canvasLocation" x="1197" y="-264"/>
         </scene>
-        <!--EasyTipView Demo-->
+        <!--EasyTipView-Example Demo-->
         <scene sceneID="ST1-u6-G92">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="7mQ-RG-Clx" customClass="ViewController" customModule="EasyTipView_Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -128,7 +127,7 @@
                             <constraint firstItem="JdK-KQ-BEN" firstAttribute="leading" secondItem="K9k-ME-Y4A" secondAttribute="leadingMargin" id="xZL-MK-bZb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="EasyTipView Demo" id="gPI-yp-aVH">
+                    <navigationItem key="navigationItem" title="EasyTipView-Example Demo" id="gPI-yp-aVH">
                         <barButtonItem key="rightBarButtonItem" title="Tap!" id="HcR-vd-SJ7">
                             <connections>
                                 <action selector="barButtonAction:" destination="7mQ-RG-Clx" id="vhI-T9-db6"/>

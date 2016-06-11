@@ -1,6 +1,0 @@
-framework module Pods_EasyTipView_Tests {
-  umbrella header "Pods-EasyTipView_Tests-umbrella.h"
-
-  export *
-  module * { export * }
-}
