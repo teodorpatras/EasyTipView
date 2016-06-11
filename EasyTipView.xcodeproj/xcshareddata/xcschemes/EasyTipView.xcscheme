@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0730"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7850D539B3EAAC6F3D63C599D71DB4A3"
+               BlueprintIdentifier = "1310EC8A1D0C537F0000E71E"
                BuildableName = "EasyTipView.framework"
                BlueprintName = "EasyTipView"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               ReferencedContainer = "container:EasyTipView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1310EC941D0C53800000E71E"
+               BuildableName = "EasyTipViewTests.xctest"
+               BlueprintName = "EasyTipViewTests"
+               ReferencedContainer = "container:EasyTipView.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1310EC8A1D0C537F0000E71E"
+            BuildableName = "EasyTipView.framework"
+            BlueprintName = "EasyTipView"
+            ReferencedContainer = "container:EasyTipView.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -45,10 +64,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7850D539B3EAAC6F3D63C599D71DB4A3"
+            BlueprintIdentifier = "1310EC8A1D0C537F0000E71E"
             BuildableName = "EasyTipView.framework"
             BlueprintName = "EasyTipView"
-            ReferencedContainer = "container:Pods.xcodeproj">
+            ReferencedContainer = "container:EasyTipView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,6 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1310EC8A1D0C537F0000E71E"
+            BuildableName = "EasyTipView.framework"
+            BlueprintName = "EasyTipView"
+            ReferencedContainer = "container:EasyTipView.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
