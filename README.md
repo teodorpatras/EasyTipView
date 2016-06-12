@@ -11,18 +11,29 @@ Description
 
 ```EasyTipView``` is a fully customisable tooltip view written in Swift that can be used as a call to action or informative tip.
 
-## Features
+<img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/easytipview.gif" width="320">
+
+# Table of Contents
+1. [Features](#features)
+3. [Installation](#installation)
+4. [Supported OS & SDK versions](#supported-versions)
+5. [Usage](#usage)
+6. [Customising the appearance](#customising)
+7. [Customising the presentation and dismissal animations](#customising-animations)
+8. [Implementing custom transitions](#custom-transitions)
+9. [Public interface](#public-interface)
+10. [License](#license)
+11. [Contact](#contact)
+
+##<a name="features"> Features </a>
 
 - [x] Can be shown on top of or below any ``UIBarItem`` or ``UIView`` subclass.
 - [x] Automatic orientation change adjustments.
 - [x] Fully customisable appearance.
 - [x] Fully customisable presentation and dismissal animations.
 
-## Preview
 
-<img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/easytipview.gif" width="320">
-
-Installation
+<a name="installation"> Installation </a>
 --------------
 
 ### CocoaPods
@@ -77,12 +88,12 @@ Run `carthage update` to build the framework and drag the built `EasyTipView.fra
 
 If you prefer not to use either of the aforementioned dependency managers, you can integrate EasyTipView into your project manually.
 
-Supported OS & SDK Versions
+<a name="supported-versions"> Supported OS & SDK Versions </a>
 -----------------------------
 
 * Supported build target - iOS 8.0 (Xcode 7.x)
 
-Usage
+<a name="usage"> Usage </a>
 --------------
 
 1) First you should customize the preferences:
@@ -122,8 +133,47 @@ tipView.show(forView: someView, withinSuperview: someSuperview)
 // later on you can dismiss it
 tipView.dismiss()
 ```
+<a name="customising"> Customising the appearance </a>
+--------------
+In order to customise the `EasyTipView` appearance and behaviour, you can play with the `Preferences` structure which encapsulates all the customizable properties of the ``EasyTipView``. These preferences have been split into three structures:
+* ```Drawing``` - encapsulates customisable properties specifying how ```EastTipView``` will be drawn on screen.
+* ```Positioning``` - encapsulates customisable properties specifying where ```EasyTipView``` will be drawn within its own bounds.
+* ```Animating``` - encapsulates customisable properties specifying how ```EasyTipView``` will animate on and off screen.
 
-Customising the presentation or dismissal animations
+| `Drawing ` attribute   |      Description      |
+|----------|-------------|------|
+|`cornerRadius`| The corner radius of the tip view bubble.|
+|`arrowHeight`| The height of the arrow positioned at the top or bottom of the bubble.|
+|`arrowWidth`| The width of the above mentioned arrow.|
+|`foregroundColor`| The text color.|
+|`backgroundColor`| The background color of the bubble.|
+|`arrowPosition`| The position of the arrow. This can be: <br /> **+** `.Top`: on top of the bubble `UIStatusBarAnimation.Slide` animation<br /> **+** `.Bottom`: at the bottom of the bubble.<br />**If the passed in arrow cannot be applied due to layout restrictions, a different arrow position will be automatically assigned.**|
+|`textAlignment`| The alignment of the text.|
+|`borderWidth`| Width of the optional border to be applied on the bubble.|
+|`borderColor`| Color of the optional border to be applied on the bubble. **In order for the border to be applied, `borderColor` needs to be different that `UIColor.clearColor()` and `borderWidth` > 0**|
+|`font`| Font to be applied on the text. |
+
+| `Positioning ` attribute   |      Description      |
+|----------|-------------|------|
+|`bubbleHInset`| Horizontal bubble inset witin its container.|
+|`bubbleVInset`| Vertical bubble inset within its container.|
+|`textHInset`| Text horizontal inset within the bubble.|
+|`textVInset`| Text vertical inset within the bubble.|
+|`maxWidth`| Max bubble width.|
+
+| `Animating ` attribute   |      Description      |
+|----------|-------------|------|
+|`dismissTransform`| `CGAffineTransform` specifying how the bubble will be dismissed. |
+|`showInitialTransform`| `CGAffineTransform` specifying the initial transform to be applied on the bubble before it is animated on screen. |
+|`showFinalTransform`| `CGAffineTransform` specifying how the bubble will be animated on screen. |
+|`springDamping`| Spring animation damping.|
+|`springVelocity`| Spring animation velocity.|
+|`showInitialAlpha`|Initial alpha to be applied on the tip view before it is animated on screen.|
+|`dismissFinalAlpha`|The alpha to be applied on the tip view when it is animating off screen.|
+|`showDuration`|Show animation duration.|
+|`dismissDuration`|Dismiss animation duration.|
+
+<a name="customising-animations"> Customising the presentation or dismissal animations </a>
 --------------
 
 The default animations for showing or dismissing are scale up and down. If you want to change the default behaviour, you need to change the attributes of the ``animating`` property within the preferences. An example could be:
@@ -142,71 +192,21 @@ This produces the following animations:
 For more animations, checkout the example project.
 *Once you configured the animations, a good idea would be to __make these preferences public__, for all future instances of `EasyTipView` by assigning it to ```EasyTipView.globalPreferences```.*
 
-Custom types
+
+<a name="public-interface"> Public interface </a>
 --------------
+
+###Delegate
+`EasyTipViewDelegate` is a custom protocol which defines one method to be called on the delegate after the ``EasyTipView`` has been dismissed.
 
 ```swift
 
-public protocol EasyTipViewDelegate : class {
+public protocol EasyTipViewDelegate {
     func easyTipViewDidDismiss(tipView : EasyTipView)
 }
-
 ```
 
-Custom protocol which defines one method to be called on the delegate after the ``EasyTipView`` has been dismissed.
-
-```swift
-public struct Preferences {
-
-      public struct Drawing {
-          public var cornerRadius        = CGFloat(5)
-          public var arrowHeight         = CGFloat(5)
-          public var arrowWidth          = CGFloat(10)
-          public var foregroundColor     = UIColor.whiteColor()
-          public var backgroundColor     = UIColor.redColor()
-          public var arrowPosition       = ArrowPosition.Bottom
-          public var textAlignment       = NSTextAlignment.Center
-          public var borderWidth         = CGFloat(0)
-          public var borderColor         = UIColor.clearColor()
-          public var font                = UIFont.systemFontOfSize(15)
-      }
-
-      public struct Positioning {
-          public var bubbleHInset         = CGFloat(10)
-          public var bubbleVInset         = CGFloat(1)
-          public var textHInset           = CGFloat(10)
-          public var textVInset           = CGFloat(10)
-          public var maxWidth             = CGFloat(200)
-      }
-
-      public struct Animating {
-        public var dismissTransform       = CGAffineTransformMakeScale(0.1, 0.1)
-        public var showInitialTransform   = CGAffineTransformMakeScale(0, 0)
-        public var showFinalTransform     = CGAffineTransformIdentity
-        public var springDamping          = CGFloat(0.7)
-        public var springVelocity         = CGFloat(0.7)
-        public var showInitialAlpha       = CGFloat(0)
-        public var dismissFinalAlpha      = CGFloat(0)
-        public var showDuration           = 0.7
-        public var dismissDuration        = 0.7
-      }
-  }
-```
-Custom structure which encapsulates all the customizable properties of the ``EasyTipView``. These preferences have been split into three structures:
-* ```Drawing``` - encapsulates customisable properties specifying how ```EastTipView``` will be drawn on screen.
-* ```Positioning``` - encapsulates customisable properties specifying where ```EasyTipView``` will be drawn within its own bounds.
-* ```Animating``` - encapsulates customisable properties specifying how ```EasyTipView``` will animate on and off screen.
-
-```swift
-enum ArrowPosition {
-  case Top
-  case Bottom
-}
-```
-Custom enumeration which defines the supported arrow positions.
-
-Methods
---------------
+###Public methods
 
 ```swift
 // MARK:- Class methods -
@@ -263,14 +263,14 @@ Methods
     public func dismiss(withCompletion completion : (() -> ())? = nil)
 ```
 
-License
+<a name="license"> License </a>
 --------------
 
 ```EasyTipView``` is developed by [Teodor Patraş](https://www.teodorpatras.com) and is released under the MIT license. See the ```LICENSE``` file for details.
 
 Logo was created using Bud Icons Launch graphic by [Budi Tanrim](http://buditanrim.co) from [FlatIcon](http://www.flaticon.com/) which is licensed under [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/). Made with [Logo Maker](http://logomakr.com).
 
-Contact
+<a name="contact"> Contact </a>
 --------------
 
 You can follow or drop me a line on [my Twitter account](https://twitter.com/teodorpatras). If you find any issues on the project, you can open a ticket. Pull requests are also welcome.
