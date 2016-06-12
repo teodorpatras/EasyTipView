@@ -65,7 +65,7 @@ $ brew update
 $ brew install carthage
 ```
 
-To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
+To integrate `EasyTipView` into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
 github "teodorpatras/EasyTipView"
@@ -152,116 +152,21 @@ public protocol EasyTipViewDelegate : class {
 }
 
 ```
-
 Custom protocol which defines one method to be called on the delegate after the ``EasyTipView`` has been dismissed.
+
 
 ```swift
 public struct Preferences {
-
-      public struct Drawing {
-          public var cornerRadius        = CGFloat(5)
-          public var arrowHeight         = CGFloat(5)
-          public var arrowWidth          = CGFloat(10)
-          public var foregroundColor     = UIColor.whiteColor()
-          public var backgroundColor     = UIColor.redColor()
-          public var arrowPosition       = ArrowPosition.Bottom
-          public var textAlignment       = NSTextAlignment.Center
-          public var borderWidth         = CGFloat(0)
-          public var borderColor         = UIColor.clearColor()
-          public var font                = UIFont.systemFontOfSize(15)
-      }
-
-      public struct Positioning {
-          public var bubbleHInset         = CGFloat(10)
-          public var bubbleVInset         = CGFloat(1)
-          public var textHInset           = CGFloat(10)
-          public var textVInset           = CGFloat(10)
-          public var maxWidth             = CGFloat(200)
-      }
-
-      public struct Animating {
-        public var dismissTransform       = CGAffineTransformMakeScale(0.1, 0.1)
-        public var showInitialTransform   = CGAffineTransformMakeScale(0, 0)
-        public var showFinalTransform     = CGAffineTransformIdentity
-        public var springDamping          = CGFloat(0.7)
-        public var springVelocity         = CGFloat(0.7)
-        public var showInitialAlpha       = CGFloat(0)
-        public var dismissFinalAlpha      = CGFloat(0)
-        public var showDuration           = 0.7
-        public var dismissDuration        = 0.7
-      }
-  }
+    public struct Drawing
+    public struct Positioning
+    public struct Animating
+}
 ```
 Custom structure which encapsulates all the customizable properties of the ``EasyTipView``. These preferences have been split into three structures:
 * ```Drawing``` - encapsulates customisable properties specifying how ```EastTipView``` will be drawn on screen.
 * ```Positioning``` - encapsulates customisable properties specifying where ```EasyTipView``` will be drawn within its own bounds.
 * ```Animating``` - encapsulates customisable properties specifying how ```EasyTipView``` will animate on and off screen.
 
-```swift
-enum ArrowPosition {
-  case Top
-  case Bottom
-}
-```
-Custom enumeration which defines the supported arrow positions.
-
-Methods
---------------
-
-```swift
-// MARK:- Class methods -
-
-    /**
-    Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
-
-    - parameter animated:    Pass true to animate the presentation.
-    - parameter item:        The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
-    - parameter superview:   A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-    - parameter text:        The text to be displayed.
-    - parameter preferences: The preferences which will configure the EasyTipView.
-    - parameter delegate:    The delegate.
-    */
-    public class func show(animated animated : Bool = true, forItem item : UIBarItem, withinSuperview superview : UIView? = nil, text : String, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil)
-
-    /**
-     Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-
-     - parameter animated:    Pass true to animate the presentation.
-     - parameter view:        The UIView instance which the EasyTipView will be pointing to.
-     - parameter superview:   A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-     - parameter text:        The text to be displayed.
-     - parameter preferences: The preferences which will configure the EasyTipView.
-     - parameter delegate:    The delegate.
-    */
-    public class func show(animated animated : Bool = true, forView view : UIView, withinSuperview superview : UIView? = nil, text :  String, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil)
-
-    // MARK:- Instance methods -
-
-    /**
-    Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
-
-    - parameter animated:  Pass true to animate the presentation.
-    - parameter item:      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
-    - parameter superview: A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-    */
-    public func show(animated animated : Bool = true, forItem item : UIBarItem, withinSuperView superview : UIView? = nil)
-
-    /**
-     Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-
-     - parameter animated:  Pass true to animate the presentation.
-     - parameter view:      The UIView instance which the EasyTipView will be pointing to.
-     - parameter superview: A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-     */
-    public func show(animated animated : Bool = true, forView view : UIView, withinSuperview superview : UIView? = nil)
-
-    /**
-     Dismisses the EasyTipView
-
-     - parameter completion: Completion block to be executed after the EasyTipView is dismissed.
-     */
-    public func dismiss(withCompletion completion : (() -> ())? = nil)
-```
 
 License
 --------------
