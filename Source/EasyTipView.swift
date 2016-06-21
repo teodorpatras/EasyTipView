@@ -139,6 +139,7 @@ public extension EasyTipView {
             self.alpha = self.preferences.animating.dismissFinalAlpha
         }) { (finished) -> Void in
             completion?()
+            self.delegate?.easyTipViewDidDismiss(self)
             self.removeFromSuperview()
             self.transform = CGAffineTransformIdentity
         }

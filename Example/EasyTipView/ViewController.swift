@@ -35,6 +35,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     @IBOutlet weak var buttonC: UIButton!
     @IBOutlet weak var buttonD: UIButton!
     
+    weak var tipView: EasyTipView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +69,15 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     }
     
     @IBAction func toolbarItemAction() {
-        EasyTipView.show(forItem: self.toolbarItem, text: "EasyTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips.")
+        if let tipView = tipView {
+            tipView.dismiss(withCompletion: { 
+                print("Completion called!")
+            })
+        } else {
+            let tip = EasyTipView(text: "EasyTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips.", delegate: self)
+            tip.show(forItem: self.toolbarItem)
+            tipView = tip
+        }
     }
     
     @IBAction func buttonAction(sender : UIButton) {
