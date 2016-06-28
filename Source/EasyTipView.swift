@@ -346,9 +346,7 @@ public class EasyTipView: UIView {
     // MARK:- Callbacks -
     
     func handleTap() {
-        dismiss {
-            self.delegate?.easyTipViewDidDismiss(self)
-        }
+        dismiss()
     }
     
     // MARK:- Drawing -
