@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1310EC961D0C53800000E71E /* EasyTipView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1310EC8B1D0C537F0000E71E /* EasyTipView.framework */; };
+		13609E071D23AB8500593B38 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13609E061D23AB8500593B38 /* UIKitExtensions.swift */; };
 		13FB32A21D0C53CB001ACE20 /* EasyTipView.h in Headers */ = {isa = PBXBuildFile; fileRef = 13FB329F1D0C53CB001ACE20 /* EasyTipView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13FB32A31D0C53CB001ACE20 /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB32A01D0C53CB001ACE20 /* EasyTipView.swift */; };
 		13FB32A91D0C53E5001ACE20 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB32A61D0C53E2001ACE20 /* Tests.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		1310EC8B1D0C537F0000E71E /* EasyTipView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyTipView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1310EC951D0C53800000E71E /* EasyTipViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyTipViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		13609E061D23AB8500593B38 /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIKitExtensions.swift; path = Source/UIKitExtensions.swift; sourceTree = SOURCE_ROOT; };
 		13FB329F1D0C53CB001ACE20 /* EasyTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EasyTipView.h; path = Source/EasyTipView.h; sourceTree = SOURCE_ROOT; };
 		13FB32A01D0C53CB001ACE20 /* EasyTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasyTipView.swift; path = Source/EasyTipView.swift; sourceTree = SOURCE_ROOT; };
 		13FB32A11D0C53CB001ACE20 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -76,6 +78,7 @@
 				13FB329F1D0C53CB001ACE20 /* EasyTipView.h */,
 				13FB32A01D0C53CB001ACE20 /* EasyTipView.swift */,
 				13FB32A11D0C53CB001ACE20 /* Info.plist */,
+				13609E061D23AB8500593B38 /* UIKitExtensions.swift */,
 			);
 			path = EasyTipView;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13609E071D23AB8500593B38 /* UIKitExtensions.swift in Sources */,
 				13FB32A31D0C53CB001ACE20 /* EasyTipView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

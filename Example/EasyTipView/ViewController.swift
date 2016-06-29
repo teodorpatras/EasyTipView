@@ -62,9 +62,10 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     }
     
     @IBAction func barButtonAction(sender: UIBarButtonItem) {
+        let text = "Tip view for bar button item displayed within the navigation controller's view. Tap to dismiss."
         EasyTipView.show(forItem: self.navBarItem,
             withinSuperview: self.navigationController?.view,
-            text: "Tip view for bar button item displayed within the navigation controller's view. Tap to dismiss.",
+            text: text,
             delegate : self)
     }
     
@@ -74,8 +75,9 @@ class ViewController: UIViewController, EasyTipViewDelegate {
                 print("Completion called!")
             })
         } else {
-            let tip = EasyTipView(text: "EasyTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips.", delegate: self)
-            tip.show(forItem: self.toolbarItem)
+            let text = "EasyTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips."
+            let tip = EasyTipView(text: text, delegate: self)
+            tip.show(forItem: toolbarItem)
             tipView = tip
         }
     }
@@ -111,9 +113,10 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.animating.showDuration = 1
             preferences.animating.dismissDuration = 1
             
+            let text = "Tip view inside the navigation controller's view. Tap to dismiss!"
             EasyTipView.show(forView: self.buttonB,
                 withinSuperview: self.navigationController?.view,
-                text: "Tip view inside the navigation controller's view. Tap to dismiss!",
+                text: text,
                 preferences: preferences)
             
         case buttonC:
@@ -127,9 +130,10 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.animating.showDuration = 1.5
             preferences.animating.dismissDuration = 1.5
             
-            EasyTipView.show(forView: self.buttonC,
-                withinSuperview: self.navigationController?.view,
-                text: "This tip view cannot be presented with the arrow on the top position, so position bottom has been chosen instead. Tap to dismiss.",
+            let text = "This tip view cannot be presented with the arrow on the top position, so position bottom has been chosen instead. Tap to dismiss."
+            EasyTipView.show(forView: buttonC,
+                withinSuperview: navigationController?.view,
+                text: text,
                 preferences: preferences)
             
         default:

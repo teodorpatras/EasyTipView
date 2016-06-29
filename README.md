@@ -190,7 +190,7 @@ This produces the following animations:
 <br><br><img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/animation.gif" width="200">
 
 For more animations, checkout the example project.
-*Once you configured the animations, a good idea would be to __make these preferences public__, for all future instances of `EasyTipView` by assigning it to ```EasyTipView.globalPreferences```.*
+*Once you configured the animations, a good idea would be to __make these preferences global__, for all future instances of `EasyTipView` by assigning it to ```EasyTipView.globalPreferences```.*
 
 
 <a name="public-interface"> Public interface </a>
