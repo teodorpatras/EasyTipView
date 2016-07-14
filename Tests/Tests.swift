@@ -18,7 +18,7 @@ class Tests: XCTestCase {
     
     func testViewPositionTop() {
         var preferences = EasyTipView.Preferences()
-        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Top
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
         
         view.center = superview.center
         
@@ -27,32 +27,32 @@ class Tests: XCTestCase {
         
         XCTAssert(tipView.superview === superview, "EasyTipView should be present")
         XCTAssert(tipView.alpha == 1, "EasyTipView should be visible")
-        XCTAssert(CGRectGetMinY(tipView.frame) == CGRectGetMaxY(view.frame), "EasyTipView should be below the presenting view")
+        XCTAssert(tipView.frame.minY == view.frame.maxY, "EasyTipView should be below the presenting view")
     }
     
     func testViewPositionBottom() {
         
         var preferences = EasyTipView.Preferences()
-        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Bottom
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.bottom
         
         let tipView = EasyTipView(text: "Some text", preferences: preferences)
         tipView.show(animated: false, forView: view, withinSuperview: superview)
         
         XCTAssert(tipView.superview === superview, "EasyTipView should be present")
         XCTAssert(tipView.alpha == 1, "EasyTipView should be visible")
-        XCTAssert(CGRectGetMaxY(tipView.frame) == CGRectGetMinY(view.frame), "EasyTipView should be above the presenting view")
+        XCTAssert(tipView.frame.maxY == view.frame.minY, "EasyTipView should be above the presenting view")
     }
     
     func testAutoPositionAdjustmentTop() {
         var preferences = EasyTipView.Preferences()
-        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Top
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
         
         let tipView = EasyTipView(text: "Some text", preferences: preferences)
         tipView.show(animated: false, forView: view, withinSuperview: superview)
         
         XCTAssert(tipView.superview === superview, "EasyTipView should be present")
         XCTAssert(tipView.alpha == 1, "EasyTipView should be visible")
-        XCTAssert(CGRectGetMaxY(tipView.frame) == CGRectGetMinY(view.frame), "EasyTipView should be above the presenting view")
+        XCTAssert(tipView.frame.maxY == view.frame.minY, "EasyTipView should be above the presenting view")
     }
     
     func testAutoPositionAdjustmentBottom() {
@@ -63,13 +63,13 @@ class Tests: XCTestCase {
         view.frame = frame
         
         var preferences = EasyTipView.Preferences()
-        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Bottom
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.bottom
         
         let tipView = EasyTipView(text: "Some text", preferences: preferences)
         tipView.show(animated: false, forView: view, withinSuperview: superview)
         
         XCTAssert(tipView.superview === superview, "EasyTipView should be present")
         XCTAssert(tipView.alpha == 1, "EasyTipView should be visible")
-        XCTAssert(CGRectGetMinY(tipView.frame) == CGRectGetMaxY(view.frame), "EasyTipView should be below the presenting view")
+        XCTAssert(tipView.frame.minY == view.frame.maxY, "EasyTipView should be below the presenting view")
     }
 }
