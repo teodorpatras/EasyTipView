@@ -93,7 +93,7 @@ public extension EasyTipView {
         
         precondition(superview == nil || view.hasSuperview(superview!), "The supplied superview <\(superview!)> is not a direct nor an indirect superview of the supplied reference view <\(view)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip within the main window, ignore the superview parameter.")
         
-        let superview = superview ?? UIApplication.shared().windows.first!
+        let superview = superview ?? UIApplication.shared.windows.first!
         
         let initialTransform = preferences.animating.showInitialTransform
         let finalTransform = preferences.animating.showFinalTransform
@@ -162,12 +162,12 @@ public class EasyTipView: UIView {
             public var cornerRadius        = CGFloat(5)
             public var arrowHeight         = CGFloat(5)
             public var arrowWidth          = CGFloat(10)
-            public var foregroundColor     = UIColor.white()
-            public var backgroundColor     = UIColor.red()
+            public var foregroundColor     = UIColor.white
+            public var backgroundColor     = UIColor.red
             public var arrowPosition       = ArrowPosition.bottom
             public var textAlignment       = NSTextAlignment.center
             public var borderWidth         = CGFloat(0)
-            public var borderColor         = UIColor.clear()
+            public var borderColor         = UIColor.clear
             public var font                = UIFont.systemFont(ofSize: 15)
         }
         
@@ -195,7 +195,7 @@ public class EasyTipView: UIView {
         public var positioning  = Positioning()
         public var animating    = Animating()
         public var hasBorder : Bool {
-            return self.drawing.borderWidth > 0 && self.drawing.borderColor != UIColor.clear()
+            return self.drawing.borderWidth > 0 && self.drawing.borderColor != .clear
         }
         
         public init() {}
@@ -205,11 +205,10 @@ public class EasyTipView: UIView {
     
     override public var backgroundColor: UIColor? {
         didSet {
-            guard let color = backgroundColor
-                where color != UIColor.clear() else {return}
+            guard let color = backgroundColor, color != .clear else {return}
             
             self.preferences.drawing.backgroundColor = color
-            backgroundColor = UIColor.clear()
+            backgroundColor = .clear
         }
     }
     
@@ -269,7 +268,7 @@ public class EasyTipView: UIView {
         
         super.init(frame: CGRect.zero)
         
-        self.backgroundColor = UIColor.clear()
+        self.backgroundColor = .clear
         NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
@@ -288,8 +287,7 @@ public class EasyTipView: UIView {
     // MARK: - Rotation support -
     
     func handleRotation() {
-        guard let sview = self.superview
-            where self.presentingView != nil else { return }
+        guard let sview = self.superview, self.presentingView != nil else { return }
         
         UIView.animate(withDuration: 0.3, animations: { _ in
             self.arrange(withinSuperview: sview)
