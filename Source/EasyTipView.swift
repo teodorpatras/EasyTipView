@@ -214,16 +214,16 @@ public class EasyTipView: UIView {
     
     override public var description: String {
 
-        let type = "'\(String(reflecting: self.dynamicType))'".components(separatedBy: ".").last!
+        let type = "'\(String(reflecting: type(of: self)))'".components(separatedBy: ".").last!
         
         return "<< \(type) with text : '\(self.text)' >>"
     }
     
-    private weak var presentingView :   UIView?
-    private weak var delegate       :   EasyTipViewDelegate?
-    private var arrowTip            =   CGPoint.zero
-    private var preferences         :   Preferences
-    public let text                 :   String
+    fileprivate weak var presentingView :   UIView?
+    private weak var delegate           :   EasyTipViewDelegate?
+    private var arrowTip                =   CGPoint.zero
+    fileprivate var preferences         :   Preferences
+    public let text                     :   String
     
     // MARK: - Lazy variables -
     
@@ -297,7 +297,7 @@ public class EasyTipView: UIView {
     
     // MARK: - Private methods -
     
-    private func arrange(withinSuperview superview: UIView) {
+    fileprivate func arrange(withinSuperview superview: UIView) {
         
         let position = preferences.drawing.arrowPosition
         
@@ -357,9 +357,8 @@ public class EasyTipView: UIView {
         let cornerRadius = preferences.drawing.cornerRadius
         
         let contourPath = CGMutablePath()
-        
-        contourPath.moveTo(nil, x: arrowTip.x, y: arrowTip.y)
-        contourPath.addLineTo(nil, x: arrowTip.x - arrowWidth / 2, y: arrowTip.y + (arrowPosition == .bottom ? -1 : 1) * arrowHeight)
+        contourPath.move(to: CGPoint(x: arrowTip.x, y: arrowTip.y))
+        contourPath.addLine(to: CGPoint(x: arrowTip.x - arrowWidth / 2, y: arrowTip.y + (arrowPosition == .bottom ? -1 : 1) * arrowHeight))
         
         var method = drawBubbleTopShape
         
@@ -367,9 +366,9 @@ public class EasyTipView: UIView {
             method = drawBubbleBottomShape
         }
         
-        method(bubbleFrame, cornerRadius : cornerRadius, path : contourPath)
+        method(bubbleFrame, cornerRadius, contourPath)
         
-        contourPath.addLineTo(nil, x: arrowTip.x + arrowWidth / 2, y: arrowTip.y + (arrowPosition == .bottom ? -1 : 1) * arrowHeight)
+        contourPath.addLine(to: CGPoint(x: arrowTip.x + arrowWidth / 2, y: arrowTip.y + (arrowPosition == .bottom ? -1 : 1) * arrowHeight))
         
         contourPath.closeSubpath()
         context.addPath(contourPath)
@@ -383,19 +382,33 @@ public class EasyTipView: UIView {
     }
     
     private func drawBubbleBottomShape(_ frame: CGRect, cornerRadius: CGFloat, path: CGMutablePath) {
-        path.addArc(nil, x1: frame.x, y1: frame.y + frame.height, x2: frame.x, y2: frame.y, radius: cornerRadius)
-        path.addArc(nil, x1: frame.x, y1: frame.y, x2: frame.x + frame.width, y2: frame.y, radius: cornerRadius)
-        path.addArc(nil, x1: frame.x + frame.width, y1: frame.y, x2: frame.x + frame.width, y2: frame.y + frame.height, radius: cornerRadius)
-        path.addArc(nil, x1: frame.x + frame.width, y1: frame.y + frame.height, x2: frame.x, y2: frame.y + frame.height, radius: cornerRadius)
+        let points = [
+            (CGPoint(x: frame.x, y: frame.maxY), CGPoint(x: frame.x, y: frame.y)),
+            (CGPoint(x: frame.x, y: frame.y), CGPoint(x: frame.maxX, y: frame.y)),
+            (CGPoint(x: frame.maxX, y: frame.y), CGPoint(x: frame.maxX, y: frame.maxY)),
+            (CGPoint(x: frame.maxX, y: frame.maxY), CGPoint(x: frame.x, y: frame.maxY)),
+            ]
+
+        addArcs(to: points, cornerRadius: cornerRadius, path: path)
     }
     
     private func drawBubbleTopShape(_ frame: CGRect, cornerRadius: CGFloat, path: CGMutablePath) {
-        path.addArc(nil, x1: frame.x, y1: frame.y, x2: frame.x, y2: frame.y + frame.height, radius: cornerRadius)
-        path.addArc(nil, x1: frame.x, y1: frame.y + frame.height, x2: frame.x + frame.width, y2: frame.y + frame.height, radius: cornerRadius)
-        path.addArc(nil, x1: frame.x + frame.width, y1: frame.y + frame.height, x2: frame.x + frame.width, y2: frame.y, radius: cornerRadius)
-        path.addArc(nil, x1: frame.x + frame.width, y1: frame.y, x2: frame.x, y2: frame.y, radius: cornerRadius)
+        let points = [
+            (CGPoint(x: frame.x, y: frame.y), CGPoint(x: frame.x, y: frame.maxY)),
+            (CGPoint(x: frame.x, y: frame.maxY), CGPoint(x: frame.maxX, y: frame.maxY)),
+            (CGPoint(x: frame.maxX, y: frame.maxY), CGPoint(x: frame.maxX, y: frame.y)),
+            (CGPoint(x: frame.maxX, y: frame.y), CGPoint(x: frame.x, y: frame.y)),
+        ]
+
+        addArcs(to: points, cornerRadius: cornerRadius, path: path)
     }
-    
+
+    private func addArcs(to points: [(CGPoint, CGPoint)], cornerRadius: CGFloat, path: CGMutablePath) {
+        for tangentPoints in points {
+            path.addArc(tangent1End: tangentPoints.0, tangent2End: tangentPoints.1, radius: cornerRadius)
+        }
+    }
+
     private func paintBubble(_ context: CGContext) {
         context.setFillColor(preferences.drawing.backgroundColor.cgColor)
         context.fill(self.bounds)
