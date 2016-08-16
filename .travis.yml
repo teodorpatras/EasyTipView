@@ -17,5 +17,5 @@ before_deploy:
   - carthage archive $FRAMEWORK_NAME
 script:
 - set -o pipefail
-- xcodebuild -workspace $WORKSPACE -scheme $SCHEME -destination 'platform=iOS Simulator,name=iPhone 6' clean test | xcpretty -c
+- xcodebuild -workspace EasyTipView.xcworkspace -scheme EasyTipView -destination 'platform=iOS Simulator,name=iPhone 6' clean test | xcpretty -c
 - pod lib lint --quick
