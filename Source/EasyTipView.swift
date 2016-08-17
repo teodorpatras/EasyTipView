@@ -304,7 +304,7 @@ public class EasyTipView: UIView {
         
         let position = preferences.drawing.arrowPosition
         
-        let refViewOrigin = presentingView!.originWithinDistantSuperView(superview)
+        let refViewOrigin = presentingView!.convertPoint(CGPoint.zero, toView: superview)
         let refViewSize = presentingView!.frame.size
         let refViewCenter = CGPointMake(refViewOrigin.x + refViewSize.width / 2, refViewOrigin.y + refViewSize.height / 2)
         
