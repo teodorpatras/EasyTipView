@@ -70,18 +70,53 @@ extension UIView {
 
 extension CGRect {
     var x: CGFloat {
-        return self.origin.x
+        get {
+            return self.origin.x
+        }
+        set {
+            self.origin.x = newValue
+        }
     }
     
     var y: CGFloat {
-        return self.origin.y
+        get {
+            return self.origin.y
+        }
+        
+        set {
+            self.origin.y = newValue
+        }
     }
     
     var width: CGFloat {
-        return self.size.width
+        get {
+         return self.size.width
+        }
+        
+        set {
+            self.size.width = newValue
+        }
     }
     
     var height: CGFloat {
-        return self.size.height
+        get {
+            return self.size.height
+        }
+        
+        set{
+            self.size.height = newValue
+        }
+    }
+    
+    var maxX: CGFloat {
+        return CGRectGetMaxX(self)
+    }
+    
+    var maxY: CGFloat {
+        return CGRectGetMaxY(self)
+    }
+    
+    var center: CGPoint {
+        return CGPointMake(self.x + self.width / 2, self.y + self.height / 2)
     }
 }

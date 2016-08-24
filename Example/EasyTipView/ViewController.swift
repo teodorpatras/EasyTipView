@@ -112,7 +112,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.animating.showInitialAlpha = 0
             preferences.animating.showDuration = 1
             preferences.animating.dismissDuration = 1
-            preferences.drawing.arrowPosition = .Left
+            preferences.drawing.arrowPosition = .Top
             preferences.drawing.arrowHeight = 10
             preferences.drawing.arrowWidth = 5
             
@@ -132,7 +132,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.animating.showInitialAlpha = 0
             preferences.animating.showDuration = 1.5
             preferences.animating.dismissDuration = 1.5
-            preferences.drawing.arrowPosition = .Right
+            preferences.drawing.arrowPosition = .Left
             preferences.drawing.arrowHeight = 10
             preferences.drawing.arrowWidth = 5
             
