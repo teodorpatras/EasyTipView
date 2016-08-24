@@ -47,7 +47,6 @@ class ViewController: UIViewController, EasyTipViewDelegate {
         preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
         preferences.drawing.foregroundColor = UIColor.whiteColor()
         preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
-        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Top
         
         EasyTipView.globalPreferences = preferences
     }
@@ -112,6 +111,9 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.animating.showInitialAlpha = 0
             preferences.animating.showDuration = 1
             preferences.animating.dismissDuration = 1
+            preferences.drawing.arrowPosition = .Top
+            preferences.drawing.arrowHeight = 10
+            preferences.drawing.arrowWidth = 5
             
             let text = "Tip view inside the navigation controller's view. Tap to dismiss!"
             EasyTipView.show(forView: self.buttonB,
@@ -129,6 +131,9 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.animating.showInitialAlpha = 0
             preferences.animating.showDuration = 1.5
             preferences.animating.dismissDuration = 1.5
+            preferences.drawing.arrowPosition = .Left
+            preferences.drawing.arrowHeight = 10
+            preferences.drawing.arrowWidth = 5
             
             let text = "This tip view cannot be presented with the arrow on the top position, so position bottom has been chosen instead. Tap to dismiss."
             EasyTipView.show(forView: buttonC,
