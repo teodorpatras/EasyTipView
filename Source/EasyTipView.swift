@@ -35,15 +35,15 @@ public extension EasyTipView {
     // MARK:- Class methods -
     
     /**
-    Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
-    
-    - parameter animated:    Pass true to animate the presentation.
-    - parameter item:        The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
-    - parameter superview:   A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-    - parameter text:        The text to be displayed.
-    - parameter preferences: The preferences which will configure the EasyTipView.
-    - parameter delegate:    The delegate.
-    */
+     Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
+     
+     - parameter animated:    Pass true to animate the presentation.
+     - parameter item:        The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
+     - parameter superview:   A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+     - parameter text:        The text to be displayed.
+     - parameter preferences: The preferences which will configure the EasyTipView.
+     - parameter delegate:    The delegate.
+     */
     public class func show(animated animated: Bool = true, forItem item: UIBarItem, withinSuperview superview: UIView? = nil, text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
         
         if let view = item.view {
@@ -53,14 +53,14 @@ public extension EasyTipView {
     
     /**
      Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-    
+     
      - parameter animated:    Pass true to animate the presentation.
      - parameter view:        The UIView instance which the EasyTipView will be pointing to.
      - parameter superview:   A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
      - parameter text:        The text to be displayed.
      - parameter preferences: The preferences which will configure the EasyTipView.
      - parameter delegate:    The delegate.
-    */
+     */
     public class func show(animated animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil, text:  String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
         
         let ev = EasyTipView(text: text, preferences: preferences, delegate: delegate)
@@ -70,12 +70,12 @@ public extension EasyTipView {
     // MARK:- Instance methods -
     
     /**
-    Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
-    
-    - parameter animated:  Pass true to animate the presentation.
-    - parameter item:      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
-    - parameter superview: A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-    */
+     Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
+     
+     - parameter animated:  Pass true to animate the presentation.
+     - parameter item:      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
+     - parameter superview: A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+     */
     public func show(animated animated: Bool = true, forItem item: UIBarItem, withinSuperView superview: UIView? = nil) {
         if let view = item.view {
             show(animated: animated, forView: view, withinSuperview: superview)
@@ -220,7 +220,7 @@ public class EasyTipView: UIView {
     }
     
     override public var description: String {
-
+        
         let type = "'\(String(reflecting: self.dynamicType))'".componentsSeparatedByString(".").last!
         
         return "<< \(type) with text : '\(self.text)' >>"
@@ -361,6 +361,11 @@ public class EasyTipView: UIView {
             for value in ArrowPosition.allValues where value != position {
                 let newFrame = computeFrame(arrowPosition: value, refViewFrame: refViewFrame, superviewFrame: superview.frame)
                 if isFrameValid(newFrame, forRefViewFrame: refViewFrame, withinSuperviewFrame: superview.frame) {
+                    
+                    if position != .Any {
+                        print("[EasyTipView - Info] The arrow position you chose <\(position)> could not be applied. Instead, position <\(value)> has been applied! Please specify position <\(ArrowPosition.Any)> if you want EasyTipView to choose a position for you.")
+                    }
+                    
                     frame = newFrame
                     position = value
                     preferences.drawing.arrowPosition = value
@@ -409,7 +414,7 @@ public class EasyTipView: UIView {
         let contourPath = CGPathCreateMutable()
         
         CGPathMoveToPoint(contourPath, nil, arrowTip.x, arrowTip.y)
-
+        
         switch arrowPosition {
         case .Bottom, .Top, .Any:
             
