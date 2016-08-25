@@ -428,13 +428,13 @@ public class EasyTipView: UIView {
             
         case .Right, .Left:
             
-            CGPathAddLineToPoint(contourPath, nil, arrowTip.x + (arrowPosition == .Right ? -1 : 1) * arrowWidth, arrowTip.y - arrowHeight / 2)
+            CGPathAddLineToPoint(contourPath, nil, arrowTip.x + (arrowPosition == .Right ? -1 : 1) * arrowHeight, arrowTip.y - arrowWidth / 2)
             if arrowPosition == .Right {
                 drawBubbleRightShape(bubbleFrame, cornerRadius: cornerRadius, path: contourPath)
             } else {
                 drawBubbleLeftShape(bubbleFrame, cornerRadius: cornerRadius, path: contourPath)
             }
-            CGPathAddLineToPoint(contourPath, nil, arrowTip.x + (arrowPosition == .Right ? -1 : 1) * arrowWidth, arrowTip.y + arrowHeight / 2)
+            CGPathAddLineToPoint(contourPath, nil, arrowTip.x + (arrowPosition == .Right ? -1 : 1) * arrowHeight, arrowTip.y + arrowWidth / 2)
         }
         
         CGPathCloseSubpath(contourPath)
@@ -518,10 +518,10 @@ public class EasyTipView: UIView {
             
         case .Left, .Right:
             
-            bubbleWidth = contentSize.width - 2 * preferences.positioning.bubbleHInset - preferences.drawing.arrowWidth
+            bubbleWidth = contentSize.width - 2 * preferences.positioning.bubbleHInset - preferences.drawing.arrowHeight
             bubbleHeight = contentSize.height - 2 * preferences.positioning.bubbleVInset
             
-            bubbleXOrigin = arrowPosition == .Right ? preferences.positioning.bubbleHInset : preferences.positioning.bubbleHInset + preferences.drawing.arrowWidth
+            bubbleXOrigin = arrowPosition == .Right ? preferences.positioning.bubbleHInset : preferences.positioning.bubbleHInset + preferences.drawing.arrowHeight
             bubbleYOrigin = preferences.positioning.bubbleVInset
             
         }
