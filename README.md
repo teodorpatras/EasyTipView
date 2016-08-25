@@ -149,7 +149,7 @@ In order to customise the `EasyTipView` appearance and behaviour, you can play w
 |`arrowWidth`| The width of the above mentioned arrow.|
 |`foregroundColor`| The text color.|
 |`backgroundColor`| The background color of the bubble.|
-|`arrowPosition`| The position of the arrow. This can be: <br /> **+** `.Top`: on top of the bubble <br /> **+** `.Bottom`: at the bottom of the bubble.<br /> **+** `.Left`: on the left of the bubble <br /> **+** `.Right`: on the right of the bubble <br />**If the passed in arrow cannot be applied due to layout restrictions, a different arrow position will be automatically assigned.**|
+|`arrowPosition`| The position of the arrow. This can be: <br /> **+** `.Top`: on top of the bubble <br /> **+** `.Bottom`: at the bottom of the bubble.<br /> **+** `.Left`: on the left of the bubble <br /> **+** `.Right`: on the right of the bubble <br /> **+** `.Any`: use this option to let the `EasyTipView` automatically find the best arrow position. <br />**If the passed in arrow cannot be applied due to layout restrictions, a different arrow position will be automatically assigned.**|
 |`textAlignment`| The alignment of the text.|
 |`borderWidth`| Width of the optional border to be applied on the bubble.|
 |`borderColor`| Color of the optional border to be applied on the bubble. **In order for the border to be applied, `borderColor` needs to be different that `UIColor.clearColor()` and `borderWidth` > 0**|
