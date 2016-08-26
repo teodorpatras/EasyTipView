@@ -127,14 +127,15 @@ public extension EasyTipView {
     /**
      Dismisses the EasyTipView
      
-     - parameter completion: Completion block to be executed after the EasyTipView is dismissed.
+     - parameter afterDelay: Delay to be applied before dismissing. Defaults to zero.
+     - parameter completion: Completion block to be executed after the EasyTipView is dismissed. Defaults to nil.
      */
-    public func dismiss(withCompletion completion: (() -> ())? = nil){
+    public func dismiss(afterDelay delay: Double = 0, withCompletion completion: (() -> ())? = nil){
         
         let damping = preferences.animating.springDamping
         let velocity = preferences.animating.springVelocity
         
-        UIView.animateWithDuration(preferences.animating.dismissDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: UIViewAnimationOptions.CurveEaseInOut, animations: { _ in
+        UIView.animateWithDuration(preferences.animating.dismissDuration, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: UIViewAnimationOptions.CurveEaseInOut, animations: { _ in
             self.transform = self.preferences.animating.dismissTransform
             self.alpha = self.preferences.animating.dismissFinalAlpha
         }) { (finished) -> Void in
