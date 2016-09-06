@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GeS-P3-dnS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GeS-P3-dnS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -22,10 +22,10 @@
             </objects>
             <point key="canvasLocation" x="1197" y="-264"/>
         </scene>
-        <!--EasyTipView Demo-->
+        <!--EasyTipView - Demo-->
         <scene sceneID="ST1-u6-G92">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="7mQ-RG-Clx" customClass="ViewController" customModule="EasyTipView_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="7mQ-RG-Clx" customClass="ViewController" customModule="EasyTipView_Example_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eSl-wY-dJ4"/>
                         <viewControllerLayoutGuide type="bottom" id="GeN-sW-a1D"/>
@@ -41,10 +41,15 @@
                                     <constraint firstAttribute="width" constant="46" id="K7q-Mt-Bob"/>
                                     <constraint firstAttribute="height" constant="30" id="Ub3-Zp-1FX"/>
                                 </constraints>
-                                <state key="normal" title="B">
+                                <state key="normal" title="↓">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="buttonAction:" destination="7mQ-RG-Clx" eventType="touchUpInside" id="eci-H5-uqB"/>
                                 </connections>
@@ -56,25 +61,35 @@
                                     <constraint firstAttribute="width" constant="46" id="Ptw-NU-dCc"/>
                                     <constraint firstAttribute="height" constant="30" id="u2i-lP-xPT"/>
                                 </constraints>
-                                <state key="normal" title="C">
+                                <state key="normal" title="↑">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="buttonAction:" destination="7mQ-RG-Clx" eventType="touchUpInside" id="JL5-nh-gqw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdK-KQ-BEN">
-                                <rect key="frame" x="16" y="84" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdK-KQ-BEN">
+                                <rect key="frame" x="20" y="84" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.72958096589999999" green="0.24329157630000001" blue="0.31989725229999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="QD1-M2-j1d"/>
                                     <constraint firstAttribute="width" constant="46" id="fNt-FH-NVx"/>
                                 </constraints>
-                                <state key="normal" title="D">
+                                <state key="normal" title="↑">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="buttonAction:" destination="7mQ-RG-Clx" eventType="touchUpInside" id="YDA-w3-uZr"/>
                                 </connections>
@@ -83,7 +98,7 @@
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="krt-iC-GgA"/>
-                                    <barButtonItem title="Taaap!" id="L9z-Ee-Hcj">
+                                    <barButtonItem title="↑" id="L9z-Ee-Hcj">
                                         <connections>
                                             <action selector="toolbarItemAction" destination="7mQ-RG-Clx" id="cJ4-jr-HTl"/>
                                         </connections>
@@ -97,10 +112,15 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69R-BC-43x">
                                         <rect key="frame" x="200" y="8" width="46" height="30"/>
                                         <color key="backgroundColor" red="0.85868450129999996" green="0.85868450129999996" blue="0.85868450129999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="A">
+                                        <state key="normal" title="↓">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="buttonAction:" destination="7mQ-RG-Clx" eventType="touchUpInside" id="4Pv-NR-TmZ"/>
                                         </connections>
@@ -111,25 +131,74 @@
                                     <constraint firstAttribute="width" constant="254" id="gaC-By-938"/>
                                     <constraint firstAttribute="height" constant="150" id="sBm-wb-wC1"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t2B-Ub-hJ7">
+                                <rect key="frame" x="227" y="151" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.20999990459177764" green="0.64271100905717482" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Huo-8Y-VFk"/>
+                                    <constraint firstAttribute="width" constant="46" id="bpW-qX-mX4"/>
+                                </constraints>
+                                <state key="normal" title="→">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="buttonAction:" destination="7mQ-RG-Clx" eventType="touchUpInside" id="cgo-w6-Ith"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCx-tc-eXO">
+                                <rect key="frame" x="553" y="84" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7hJ-Jh-uYQ"/>
+                                    <constraint firstAttribute="width" constant="46" id="Qge-hN-HK4"/>
+                                </constraints>
+                                <state key="normal" title="←">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="buttonAction:" destination="7mQ-RG-Clx" eventType="touchUpInside" id="tUL-JL-rFs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="NUT-CX-WGP" secondAttribute="centerX" id="3SF-Zw-Z6w"/>
+                            <constraint firstItem="NUT-CX-WGP" firstAttribute="top" secondItem="t2B-Ub-hJ7" secondAttribute="bottom" constant="44" id="5FU-af-GSg"/>
                             <constraint firstItem="jYe-y0-pin" firstAttribute="leading" secondItem="K9k-ME-Y4A" secondAttribute="leading" id="7T3-iy-tpA"/>
                             <constraint firstItem="jYe-y0-pin" firstAttribute="top" secondItem="rxZ-Qh-gs3" secondAttribute="bottom" constant="25" id="KYr-qo-UVX"/>
                             <constraint firstItem="JdK-KQ-BEN" firstAttribute="top" secondItem="eSl-wY-dJ4" secondAttribute="bottom" constant="20" id="LNg-8b-fCT"/>
                             <constraint firstAttribute="trailing" secondItem="hWU-jR-9Ec" secondAttribute="trailing" constant="16" id="Ssy-Od-Vns"/>
+                            <constraint firstAttribute="trailing" secondItem="lCx-tc-eXO" secondAttribute="trailing" constant="1" id="TIf-ok-bgI"/>
                             <constraint firstItem="rxZ-Qh-gs3" firstAttribute="leading" secondItem="K9k-ME-Y4A" secondAttribute="leading" constant="16" id="Vbi-6g-5bg"/>
+                            <constraint firstItem="t2B-Ub-hJ7" firstAttribute="centerX" secondItem="K9k-ME-Y4A" secondAttribute="centerX" constant="-50" id="Y8b-qI-fJJ"/>
                             <constraint firstItem="GeN-sW-a1D" firstAttribute="top" secondItem="jYe-y0-pin" secondAttribute="bottom" id="ZE3-ML-rjS"/>
+                            <constraint firstItem="lCx-tc-eXO" firstAttribute="top" secondItem="eSl-wY-dJ4" secondAttribute="bottom" constant="20" id="dKF-Q1-pt8"/>
                             <constraint firstItem="jYe-y0-pin" firstAttribute="top" secondItem="hWU-jR-9Ec" secondAttribute="bottom" constant="25" id="eb5-de-OnU"/>
                             <constraint firstAttribute="trailing" secondItem="jYe-y0-pin" secondAttribute="trailing" id="jz0-h5-eWe"/>
                             <constraint firstAttribute="centerY" secondItem="NUT-CX-WGP" secondAttribute="centerY" id="p7a-iN-6vS"/>
                             <constraint firstItem="JdK-KQ-BEN" firstAttribute="leading" secondItem="K9k-ME-Y4A" secondAttribute="leadingMargin" id="xZL-MK-bZb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="EasyTipView Demo" id="gPI-yp-aVH">
-                        <barButtonItem key="rightBarButtonItem" title="Tap!" id="HcR-vd-SJ7">
+                    <navigationItem key="navigationItem" title="EasyTipView - Demo" id="gPI-yp-aVH">
+                        <barButtonItem key="rightBarButtonItem" title="↓" id="HcR-vd-SJ7">
                             <connections>
                                 <action selector="barButtonAction:" destination="7mQ-RG-Clx" id="vhI-T9-db6"/>
                             </connections>
@@ -140,6 +209,8 @@
                         <outlet property="buttonB" destination="hWU-jR-9Ec" id="ORa-Rr-DV3"/>
                         <outlet property="buttonC" destination="rxZ-Qh-gs3" id="UVp-kh-5oO"/>
                         <outlet property="buttonD" destination="JdK-KQ-BEN" id="ZVC-2M-0Zi"/>
+                        <outlet property="buttonE" destination="lCx-tc-eXO" id="Gyl-pL-7Dw"/>
+                        <outlet property="buttonF" destination="t2B-Ub-hJ7" id="Uzp-Qd-E26"/>
                         <outlet property="navBarItem" destination="HcR-vd-SJ7" id="PXK-2J-bNl"/>
                         <outlet property="smallContainerView" destination="NUT-CX-WGP" id="AO3-b9-Iky"/>
                         <outlet property="toolbarItem" destination="L9z-Ee-Hcj" id="cow-BG-IkN"/>

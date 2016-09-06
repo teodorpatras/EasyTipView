@@ -34,7 +34,10 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     @IBOutlet weak var buttonB: UIButton!
     @IBOutlet weak var buttonC: UIButton!
     @IBOutlet weak var buttonD: UIButton!
+    @IBOutlet weak var buttonE: UIButton!
+    @IBOutlet weak var buttonF: UIButton!
     
+    weak var tipView: EasyTipView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +49,6 @@ class ViewController: UIViewController, EasyTipViewDelegate {
         preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
         preferences.drawing.foregroundColor = UIColor.whiteColor()
         preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
-        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Top
         
         EasyTipView.globalPreferences = preferences
     }
@@ -61,14 +63,24 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     }
     
     @IBAction func barButtonAction(sender: UIBarButtonItem) {
+        let text = "Tip view for bar button item displayed within the navigation controller's view. Tap to dismiss."
         EasyTipView.show(forItem: self.navBarItem,
             withinSuperview: self.navigationController?.view,
-            text: "Tip view for bar button item displayed within the navigation controller's view. Tap to dismiss.",
+            text: text,
             delegate : self)
     }
     
     @IBAction func toolbarItemAction() {
-        EasyTipView.show(forItem: self.toolbarItem, text: "EasyTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips.")
+        if let tipView = tipView {
+            tipView.dismiss(withCompletion: { 
+                print("Completion called!")
+            })
+        } else {
+            let text = "EasyTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips."
+            let tip = EasyTipView(text: text, delegate: self)
+            tip.show(forItem: toolbarItem)
+            tipView = tip
+        }
     }
     
     @IBAction func buttonAction(sender : UIButton) {
@@ -101,10 +113,12 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.animating.showInitialAlpha = 0
             preferences.animating.showDuration = 1
             preferences.animating.dismissDuration = 1
+            preferences.drawing.arrowPosition = .Top
             
+            let text = "Tip view inside the navigation controller's view. Tap to dismiss!"
             EasyTipView.show(forView: self.buttonB,
                 withinSuperview: self.navigationController?.view,
-                text: "Tip view inside the navigation controller's view. Tap to dismiss!",
+                text: text,
                 preferences: preferences)
             
         case buttonC:
@@ -117,18 +131,63 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.animating.showInitialAlpha = 0
             preferences.animating.showDuration = 1.5
             preferences.animating.dismissDuration = 1.5
+            preferences.drawing.arrowPosition = .Top
             
-            EasyTipView.show(forView: self.buttonC,
-                withinSuperview: self.navigationController?.view,
-                text: "This tip view cannot be presented with the arrow on the top position, so position bottom has been chosen instead. Tap to dismiss.",
+            let text = "This tip view cannot be presented with the arrow on the top position, so position bottom has been chosen instead. Tap to dismiss."
+            EasyTipView.show(forView: buttonC,
+                withinSuperview: navigationController?.view,
+                text: text,
                 preferences: preferences)
+            
+        case buttonE:
+            
+            var preferences = EasyTipView.Preferences()
+            preferences.drawing.backgroundColor = buttonE.backgroundColor!
+            preferences.drawing.foregroundColor = UIColor.whiteColor()
+            preferences.drawing.textAlignment = NSTextAlignment.Center
+            
+            preferences.drawing.arrowPosition = .Right
+            
+            preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(0, 100)
+            preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(0, -100)
+            preferences.animating.showInitialAlpha = 0
+            preferences.animating.showDuration = 1
+            preferences.animating.dismissDuration = 1
+            
+            preferences.positioning.maxWidth = 150
+            
+            let view = EasyTipView(text: "Tip view positioned with the arrow on the right. Tap to dismiss.", preferences: preferences)
+            view.show(forView: buttonE, withinSuperview: self.navigationController?.view!)
+            
+        case buttonF:
+            
+            var preferences = EasyTipView.Preferences()
+            preferences.drawing.backgroundColor = buttonF.backgroundColor!
+            preferences.drawing.foregroundColor = UIColor.whiteColor()
+            preferences.drawing.textAlignment = NSTextAlignment.Center
+            
+            preferences.drawing.arrowPosition = .Left
+            
+            preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(-30, -100)
+            preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(30, 100)
+            preferences.animating.showInitialAlpha = 0
+            preferences.animating.showDuration = 1
+            preferences.animating.dismissDuration = 1
+            
+            preferences.positioning.maxWidth = 150
+            
+            let view = EasyTipView(text: "Tip view positioned with the arrow on the left. Tap to dismiss.", preferences: preferences)
+            view.show(forView: buttonF, withinSuperview: self.navigationController?.view!)
             
         default:
             
             var preferences = EasyTipView.globalPreferences
-            preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Bottom
+            preferences.drawing.arrowPosition = .Bottom
             preferences.drawing.font = UIFont.systemFontOfSize(14)
+            preferences.drawing.textAlignment = .Center
             preferences.drawing.backgroundColor = buttonD.backgroundColor!
+            
+            preferences.positioning.maxWidth = 130
             
             preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(100, 0)
             preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(100, 0)
