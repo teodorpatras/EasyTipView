@@ -356,12 +356,19 @@ public class EasyTipView: UIView {
         
         let refViewFrame = presentingView!.convertRect(presentingView!.bounds, toView: superview);
         
-        var frame = computeFrame(arrowPosition: position, refViewFrame: refViewFrame, superviewFrame: superview.frame)
+        let superviewFrame: CGRect
+        if let scrollview = superview as? UIScrollView {
+          superviewFrame = CGRect(origin: scrollview.frame.origin, size: scrollview.contentSize)
+        } else {
+          superviewFrame = superview.frame
+        }
         
-        if !isFrameValid(frame, forRefViewFrame: refViewFrame, withinSuperviewFrame: superview.frame) {
+        var frame = computeFrame(arrowPosition: position, refViewFrame: refViewFrame, superviewFrame: superviewFrame)
+        
+        if !isFrameValid(frame, forRefViewFrame: refViewFrame, withinSuperviewFrame: superviewFrame) {
             for value in ArrowPosition.allValues where value != position {
-                let newFrame = computeFrame(arrowPosition: value, refViewFrame: refViewFrame, superviewFrame: superview.frame)
-                if isFrameValid(newFrame, forRefViewFrame: refViewFrame, withinSuperviewFrame: superview.frame) {
+                let newFrame = computeFrame(arrowPosition: value, refViewFrame: refViewFrame, superviewFrame: superviewFrame)
+                if isFrameValid(newFrame, forRefViewFrame: refViewFrame, withinSuperviewFrame: superviewFrame) {
                     
                     if position != .Any {
                         print("[EasyTipView - Info] The arrow position you chose <\(position)> could not be applied. Instead, position <\(value)> has been applied! Please specify position <\(ArrowPosition.Any)> if you want EasyTipView to choose a position for you.")
