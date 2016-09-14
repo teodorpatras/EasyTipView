@@ -353,7 +353,8 @@ public class EasyTipView: UIView {
     private func arrange(withinSuperview superview: UIView) {
         
         var position = preferences.drawing.arrowPosition
-        let refViewFrame = CGRect(origin: presentingView!.originWithinDistantSuperView(superview), size: presentingView!.frame.size)
+        
+        let refViewFrame = presentingView!.convertRect(presentingView!.bounds, toView: superview);
         
         var frame = computeFrame(arrowPosition: position, refViewFrame: refViewFrame, superviewFrame: superview.frame)
         

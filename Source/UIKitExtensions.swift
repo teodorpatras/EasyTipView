@@ -23,20 +23,11 @@ extension UIBarItem {
 
 extension UIView {
     
-    func originWithinDistantSuperView(superview: UIView?) -> CGPoint
-    {
-        if self.superview != nil {
-            return viewOriginInSuperview(self.superview!, subviewOrigin: self.frame.origin, refSuperview : superview)
-        }else{
-            return self.frame.origin
-        }
-    }
-    
-    func hasSuperview (superview: UIView) -> Bool{
+    func hasSuperview(superview: UIView) -> Bool{
         return viewHasSuperview(self, superview: superview)
     }
     
-    private func viewHasSuperview (view: UIView, superview: UIView) -> Bool {
+    private func viewHasSuperview(view: UIView, superview: UIView) -> Bool {
         if let sview = view.superview {
             if sview === superview {
                 return true
@@ -45,23 +36,6 @@ extension UIView {
             }
         }else{
             return false
-        }
-    }
-    
-    private func viewOriginInSuperview(sview: UIView, subviewOrigin sorigin: CGPoint, refSuperview: UIView?) -> CGPoint {
-        
-        if let superview = sview.superview {
-            if let ref = refSuperview {
-                if sview === ref {
-                    return sorigin
-                }else{
-                    return viewOriginInSuperview(superview, subviewOrigin: CGPointMake(sview.frame.origin.x + sorigin.x, sview.frame.origin.y + sorigin.y), refSuperview: ref)
-                }
-            }else{
-                return viewOriginInSuperview(superview, subviewOrigin: CGPointMake(sview.frame.origin.x + sorigin.x, sview.frame.origin.y + sorigin.y), refSuperview: nil)
-            }
-        }else{
-            return CGPointMake(sview.frame.origin.x + sorigin.x, sview.frame.origin.y + sorigin.y)
         }
     }
 }

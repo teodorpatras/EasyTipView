@@ -51,6 +51,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
         preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
         
         EasyTipView.globalPreferences = preferences
+        self.view.backgroundColor = UIColor(hue:0.75, saturation:0.01, brightness:0.96, alpha:1.00)
     }
     
     override func viewDidAppear(animated: Bool) {
