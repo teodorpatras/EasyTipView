@@ -18,5 +18,5 @@ before_deploy:
   - carthage archive $FRAMEWORK_NAME
 script:
 - set -o pipefail
-- xcodebuild test -workspace $WORKSPACE -scheme $SCHEME -sdk $SDK ONLY_ACTIVE_ARCH=NO | xcpretty -c
+- xcodebuild -scheme 'EasyTipView' -project EasyTipView.xcodeproj -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.0' build test
 - pod lib lint --quick
