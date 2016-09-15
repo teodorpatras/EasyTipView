@@ -11,9 +11,10 @@ Description
 
 ```EasyTipView``` is a fully customisable tooltip view written in Swift that can be used as a call to action or informative tip.
 
-<img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/easytipview.gif" width="320">
+|<img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/easytipview.gif" width="320">|<img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/static.png" width="320">|
+|----------|-------------|------|
 
-# Table of Contents
+# Contents
 1. [Features](#features)
 3. [Installation](#installation)
 4. [Supported OS & SDK versions](#supported-versions)
@@ -27,7 +28,8 @@ Description
 
 ##<a name="features"> Features </a>
 
-- [x] Can be shown on top of or below any ``UIBarItem`` or ``UIView`` subclass.
+- [x] Can be shown pointing to any ``UIBarItem`` or ``UIView`` subclass.
+- [x] support for any arrow direction `←, →, ↑, ↓`
 - [x] Automatic orientation change adjustments.
 - [x] Fully customisable appearance.
 - [x] Fully customisable presentation and dismissal animations.
@@ -53,7 +55,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'EasyTipView', '~> 0.1.3'
+pod 'EasyTipView', '~> 1.0.0'
 ```
 
 Then, run the following command:
@@ -147,7 +149,7 @@ In order to customise the `EasyTipView` appearance and behaviour, you can play w
 |`arrowWidth`| The width of the above mentioned arrow.|
 |`foregroundColor`| The text color.|
 |`backgroundColor`| The background color of the bubble.|
-|`arrowPosition`| The position of the arrow. This can be: <br /> **+** `.Top`: on top of the bubble `UIStatusBarAnimation.Slide` animation<br /> **+** `.Bottom`: at the bottom of the bubble.<br />**If the passed in arrow cannot be applied due to layout restrictions, a different arrow position will be automatically assigned.**|
+|`arrowPosition`| The position of the arrow. This can be: <br /> **+** `.Top`: on top of the bubble <br /> **+** `.Bottom`: at the bottom of the bubble.<br /> **+** `.Left`: on the left of the bubble <br /> **+** `.Right`: on the right of the bubble <br /> **+** `.Any`: use this option to let the `EasyTipView` automatically find the best arrow position. <br />**If the passed in arrow cannot be applied due to layout restrictions, a different arrow position will be automatically assigned.**|
 |`textAlignment`| The alignment of the text.|
 |`borderWidth`| Width of the optional border to be applied on the bubble.|
 |`borderColor`| Color of the optional border to be applied on the bubble. **In order for the border to be applied, `borderColor` needs to be different that `UIColor.clearColor()` and `borderWidth` > 0**|
@@ -190,7 +192,7 @@ This produces the following animations:
 <br><br><img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/animation.gif" width="200">
 
 For more animations, checkout the example project.
-*Once you configured the animations, a good idea would be to __make these preferences public__, for all future instances of `EasyTipView` by assigning it to ```EasyTipView.globalPreferences```.*
+*Once you configured the animations, a good idea would be to __make these preferences global__, for all future instances of `EasyTipView` by assigning it to ```EasyTipView.globalPreferences```.*
 
 
 <a name="public-interface"> Public interface </a>
