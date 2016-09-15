@@ -55,7 +55,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'EasyTipView', '~> 1.0.1'
+pod 'EasyTipView', '~> 1.0.2'
 ```
 
 Then, run the following command:
@@ -149,10 +149,10 @@ In order to customise the `EasyTipView` appearance and behaviour, you can play w
 |`arrowWidth`| The width of the above mentioned arrow.|
 |`foregroundColor`| The text color.|
 |`backgroundColor`| The background color of the bubble.|
-|`arrowPosition`| The position of the arrow. This can be: <br /> **+** `.Top`: on top of the bubble <br /> **+** `.Bottom`: at the bottom of the bubble.<br /> **+** `.Left`: on the left of the bubble <br /> **+** `.Right`: on the right of the bubble <br /> **+** `.Any`: use this option to let the `EasyTipView` automatically find the best arrow position. <br />**If the passed in arrow cannot be applied due to layout restrictions, a different arrow position will be automatically assigned.**|
+|`arrowPosition`| The position of the arrow. This can be: <br /> **+** `.top`: on top of the bubble <br /> **+** `.bottom`: at the bottom of the bubble.<br /> **+** `.left`: on the left of the bubble <br /> **+** `.right`: on the right of the bubble <br /> **+** `.any`: use this option to let the `EasyTipView` automatically find the best arrow position. <br />**If the passed in arrow cannot be applied due to layout restrictions, a different arrow position will be automatically assigned.**|
 |`textAlignment`| The alignment of the text.|
 |`borderWidth`| Width of the optional border to be applied on the bubble.|
-|`borderColor`| Color of the optional border to be applied on the bubble. **In order for the border to be applied, `borderColor` needs to be different that `UIColor.clearColor()` and `borderWidth` > 0**|
+|`borderColor`| Color of the optional border to be applied on the bubble. **In order for the border to be applied, `borderColor` needs to be different that `UIColor.clear` and `borderWidth` > 0**|
 |`font`| Font to be applied on the text. |
 
 | `Positioning ` attribute   |      Description      |
@@ -181,8 +181,8 @@ In order to customise the `EasyTipView` appearance and behaviour, you can play w
 The default animations for showing or dismissing are scale up and down. If you want to change the default behaviour, you need to change the attributes of the ``animating`` property within the preferences. An example could be:
 
 ```swift
-preferences.animating.dismissTransform = CGAffineTransformMakeTranslation(0, -15)
-preferences.animating.showInitialTransform = CGAffineTransformMakeTranslation(0, -15)
+preferences.animating.dismissTransform = CGAffineTransform(translationX: 0, y: -15)
+preferences.animating.showInitialTransform = CGAffineTransform(translationX: 0, y: -15)
 preferences.animating.showInitialAlpha = 0
 preferences.animating.showDuration = 1.5
 preferences.animating.dismissDuration = 1.5
@@ -204,65 +204,61 @@ For more animations, checkout the example project.
 ```swift
 
 public protocol EasyTipViewDelegate {
-    func easyTipViewDidDismiss(tipView : EasyTipView)
+    func easyTipViewDidDismiss(_ tipView : EasyTipView)
 }
 ```
 
 ###Public methods
 
 ```swift
-// MARK:- Class methods -
+/**
+ Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
 
-    /**
-    Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
+ - parameter animated:    Pass true to animate the presentation.
+ - parameter item:        The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
+ - parameter superview:   A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+ - parameter text:        The text to be displayed.
+ - parameter preferences: The preferences which will configure the EasyTipView.
+ - parameter delegate:    The delegate.
+*/
+public class func show(animated: Bool = true, forItem item: UIBarItem, withinSuperview superview: UIView? = nil, text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil)
+    
+ /**
+ Presents an EasyTipView pointing to a particular UIView instance within the specified superview
+     
+ - parameter animated:    Pass true to animate the presentation.
+ - parameter view:        The UIView instance which the EasyTipView will be pointing to.
+ - parameter superview:   A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+ - parameter text:        The text to be displayed.
+ - parameter preferences: The preferences which will configure the EasyTipView.
+ - parameter delegate:    The delegate.
+*/
+public class func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil, text:  String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil)
+    
+/**
+ Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
+     
+ - parameter animated:  Pass true to animate the presentation.
+ - parameter item:      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
+ - parameter superview: A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+*/
+public func show(animated: Bool = true, forItem item: UIBarItem, withinSuperView superview: UIView? = nil)
+    
+/**
+ Presents an EasyTipView pointing to a particular UIView instance within the specified superview
+     
+ - parameter animated:  Pass true to animate the presentation.
+ - parameter view:      The UIView instance which the EasyTipView will be pointing to.
+ - parameter superview: A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+*/
+public func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil)
 
-    - parameter animated:    Pass true to animate the presentation.
-    - parameter item:        The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
-    - parameter superview:   A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-    - parameter text:        The text to be displayed.
-    - parameter preferences: The preferences which will configure the EasyTipView.
-    - parameter delegate:    The delegate.
-    */
-    public class func show(animated animated : Bool = true, forItem item : UIBarItem, withinSuperview superview : UIView? = nil, text : String, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil)
-
-    /**
-     Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-
-     - parameter animated:    Pass true to animate the presentation.
-     - parameter view:        The UIView instance which the EasyTipView will be pointing to.
-     - parameter superview:   A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-     - parameter text:        The text to be displayed.
-     - parameter preferences: The preferences which will configure the EasyTipView.
-     - parameter delegate:    The delegate.
-    */
-    public class func show(animated animated : Bool = true, forView view : UIView, withinSuperview superview : UIView? = nil, text :  String, preferences: Preferences = EasyTipView.globalPreferences, delegate : EasyTipViewDelegate? = nil)
-
-    // MARK:- Instance methods -
-
-    /**
-    Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
-
-    - parameter animated:  Pass true to animate the presentation.
-    - parameter item:      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
-    - parameter superview: A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-    */
-    public func show(animated animated : Bool = true, forItem item : UIBarItem, withinSuperView superview : UIView? = nil)
-
-    /**
-     Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-
-     - parameter animated:  Pass true to animate the presentation.
-     - parameter view:      The UIView instance which the EasyTipView will be pointing to.
-     - parameter superview: A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-     */
-    public func show(animated animated : Bool = true, forView view : UIView, withinSuperview superview : UIView? = nil)
-
-    /**
-     Dismisses the EasyTipView
-
-     - parameter completion: Completion block to be executed after the EasyTipView is dismissed.
-     */
-    public func dismiss(withCompletion completion : (() -> ())? = nil)
+/**
+ Dismisses the EasyTipView
+     
+ - parameter completion: Completion block to be executed after the EasyTipView is dismissed.
+*/
+public func dismiss(withCompletion completion: (() -> ())? = nil)
 ```
 
 <a name="license"> License </a>

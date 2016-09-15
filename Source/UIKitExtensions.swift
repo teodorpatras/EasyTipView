@@ -15,7 +15,7 @@ extension UIBarItem {
         if let item = self as? UIBarButtonItem, let customView = item.customView {
             return customView
         }
-        return self.valueForKey("view") as? UIView
+        return self.value(forKey: "view") as? UIView
     }
 }
 
@@ -23,11 +23,11 @@ extension UIBarItem {
 
 extension UIView {
     
-    func hasSuperview(superview: UIView) -> Bool{
+    func hasSuperview(_ superview: UIView) -> Bool{
         return viewHasSuperview(self, superview: superview)
     }
     
-    private func viewHasSuperview(view: UIView, superview: UIView) -> Bool {
+    fileprivate func viewHasSuperview(_ view: UIView, superview: UIView) -> Bool {
         if let sview = view.superview {
             if sview === superview {
                 return true
@@ -61,36 +61,36 @@ extension CGRect {
             self.origin.y = newValue
         }
     }
+//
+//    var width: CGFloat {
+//        get {
+//         return self.size.width
+//        }
+//        
+//        set {
+//            self.size.width = newValue
+//        }
+//    }
+//    
+//    var height: CGFloat {
+//        get {
+//            return self.size.height
+//        }
+//        
+//        set{
+//            self.size.height = newValue
+//        }
+//    }
     
-    var width: CGFloat {
-        get {
-         return self.size.width
-        }
-        
-        set {
-            self.size.width = newValue
-        }
-    }
-    
-    var height: CGFloat {
-        get {
-            return self.size.height
-        }
-        
-        set{
-            self.size.height = newValue
-        }
-    }
-    
-    var maxX: CGFloat {
-        return CGRectGetMaxX(self)
-    }
-    
-    var maxY: CGFloat {
-        return CGRectGetMaxY(self)
-    }
+//    var maxX: CGFloat {
+//        return self.maxX
+//    }
+//    
+//    var maxY: CGFloat {
+//        return self.maxY
+//    }
     
     var center: CGPoint {
-        return CGPointMake(self.x + self.width / 2, self.y + self.height / 2)
+        return CGPoint(x: self.x + self.width / 2, y: self.y + self.height / 2)
     }
 }
