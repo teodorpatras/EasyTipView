@@ -3,14 +3,14 @@
 # * https://github.com/supermarin/xcpretty#usage
 
 language: objective-c
-osx_image: xcode7.3
+osx_image: xcode8
 env:
   global:
     - WORKSPACE=EasyTipView.xcworkspace
     - FRAMEWORK_NAME=EasyTipView
     - PROJECT=EasyTipView.xcodeproj
     - SCHEME=EasyTipView
-    - SDK=iphonesimulator9.3
+    - SDK=iphonesimulator10.0
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 before_deploy:
@@ -18,5 +18,5 @@ before_deploy:
   - carthage archive $FRAMEWORK_NAME
 script:
 - set -o pipefail
-- xcodebuild test -workspace $WORKSPACE -scheme $SCHEME -sdk $SDK ONLY_ACTIVE_ARCH=NO | xcpretty -c
+- xcodebuild -scheme 'EasyTipView' -project EasyTipView.xcodeproj -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.0' build test
 - pod lib lint --quick
