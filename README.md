@@ -94,7 +94,7 @@ If you prefer not to use either of the aforementioned dependency managers, you c
 <a name="supported-versions"> Supported OS & SDK Versions </a>
 -----------------------------
 
-* Supported build target - iOS 8.0 (Xcode 7.x)
+* Supported build target - iOS 8+ (Xcode 8)
 
 <a name="usage"> Usage </a>
 --------------
