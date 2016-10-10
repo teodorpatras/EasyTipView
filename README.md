@@ -22,7 +22,6 @@ Description
 5. [Usage](#usage)
 6. [Customising the appearance](#customising)
 7. [Customising the presentation and dismissal animations](#customising-animations)
-8. [Implementing custom transitions](#custom-transitions)
 9. [Public interface](#public-interface)
 10. [License](#license)
 11. [Contact](#contact)
