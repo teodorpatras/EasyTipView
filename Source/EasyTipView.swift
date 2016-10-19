@@ -140,6 +140,7 @@ public extension EasyTipView {
         }) { (finished) -> Void in
             completion?()
             self.delegate?.easyTipViewDidDismiss(self)
+            self.preferences.callbacks.dismissed?()
             self.removeFromSuperview()
             self.transform = CGAffineTransform.identity
         }
@@ -196,10 +197,16 @@ open class EasyTipView: UIView {
             public var showDuration         = 0.7
             public var dismissDuration      = 0.7
         }
+
+        public struct Callbacks {
+          public var tapped: (() -> Void)?  = nil
+          public var dismissed: (() -> Void)?  = nil
+        }
         
         public var drawing      = Drawing()
         public var positioning  = Positioning()
         public var animating    = Animating()
+        public var callbacks    = Callbacks()
         public var hasBorder : Bool {
             return drawing.borderWidth > 0 && drawing.borderColor != UIColor.clear
         }
@@ -408,6 +415,7 @@ open class EasyTipView: UIView {
     // MARK:- Callbacks -
     
     func handleTap() {
+        self.preferences.callbacks.tapped?()
         dismiss()
     }
     
