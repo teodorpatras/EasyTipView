@@ -183,6 +183,7 @@ open class EasyTipView: UIView {
             public var textHInset           = CGFloat(10)
             public var textVInset           = CGFloat(10)
             public var maxWidth             = CGFloat(200)
+            public var shouldCenterFrame    = false
         }
         
         public struct Animating {
@@ -326,7 +327,32 @@ open class EasyTipView: UIView {
         
         var frame = CGRect(x: xOrigin, y: yOrigin, width: contentSize.width, height: contentSize.height)
         adjustFrame(&frame, forSuperviewFrame: superviewFrame)
+        
+        centerFrameIfNeeded(&frame, forSuperviewFrame: superviewFrame, position: position, arrowPoint: refViewFrame.center)
+        
         return frame
+    }
+    
+    fileprivate func centerFrameIfNeeded(_ frame: inout CGRect, forSuperviewFrame superviewFrame: CGRect, position: ArrowPosition, arrowPoint: CGPoint) {
+        let xOrigin: CGFloat = arrowPoint.x
+        let yOrigin: CGFloat = arrowPoint.y
+        if preferences.positioning.shouldCenterFrame {
+            //make sure arrow still in range of frame width or height
+            switch position {
+            case .top, .bottom, .any:
+                guard superviewFrame.width > frame.width else { return }
+                let tempFrame = CGRect(x: (superviewFrame.width - frame.width) / 2, y: frame.y, width: frame.width, height: frame.height)
+                if (tempFrame.x < xOrigin - preferences.drawing.arrowWidth && tempFrame.maxX > xOrigin + preferences.drawing.arrowWidth) {
+                    frame.x = (superviewFrame.width - frame.width) / 2
+                }
+            case .left, .right:
+                guard superviewFrame.height > frame.height else { return }
+                let tempFrame = CGRect(x: frame.x, y: (superviewFrame.height - frame.height) / 2, width: frame.width, height: frame.height)
+                if (tempFrame.y < yOrigin - preferences.drawing.arrowHeight &&  tempFrame.maxY > yOrigin + preferences.drawing.arrowHeight) {
+                    frame.y = (superviewFrame.height - frame.height) / 2
+                }
+            }
+        }
     }
     
     fileprivate func adjustFrame(_ frame: inout CGRect, forSuperviewFrame superviewFrame: CGRect) {
@@ -337,7 +363,7 @@ open class EasyTipView: UIView {
         } else if frame.maxX > superviewFrame.width {
             frame.x = superviewFrame.width - frame.width
         }
-        
+       
         //adjust vertically
         if frame.y < 0 {
             frame.y = 0
