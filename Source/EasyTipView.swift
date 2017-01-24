@@ -195,12 +195,12 @@ open class EasyTipView: UIView {
             public var dismissFinalAlpha    = CGFloat(0)
             public var showDuration         = 0.7
             public var dismissDuration      = 0.7
+            public var dismissOnTap         = true
         }
         
         public var drawing      = Drawing()
         public var positioning  = Positioning()
         public var animating    = Animating()
-        public var dismissOnTap = true
         public var hasBorder : Bool {
             return drawing.borderWidth > 0 && drawing.borderColor != UIColor.clear
         }
@@ -409,7 +409,7 @@ open class EasyTipView: UIView {
     // MARK:- Callbacks -
     
     func handleTap() {
-        if preferences.dismissOnTap {
+        if preferences.animating.dismissOnTap {
             dismiss()
         }
     }
