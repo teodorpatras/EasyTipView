@@ -108,6 +108,7 @@ public extension EasyTipView {
         alpha = initialAlpha
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tap.delegate = self
         addGestureRecognizer(tap)
         
         superview.addSubview(self)
@@ -143,6 +144,15 @@ public extension EasyTipView {
             self.removeFromSuperview()
             self.transform = CGAffineTransform.identity
         }
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate implementation
+
+extension EasyTipView: UIGestureRecognizerDelegate {
+
+    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return preferences.animating.dismissOnTap
     }
 }
 
@@ -195,6 +205,7 @@ open class EasyTipView: UIView {
             public var dismissFinalAlpha    = CGFloat(0)
             public var showDuration         = 0.7
             public var dismissDuration      = 0.7
+            public var dismissOnTap         = true
         }
         
         public var drawing      = Drawing()

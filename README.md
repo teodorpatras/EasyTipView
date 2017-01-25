@@ -170,6 +170,7 @@ In order to customise the `EasyTipView` appearance and behaviour, you can play w
 |`dismissFinalAlpha`|The alpha to be applied on the tip view when it is animating off screen.|
 |`showDuration`|Show animation duration.|
 |`dismissDuration`|Dismiss animation duration.|
+|`dismissOnTap`|Prevents view from dismissing on tap if it is set to false. (Default value is true.)|
 
 <a name="customising-animations"> Customising the presentation or dismissal animations </a>
 --------------

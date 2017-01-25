@@ -174,10 +174,11 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.animating.showInitialAlpha = 0
             preferences.animating.showDuration = 1
             preferences.animating.dismissDuration = 1
+            preferences.animating.dismissOnTap = false
             
             preferences.positioning.maxWidth = 150
             
-            let view = EasyTipView(text: "Tip view positioned with the arrow on the left. Tap to dismiss.", preferences: preferences)
+            let view = EasyTipView(text: "Tip view positioned with the arrow on the left. Tap won't dismiss.", preferences: preferences)
             view.show(forView: buttonF, withinSuperview: self.navigationController?.view!)
             
         default:
