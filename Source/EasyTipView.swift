@@ -241,7 +241,9 @@ open class EasyTipView: UIView {
     fileprivate weak var delegate: EasyTipViewDelegate?
     fileprivate var arrowTip = CGPoint.zero
     fileprivate(set) open var preferences: Preferences
+    
     open let text: String
+    open let attributedText: NSAttributedString?
     
     // MARK: - Lazy variables -
     
@@ -249,9 +251,19 @@ open class EasyTipView: UIView {
         
         [unowned self] in
         
-        var attributes = [NSFontAttributeName : self.preferences.drawing.font]
+        let boundingSize=CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude)
+        var textSize: CGSize
         
-        var textSize = self.text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
+        if (self.attributedText != nil)
+        {
+            textSize = self.attributedText!.boundingRect(with: boundingSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil).size
+            
+        }
+        else
+        {
+            textSize = self.text.boundingRect(with: boundingSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName : self.preferences.drawing.font], context: nil).size;
+            
+        }
         
         textSize.width = ceil(textSize.width)
         textSize.height = ceil(textSize.height)
@@ -280,7 +292,21 @@ open class EasyTipView: UIView {
     
     public init (text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
         
+        self.attributedText=nil;
         self.text = text
+        self.preferences = preferences
+        self.delegate = delegate
+        
+        super.init(frame: CGRect.zero)
+        
+        self.backgroundColor = UIColor.clear
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    
+    public init (attributedText: NSAttributedString, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
+        
+        self.attributedText=attributedText;
+        self.text = attributedText.string
         self.preferences = preferences
         self.delegate = delegate
         
