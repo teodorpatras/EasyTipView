@@ -267,7 +267,7 @@ open class EasyTipView: UIView {
         }
         else
         {
-            textSize = self.text.boundingRect(with: boundingSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName : self.preferences.drawing.font], context: nil).size;
+            textSize = self.text.boundingRect(with: boundingSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName : self.preferences.drawing.font], context: nil).size
             
         }
         
@@ -298,7 +298,7 @@ open class EasyTipView: UIView {
     
     public init (text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
         
-        self.attributedText=nil;
+        self.attributedText=nil
         self.text = text
         self.preferences = preferences
         self.delegate = delegate
@@ -318,7 +318,7 @@ open class EasyTipView: UIView {
     
     public init (attributedText: NSAttributedString, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
         
-        self.attributedText=attributedText;
+        self.attributedText=attributedText
         self.text = attributedText.string
         self.preferences = preferences
         self.delegate = delegate
@@ -404,7 +404,7 @@ open class EasyTipView: UIView {
         
         var position = preferences.drawing.arrowPosition
         
-        let refViewFrame = presentingView!.convert(presentingView!.bounds, to: superview);
+        let refViewFrame = presentingView!.convert(presentingView!.bounds, to: superview)
         
         let superviewFrame: CGRect
         if let scrollview = superview as? UIScrollView {
