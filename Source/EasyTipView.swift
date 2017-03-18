@@ -567,7 +567,16 @@ open class EasyTipView: UIView {
         let attributes = [NSAttributedStringKey.font : preferences.drawing.font, NSAttributedStringKey.foregroundColor : preferences.drawing.foregroundColor, NSAttributedStringKey.paragraphStyle : paragraphStyle]
         #endif
         
-        text.draw(in: textRect, withAttributes: attributes)
+        if (attributedText != nil)
+        {
+            attributedText!.draw(in: textRect)
+            
+        }
+        else
+        {
+            text.draw(in: textRect, withAttributes: attributes)
+            
+        }
     }
     
     override open func draw(_ rect: CGRect) {
