@@ -149,12 +149,10 @@ public extension EasyTipView {
     /**
      Rearrange position of the EasyTipView
      
-     To be used in special cases where it may be needed (ie the superview has changed its frame)
-     
-     - parameter animated: whether to animate the possible rearrangement
+     To be used in special cases where it may be needed
     */
-    public func rearrange(animated: Bool) {
-        handleRotation(animated: animated)
+    public func rearrange() {
+        handleRotation()
     }
 }
 
@@ -315,22 +313,14 @@ open class EasyTipView: UIView {
     
     // MARK: - Rotation support -
     
-    func handleRotation(animated: Bool = true) {
+    func handleRotation() {
         guard let sview = superview
             , presentingView != nil else { return }
-        
-        let arrangeClosure = { [weak self] in
-            self?.arrange(withinSuperview: sview)
-            self?.setNeedsDisplay()
-        }
-        
-        if animated {
-            UIView.animate(withDuration: 0.3, animations: { _ in
-                arrangeClosure()
-            })
-        } else {
-            arrangeClosure()
-        }
+
+        UIView.animate(withDuration: 0.3, animations: { _ in
+            self.arrange(withinSuperview: sview)
+            self.setNeedsDisplay()
+        })
     }
     
     // MARK: - Private methods -
@@ -379,12 +369,12 @@ open class EasyTipView: UIView {
     fileprivate func isFrameValid(_ frame: CGRect, forRefViewFrame: CGRect, withinSuperviewFrame: CGRect) -> Bool {
         return !frame.intersects(forRefViewFrame)
     }
-    
+
     fileprivate func arrange(withinSuperview superview: UIView) {
         
         var position = preferences.drawing.arrowPosition
         
-        let refViewFrame = presentingView!.convert(presentingView!.bounds, to: superview);
+        let refViewFrame = presentingView!.convert(presentingView!.bounds, to: superview)
         
         let superviewFrame: CGRect
         if let scrollview = superview as? UIScrollView {
