@@ -145,6 +145,17 @@ public extension EasyTipView {
             self.transform = CGAffineTransform.identity
         }
     }
+    
+    /**
+     Rearrange position of the EasyTipView
+     
+     To be used in special cases where it may be needed (ie the superview has changed its frame)
+     
+     - parameter animated: whether to animate the possible rearrangement
+    */
+    public func rearrange(animated: Bool) {
+        handleRotation(animated: animated)
+    }
 }
 
 // MARK: - UIGestureRecognizerDelegate implementation
@@ -304,14 +315,22 @@ open class EasyTipView: UIView {
     
     // MARK: - Rotation support -
     
-    func handleRotation() {
+    func handleRotation(animated: Bool = true) {
         guard let sview = superview
             , presentingView != nil else { return }
         
-        UIView.animate(withDuration: 0.3, animations: { _ in
-            self.arrange(withinSuperview: sview)
-            self.setNeedsDisplay()
-        })
+        let arrangeClosure = { [weak self] in
+            self?.arrange(withinSuperview: sview)
+            self?.setNeedsDisplay()
+        }
+        
+        if animated {
+            UIView.animate(withDuration: 0.3, animations: { _ in
+                arrangeClosure()
+            })
+        } else {
+            arrangeClosure()
+        }
     }
     
     // MARK: - Private methods -
