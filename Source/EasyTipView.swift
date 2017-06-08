@@ -185,6 +185,7 @@ open class EasyTipView: UIView {
             public var borderWidth         = CGFloat(0)
             public var borderColor         = UIColor.clear
             public var font                = UIFont.systemFont(ofSize: 15)
+            public var lineSpacing         = CGFloat(0)
         }
         
         public struct Positioning {
@@ -249,7 +250,7 @@ open class EasyTipView: UIView {
         
         [unowned self] in
         
-        var attributes = [NSFontAttributeName : self.preferences.drawing.font]
+        var attributes:[String:Any] = [NSFontAttributeName : self.preferences.drawing.font, NSParagraphStyleAttributeName : self.paragraphStyle]
         
         var textSize = self.text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
         
@@ -270,6 +271,18 @@ open class EasyTipView: UIView {
         var contentSize = CGSize(width: self.textSize.width + self.preferences.positioning.textHInset * 2 + self.preferences.positioning.bubbleHInset * 2, height: self.textSize.height + self.preferences.positioning.textVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
         
         return contentSize
+        }()
+
+    fileprivate lazy var paragraphStyle: NSMutableParagraphStyle = {
+
+        [unowned self] in
+
+        var paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = self.preferences.drawing.textAlignment
+        paragraphStyle.lineSpacing = self.preferences.drawing.lineSpacing
+        paragraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
+
+        return paragraphStyle
         }()
     
     // MARK: - Static variables -
@@ -515,15 +528,10 @@ open class EasyTipView: UIView {
     }
     
     fileprivate func drawText(_ bubbleFrame: CGRect, context : CGContext) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = preferences.drawing.textAlignment
-        paragraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
-        
         
         let textRect = CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, width: textSize.width, height: textSize.height)
-        
-        
-        text.draw(in: textRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
+
+        text.draw(in: textRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : self.paragraphStyle])
     }
     
     override open func draw(_ rect: CGRect) {
