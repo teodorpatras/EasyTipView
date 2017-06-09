@@ -145,6 +145,16 @@ public extension EasyTipView {
             self.transform = CGAffineTransform.identity
         }
     }
+
+    override open func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        var hitView = super.hitTest(point, with: event)
+        return self.preferences.animating.captureAllTaps ? self : hitView
+    }
+
+    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        var result = super.point(inside: point, with: event)
+        return self.preferences.animating.captureAllTaps ? true : result
+    }
 }
 
 // MARK: - UIGestureRecognizerDelegate implementation
@@ -207,6 +217,7 @@ open class EasyTipView: UIView {
             public var showDuration         = 0.7
             public var dismissDuration      = 0.7
             public var dismissOnTap         = true
+            public var captureAllTaps       = false
         }
         
         public var drawing      = Drawing()
