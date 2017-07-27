@@ -27,10 +27,10 @@ public protocol EasyTipViewDelegate : class {
     func easyTipViewDidDismiss(_ tipView : EasyTipView)
 }
 
-
 // MARK: - Public methods extension
 
 public extension EasyTipView {
+    
     
     // MARK:- Class methods -
     
@@ -107,11 +107,10 @@ public extension EasyTipView {
         transform = initialTransform
         alpha = initialAlpha
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        tap.delegate = self
-        addGestureRecognizer(tap)
+        containerView.frame = superview.bounds
         
-        superview.addSubview(self)
+        containerView.addSubview(self)
+        superview.addSubview(containerView)
         
         let animations : () -> () = {
             self.transform = finalTransform
@@ -141,9 +140,19 @@ public extension EasyTipView {
         }) { (finished) -> Void in
             completion?()
             self.delegate?.easyTipViewDidDismiss(self)
-            self.removeFromSuperview()
+            
+            self.containerView.removeFromSuperview()
             self.transform = CGAffineTransform.identity
         }
+    }
+    
+}
+
+// MARK: - EasyTipContainerViewDelegate implementation
+
+extension EasyTipView: EasyTipContainerViewDelegate {
+    fileprivate func didTapContainerView(_ view: EasyTipContainerView) {
+        dismiss()
     }
 }
 
@@ -153,6 +162,25 @@ extension EasyTipView: UIGestureRecognizerDelegate {
 
     open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return preferences.animating.dismissOnTap
+    }
+}
+
+// MARK: - EasyTipContainerViewDelegate
+fileprivate protocol EasyTipContainerViewDelegate {
+    func didTapContainerView(_ view: EasyTipContainerView)
+}
+
+// MARK: - EasyTipContainerView
+
+fileprivate class EasyTipContainerView: UIView {
+    
+    var delegate: EasyTipContainerViewDelegate?
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if bounds.contains(point) {
+            delegate?.didTapContainerView(self)
+        }
+        return false
     }
 }
 
@@ -244,6 +272,12 @@ open class EasyTipView: UIView {
     open let text: String
     
     // MARK: - Lazy variables -
+    
+    fileprivate lazy var containerView: EasyTipContainerView = { this in
+        let view = EasyTipContainerView()
+        view.delegate = this
+        return view
+    }(self)
     
     fileprivate lazy var textSize: CGSize = {
         
@@ -414,12 +448,6 @@ open class EasyTipView: UIView {
             arrowTip = CGPoint(x: preferences.drawing.arrowPosition == .left ? preferences.positioning.bubbleVInset : contentSize.width - preferences.positioning.bubbleVInset, y: arrowTipXOrigin)
         }
         self.frame = frame
-    }
-    
-    // MARK:- Callbacks -
-    
-    func handleTap() {
-        dismiss()
     }
     
     // MARK:- Drawing -
