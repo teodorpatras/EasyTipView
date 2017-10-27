@@ -13,7 +13,7 @@ Description
 ```EasyTipView``` is a fully customisable tooltip view written in Swift that can be used as a call to action or informative tip.
 
 |<img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/easytipview.gif" width="320">|<img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/static.png" width="320">|
-|----------|-------------|------|
+|----------|-------------|
 
 # Contents
 1. [Features](#features)
