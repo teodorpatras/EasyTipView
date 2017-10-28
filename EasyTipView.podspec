@@ -1,5 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'EasyTipView'
+  s.module_name = 'EasyTipView'
   s.version = '1.0.2'
   s.license = 'MIT'
   s.summary = 'Elegant tooltip view written in Swift'
