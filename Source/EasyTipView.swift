@@ -166,7 +166,7 @@ public extension EasyTipView {
         let damping = preferences.animating.springDamping
         let velocity = preferences.animating.springVelocity
         
-        UIView.animate(withDuration: preferences.animating.dismissDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [.curveEaseInOut], animations: { _ in
+        UIView.animate(withDuration: preferences.animating.dismissDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [.curveEaseInOut], animations: { 
             self.transform = self.preferences.animating.dismissTransform
             self.alpha = self.preferences.animating.dismissFinalAlpha
         }) { (finished) -> Void in
@@ -263,7 +263,7 @@ open class EasyTipView: UIView {
     
     override open var description: String {
         
-        let type = "'\(String(reflecting: type(of: self)))'".components(separatedBy: ".").last!
+        let type = "'\(String(reflecting: Swift.type(of: self)))'".components(separatedBy: ".").last!
         
         return "<< \(type) with text : '\(text)' >>"
     }
@@ -279,7 +279,7 @@ open class EasyTipView: UIView {
         case text(String)
         case attributedText(NSAttributedString)
         
-        func boundingRect(with size: CGSize, maxWidth: CGFloat, options: NSStringDrawingOptions = [], attributes: [String: UIFont], context: NSStringDrawingContext?) -> CGRect {
+        func boundingRect(with size: CGSize, maxWidth: CGFloat, options: NSStringDrawingOptions = [], attributes: [NSAttributedStringKey : UIFont], context: NSStringDrawingContext?) -> CGRect {
             switch self {
             case .text(let text):
                 return text.boundingRect(
@@ -296,7 +296,7 @@ open class EasyTipView: UIView {
         func draw(in rect: CGRect, withAttributes attrs: [NSAttributedStringKey : Any]? = nil) {
             switch self {
             case .text(let text):
-                text.draw(in: rect, withAttributes: attrs as! [String : Any])
+                text.draw(in: rect, withAttributes: attrs!)
             case .attributedText(let text):
                 text.draw(in: rect)
             }
@@ -309,7 +309,7 @@ open class EasyTipView: UIView {
         
         [unowned self] in
         
-        var attributes = [NSFontAttributeName : self.preferences.drawing.font]
+        var attributes = [NSAttributedStringKey.font : self.preferences.drawing.font]
         
         var textSize = self.text.boundingRect(
             with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude),
@@ -383,11 +383,11 @@ open class EasyTipView: UIView {
     
     // MARK: - Rotation support -
     
-    func handleRotation() {
+    @objc func handleRotation() {
         guard let sview = superview
             , presentingView != nil else { return }
         
-        UIView.animate(withDuration: 0.3, animations: { _ in
+        UIView.animate(withDuration: 0.3, animations: { 
             self.arrange(withinSuperview: sview)
             self.setNeedsDisplay()
         })
@@ -497,7 +497,7 @@ open class EasyTipView: UIView {
     
     // MARK:- Callbacks -
     
-    func handleTap() {
+    @objc func handleTap() {
         dismiss()
     }
     
@@ -601,9 +601,9 @@ open class EasyTipView: UIView {
         
         let textRect = CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, width: textSize.width, height: textSize.height)
         let attributes: [NSAttributedStringKey : Any] = [
-            NSFontAttributeName as NSString : preferences.drawing.font,
-            NSForegroundColorAttributeName as NSString : preferences.drawing.foregroundColor,
-            NSParagraphStyleAttributeName as NSString : paragraphStyle
+            (NSAttributedStringKey.font as NSString) as NSAttributedStringKey : preferences.drawing.font,
+            (NSAttributedStringKey.foregroundColor as NSString) as NSAttributedStringKey : preferences.drawing.foregroundColor,
+            (NSAttributedStringKey.paragraphStyle as NSString) as NSAttributedStringKey : paragraphStyle
         ]
         text.draw(in: textRect, withAttributes: attributes)
     }
