@@ -37,6 +37,37 @@ public extension EasyTipView {
     /**
      Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
      
+     - parameter animated:          Pass true to animate the presentation.
+     - parameter item:              The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
+     - parameter superview:         A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+     - parameter attributedText:    The attributed text to be displayed.
+     - parameter preferences:       The preferences which will configure the EasyTipView.
+     - parameter delegate:          The delegate.
+     */
+    public class func show(animated: Bool = true, forItem item: UIBarItem, withinSuperview superview: UIView? = nil, attributedText:  NSAttributedString, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
+        if let view = item.view {
+            show(animated: animated, forView: view, withinSuperview: superview, attributedText: attributedText, preferences: preferences, delegate: delegate)
+        }
+    }
+    
+    /**
+     Presents an EasyTipView pointing to a particular UIView instance within the specified superview
+     
+     - parameter animated:          Pass true to animate the presentation.
+     - parameter view:              The UIView instance which the EasyTipView will be pointing to.
+     - parameter superview:         A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+     - parameter attributedText:    The attributed text to be displayed.
+     - parameter preferences:       The preferences which will configure the EasyTipView.
+     - parameter delegate:          The delegate.
+     */
+    public class func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil, attributedText:  NSAttributedString, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
+        let ev = EasyTipView(attributedText: attributedText, preferences: preferences, delegate: delegate)
+        ev.show(animated: animated, forView: view, withinSuperview: superview)
+    }
+    
+    /**
+     Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
+     
      - parameter animated:    Pass true to animate the presentation.
      - parameter item:        The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
      - parameter superview:   A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
@@ -135,7 +166,7 @@ public extension EasyTipView {
         let damping = preferences.animating.springDamping
         let velocity = preferences.animating.springVelocity
         
-        UIView.animate(withDuration: preferences.animating.dismissDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [.curveEaseInOut], animations: { _ in
+        UIView.animate(withDuration: preferences.animating.dismissDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [.curveEaseInOut], animations: { 
             self.transform = self.preferences.animating.dismissTransform
             self.alpha = self.preferences.animating.dismissFinalAlpha
         }) { (finished) -> Void in
@@ -232,7 +263,7 @@ open class EasyTipView: UIView {
     
     override open var description: String {
         
-        let type = "'\(String(reflecting: type(of: self)))'".components(separatedBy: ".").last!
+        let type = "'\(String(reflecting: Swift.type(of: self)))'".components(separatedBy: ".").last!
         
         return "<< \(type) with text : '\(text)' >>"
     }
@@ -241,7 +272,36 @@ open class EasyTipView: UIView {
     fileprivate weak var delegate: EasyTipViewDelegate?
     fileprivate var arrowTip = CGPoint.zero
     fileprivate(set) open var preferences: Preferences
-    open let text: String
+    
+    open let text: Text
+    
+    public enum Text {
+        case text(String)
+        case attributedText(NSAttributedString)
+        
+        func boundingRect(with size: CGSize, maxWidth: CGFloat, options: NSStringDrawingOptions = [], attributes: [NSAttributedStringKey : UIFont], context: NSStringDrawingContext?) -> CGRect {
+            switch self {
+            case .text(let text):
+                return text.boundingRect(
+                    with: CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude),
+                    options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                    attributes: attributes,
+                    context: context
+                )
+            case .attributedText(let text):
+                return text.boundingRect(with: size, options: options, context: context)
+            }
+        }
+        
+        func draw(in rect: CGRect, withAttributes attrs: [NSAttributedStringKey : Any]? = nil) {
+            switch self {
+            case .text(let text):
+                text.draw(in: rect, withAttributes: attrs!)
+            case .attributedText(let text):
+                text.draw(in: rect)
+            }
+        }
+    }
     
     // MARK: - Lazy variables -
     
@@ -249,9 +309,15 @@ open class EasyTipView: UIView {
         
         [unowned self] in
         
-        var attributes = [NSFontAttributeName : self.preferences.drawing.font]
+        var attributes = [NSAttributedStringKey.font : self.preferences.drawing.font]
         
-        var textSize = self.text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
+        var textSize = self.text.boundingRect(
+            with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude),
+            maxWidth: self.preferences.positioning.maxWidth,
+            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            attributes: attributes,
+            context: nil
+        ).size
         
         textSize.width = ceil(textSize.width)
         textSize.height = ceil(textSize.height)
@@ -279,14 +345,27 @@ open class EasyTipView: UIView {
     // MARK:- Initializer -
     
     public init (text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
-        
-        self.text = text
+        self.text = Text.text(text)
         self.preferences = preferences
         self.delegate = delegate
         
         super.init(frame: CGRect.zero)
         
-        self.backgroundColor = UIColor.clear
+        commonInit()
+    }
+    
+    public init(attributedText: NSAttributedString, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil) {
+        self.text = Text.attributedText(attributedText)
+        self.preferences = preferences
+        self.delegate = delegate
+        
+        super.init(frame: CGRect.zero)
+        
+        commonInit()
+    }
+    
+    private func commonInit() {
+        backgroundColor = UIColor.clear
         NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
@@ -304,11 +383,11 @@ open class EasyTipView: UIView {
     
     // MARK: - Rotation support -
     
-    func handleRotation() {
+    @objc func handleRotation() {
         guard let sview = superview
             , presentingView != nil else { return }
         
-        UIView.animate(withDuration: 0.3, animations: { _ in
+        UIView.animate(withDuration: 0.3, animations: { 
             self.arrange(withinSuperview: sview)
             self.setNeedsDisplay()
         })
@@ -418,7 +497,7 @@ open class EasyTipView: UIView {
     
     // MARK:- Callbacks -
     
-    func handleTap() {
+    @objc func handleTap() {
         dismiss()
     }
     
@@ -521,9 +600,12 @@ open class EasyTipView: UIView {
         
         
         let textRect = CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, width: textSize.width, height: textSize.height)
-        
-        
-        text.draw(in: textRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
+        let attributes: [NSAttributedStringKey : Any] = [
+            (NSAttributedStringKey.font as NSString) as NSAttributedStringKey : preferences.drawing.font,
+            (NSAttributedStringKey.foregroundColor as NSString) as NSAttributedStringKey : preferences.drawing.foregroundColor,
+            (NSAttributedStringKey.paragraphStyle as NSString) as NSAttributedStringKey : paragraphStyle
+        ]
+        text.draw(in: textRect, withAttributes: attributes)
     }
     
     override open func draw(_ rect: CGRect) {
