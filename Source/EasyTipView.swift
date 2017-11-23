@@ -120,7 +120,7 @@ public extension EasyTipView {
         
         if animated {
             UIView.animate(withDuration: preferences.animating.showDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [.curveEaseInOut], animations: animations, completion: nil)
-        }else{
+        } else{
             animations()
         }
     }
@@ -175,16 +175,20 @@ open class EasyTipView: UIView {
     public struct Preferences {
         
         public struct Drawing {
-            public var cornerRadius        = CGFloat(5)
-            public var arrowHeight         = CGFloat(5)
-            public var arrowWidth          = CGFloat(10)
-            public var foregroundColor     = UIColor.white
-            public var backgroundColor     = UIColor.red
-            public var arrowPosition       = ArrowPosition.any
-            public var textAlignment       = NSTextAlignment.center
-            public var borderWidth         = CGFloat(0)
-            public var borderColor         = UIColor.clear
-            public var font                = UIFont.systemFont(ofSize: 15)
+            public var cornerRadius         = CGFloat(5)
+            public var arrowHeight          = CGFloat(5)
+            public var arrowWidth           = CGFloat(10)
+            public var foregroundColor      = UIColor.white
+            public var backgroundColor      = UIColor.red
+            public var arrowPosition        = ArrowPosition.any
+            public var textAlignment        = NSTextAlignment.center
+            public var borderWidth          = CGFloat(0)
+            public var borderColor          = UIColor.clear
+            public var font                 = UIFont.systemFont(ofSize: 15)
+            public var shadowColor          = UIColor.black
+            public var shadowOpacity        = Float(0.5)
+            public var shadowOffset         = CGSize(width: 5, height: 5)
+            public var shadowRadius         = CGFloat(5)
         }
         
         public struct Positioning {
@@ -214,6 +218,7 @@ open class EasyTipView: UIView {
         public var hasBorder : Bool {
             return drawing.borderWidth > 0 && drawing.borderColor != UIColor.clear
         }
+        public var hasShadow: Bool = false
         
         public init() {}
     }
@@ -526,6 +531,21 @@ open class EasyTipView: UIView {
         text.draw(in: textRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
     }
     
+    private func drawShadow() {
+        
+        if !self.preferences.hasShadow { return }
+        
+        self.layer.masksToBounds = false
+        self.layer.shadowColor   = preferences.drawing.shadowColor.cgColor
+        self.layer.shadowOpacity = preferences.drawing.shadowOpacity
+        self.layer.shadowOffset  = preferences.drawing.shadowOffset
+        self.layer.shadowRadius  = preferences.drawing.shadowRadius
+        
+        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.preferences.drawing.cornerRadius).cgPath
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = UIScreen.main.scale
+    }
+    
     override open func draw(_ rect: CGRect) {
         
         let arrowPosition = preferences.drawing.arrowPosition
@@ -558,6 +578,7 @@ open class EasyTipView: UIView {
         
         drawBubble(bubbleFrame, arrowPosition: preferences.drawing.arrowPosition, context: context)
         drawText(bubbleFrame, context: context)
+        drawShadow()
         
         context.restoreGState()
     }
