@@ -252,7 +252,13 @@ open class EasyTipView: UIView {
         
         var attributes = [NSFontAttributeName : self.preferences.drawing.font]
         
-        var textSize = self.text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
+        var textSize:CGSize!
+        
+        if self.attributedText == nil{
+            textSize = self.text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
+        }else{
+            textSize = self.attributedText?.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil).size
+        }
         
         textSize.width = ceil(textSize.width)
         textSize.height = ceil(textSize.height)
