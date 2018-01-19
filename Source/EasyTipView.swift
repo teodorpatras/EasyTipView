@@ -123,6 +123,7 @@ public extension EasyTipView {
         }else{
             animations()
         }
+        isTipViewPresent = true
     }
     
     /**
@@ -141,6 +142,7 @@ public extension EasyTipView {
         }) { (finished) -> Void in
             completion?()
             self.delegate?.easyTipViewDidDismiss(self)
+            self.isTipViewPresent = false
             self.removeFromSuperview()
             self.transform = CGAffineTransform.identity
         }
@@ -242,6 +244,7 @@ open class EasyTipView: UIView {
     fileprivate var arrowTip = CGPoint.zero
     fileprivate(set) open var preferences: Preferences
     open let text: String
+    open var isTipViewPresent: Bool = false
     
     // MARK: - Lazy variables -
     
