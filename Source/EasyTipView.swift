@@ -185,6 +185,7 @@ open class EasyTipView: UIView {
             public var borderWidth         = CGFloat(0)
             public var borderColor         = UIColor.clear
             public var font                = UIFont.systemFont(ofSize: 15)
+            public var drawCloseIndicator  = false
         }
         
         public struct Positioning {
@@ -541,13 +542,50 @@ open class EasyTipView: UIView {
         paragraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         
+        let closeButtonSize = CGSize(width: 20, height: 44)
+        
         let textRect = CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, width: textSize.width, height: textSize.height)
         
+        let usableTextRect = preferences.drawing.drawCloseIndicator ? CGRect(x: textRect.origin.x, y: textRect.origin.y, width: textRect.size.width - closeButtonSize.width, height: textRect.size.height) : textRect
+        let closeRect = CGRect(x: textRect.origin.x + textRect.size.width - closeButtonSize.width, y: textRect.origin.y, width: closeButtonSize.width, height: textRect.size.height)
+        
         if attributedText == nil{
-            text.draw(in: textRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
+            text.draw(in: usableTextRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
         }else{
-            attributedText?.draw(in: textRect)
+            attributedText?.draw(in: usableTextRect)
         }
+        
+        
+        
+        
+        
+        guard let ctx = UIGraphicsGetCurrentContext(), preferences.drawing.drawCloseIndicator else { return }
+        
+        ctx.beginPath()
+        let closeWidth = (closeButtonSize.width)/3.5
+        let centerPT = CGPoint(x: closeRect.origin.x + closeRect.size.width/2 + preferences.positioning.textHInset/2, y: closeRect.origin.y + closeRect.size.height/2)
+        ctx.move(to: centerPT)
+        ctx.addLine(to: CGPoint(x: centerPT.x + closeWidth, y: centerPT.y + closeWidth))
+        
+        ctx.move(to: centerPT)
+        ctx.addLine(to: CGPoint(x: centerPT.x - closeWidth, y: centerPT.y + closeWidth))
+        
+        ctx.move(to: centerPT)
+        ctx.addLine(to: CGPoint(x: centerPT.x + closeWidth, y: centerPT.y - closeWidth))
+        
+        ctx.move(to: centerPT)
+        ctx.addLine(to: CGPoint(x: centerPT.x - closeWidth, y: centerPT.y - closeWidth ))
+        
+        ctx.setLineWidth(2.5)
+        ctx.closePath()
+        ctx.strokePath()
+        
+        ctx.beginPath()
+        ctx.move(to: closeRect.origin)
+        ctx.addLine(to: CGPoint(x: closeRect.origin.x, y: closeRect.origin.y + closeRect.height ))
+        ctx.setLineWidth(1)
+        ctx.closePath()
+        ctx.strokePath()
         
     }
     
