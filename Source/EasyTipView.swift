@@ -185,6 +185,7 @@ open class EasyTipView: UIView {
             public var borderWidth         = CGFloat(0)
             public var borderColor         = UIColor.clear
             public var font                = UIFont.systemFont(ofSize: 15)
+            public var drawCloseIndicator  = false
         }
         
         public struct Positioning {
@@ -242,6 +243,7 @@ open class EasyTipView: UIView {
     fileprivate var arrowTip = CGPoint.zero
     fileprivate(set) open var preferences: Preferences
     open let text: String
+    open let attributedText:NSAttributedString?
     
     // MARK: - Lazy variables -
     
@@ -251,7 +253,13 @@ open class EasyTipView: UIView {
         
         var attributes = [NSFontAttributeName : self.preferences.drawing.font]
         
-        var textSize = self.text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
+        var textSize:CGSize!
+        
+        if self.attributedText == nil{
+            textSize = self.text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
+        }else{
+            textSize = self.attributedText?.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil).size
+        }
         
         textSize.width = ceil(textSize.width)
         textSize.height = ceil(textSize.height)
@@ -283,6 +291,20 @@ open class EasyTipView: UIView {
         self.text = text
         self.preferences = preferences
         self.delegate = delegate
+        self.attributedText = nil
+        
+        super.init(frame: CGRect.zero)
+        
+        self.backgroundColor = UIColor.clear
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    
+    public init (attributedText: NSAttributedString, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
+        
+        self.text = attributedText.string
+        self.preferences = preferences
+        self.delegate = delegate
+        self.attributedText = attributedText
         
         super.init(frame: CGRect.zero)
         
@@ -369,9 +391,9 @@ open class EasyTipView: UIView {
         
         let superviewFrame: CGRect
         if let scrollview = superview as? UIScrollView {
-          superviewFrame = CGRect(origin: scrollview.frame.origin, size: scrollview.contentSize)
+            superviewFrame = CGRect(origin: scrollview.frame.origin, size: scrollview.contentSize)
         } else {
-          superviewFrame = superview.frame
+            superviewFrame = superview.frame
         }
         
         var frame = computeFrame(arrowPosition: position, refViewFrame: refViewFrame, superviewFrame: superviewFrame)
@@ -520,10 +542,51 @@ open class EasyTipView: UIView {
         paragraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         
+        let closeButtonSize = CGSize(width: 20, height: 44)
+        
         let textRect = CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, width: textSize.width, height: textSize.height)
         
+        let usableTextRect = preferences.drawing.drawCloseIndicator ? CGRect(x: textRect.origin.x, y: textRect.origin.y, width: textRect.size.width - closeButtonSize.width, height: textRect.size.height) : textRect
+        let closeRect = CGRect(x: textRect.origin.x + textRect.size.width - closeButtonSize.width, y: textRect.origin.y, width: closeButtonSize.width, height: textRect.size.height)
         
-        text.draw(in: textRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
+        if attributedText == nil{
+            text.draw(in: usableTextRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
+        }else{
+            attributedText?.draw(in: usableTextRect)
+        }
+        
+        
+        
+        
+        
+        guard let ctx = UIGraphicsGetCurrentContext(), preferences.drawing.drawCloseIndicator else { return }
+        
+        ctx.beginPath()
+        let closeWidth = (closeButtonSize.width)/3.5
+        let centerPT = CGPoint(x: closeRect.origin.x + closeRect.size.width/2 + preferences.positioning.textHInset/2, y: closeRect.origin.y + closeRect.size.height/2)
+        ctx.move(to: centerPT)
+        ctx.addLine(to: CGPoint(x: centerPT.x + closeWidth, y: centerPT.y + closeWidth))
+        
+        ctx.move(to: centerPT)
+        ctx.addLine(to: CGPoint(x: centerPT.x - closeWidth, y: centerPT.y + closeWidth))
+        
+        ctx.move(to: centerPT)
+        ctx.addLine(to: CGPoint(x: centerPT.x + closeWidth, y: centerPT.y - closeWidth))
+        
+        ctx.move(to: centerPT)
+        ctx.addLine(to: CGPoint(x: centerPT.x - closeWidth, y: centerPT.y - closeWidth ))
+        
+        ctx.setLineWidth(2.5)
+        ctx.closePath()
+        ctx.strokePath()
+        
+        ctx.beginPath()
+        ctx.move(to: closeRect.origin)
+        ctx.addLine(to: CGPoint(x: closeRect.origin.x, y: closeRect.origin.y + closeRect.height ))
+        ctx.setLineWidth(1)
+        ctx.closePath()
+        ctx.strokePath()
+        
     }
     
     override open func draw(_ rect: CGRect) {
@@ -562,3 +625,4 @@ open class EasyTipView: UIView {
         context.restoreGState()
     }
 }
+

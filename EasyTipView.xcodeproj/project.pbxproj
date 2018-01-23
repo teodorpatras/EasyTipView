@@ -159,6 +159,7 @@
 					};
 					1310EC941D0C53800000E71E = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 72FC7F34T6;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -371,6 +372,7 @@
 		1310ECA31D0C53800000E71E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 72FC7F34T6;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.teodorpatras.EasyTipViewTests;
@@ -382,6 +384,7 @@
 		1310ECA41D0C53800000E71E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 72FC7F34T6;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.teodorpatras.EasyTipViewTests;
