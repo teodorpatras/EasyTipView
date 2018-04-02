@@ -3,7 +3,7 @@
 # * https://github.com/supermarin/xcpretty#usage
 
 language: swift
-osx_image: xcode9.3
+osx_image: xcode9.3beta
 env:
   global:
     - WORKSPACE=EasyTipView.xcworkspace
