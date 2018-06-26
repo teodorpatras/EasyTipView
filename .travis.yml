@@ -10,7 +10,6 @@ env:
     - FRAMEWORK_NAME=EasyTipView
     - PROJECT=EasyTipView.xcodeproj
     - SCHEME=EasyTipView
-    - SDK=iphonesimulator11.4
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 before_deploy:
