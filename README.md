@@ -50,6 +50,13 @@ $ gem install cocoapods
 
 To integrate EasyTipView into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
+For swift 4.1
+
+```ruby
+pod 'EasyTipView', '~> 1.1.0'
+```
+For swift 3.2
+
 ```ruby
 pod 'EasyTipView', '~> 1.0.2'
 ```
