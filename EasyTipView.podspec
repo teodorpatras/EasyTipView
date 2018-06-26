@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'EasyTipView'
-  s.version = '1.0.2'
+  s.version = '1.1.0'
   s.license = 'MIT'
   s.summary = 'Elegant tooltip view written in Swift'
   s.description = 'EasyTipView is a fully customisable tooltip view written in Swift that can be used as a call to action or informative tip. It can be shown above of below any UIBarItem or UIView subclass.'
