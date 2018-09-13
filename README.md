@@ -195,7 +195,7 @@ For more animations, checkout the example project.
 <a name="public-interface"> Public interface </a>
 --------------
 
-###Delegate
+### Delegate
 `EasyTipViewDelegate` is a custom protocol which defines one method to be called on the delegate after the ``EasyTipView`` has been dismissed.
 
 ```swift
@@ -205,7 +205,7 @@ public protocol EasyTipViewDelegate {
 }
 ```
 
-###Public methods
+### Public methods
 
 ```swift
 /**
