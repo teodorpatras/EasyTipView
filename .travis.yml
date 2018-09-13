@@ -2,15 +2,14 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 
-language: objective-c
-osx_image: xcode8
+language: swift
+osx_image: xcode9.3beta
 env:
   global:
     - WORKSPACE=EasyTipView.xcworkspace
     - FRAMEWORK_NAME=EasyTipView
     - PROJECT=EasyTipView.xcodeproj
     - SCHEME=EasyTipView
-    - SDK=iphonesimulator10.0
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 before_deploy:
@@ -18,6 +17,6 @@ before_deploy:
   - carthage archive $FRAMEWORK_NAME
 script:
 - set -o pipefail
-- xcodebuild -scheme $SCHEME -workspace $WORKSPACE -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.0' build test
+- xcodebuild -scheme $SCHEME -workspace $WORKSPACE -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=11.3' build test
 - pod lib lint --quick
 - pod lib lint --quick
