@@ -53,7 +53,7 @@ To integrate EasyTipView into your Xcode project using CocoaPods, specify it in 
 For **Swift 4.1**
 
 ```ruby
-pod 'EasyTipView', '~> 1.1.0'
+pod 'EasyTipView', '~> 2.0.0'
 ```
 
 For **Swift 3.2**
@@ -227,10 +227,10 @@ public protocol EasyTipViewDelegate {
  - parameter delegate:    The delegate.
 */
 public class func show(animated: Bool = true, forItem item: UIBarItem, withinSuperview superview: UIView? = nil, text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil)
-    
+
  /**
  Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-     
+
  - parameter animated:    Pass true to animate the presentation.
  - parameter view:        The UIView instance which the EasyTipView will be pointing to.
  - parameter superview:   A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
@@ -239,19 +239,19 @@ public class func show(animated: Bool = true, forItem item: UIBarItem, withinSup
  - parameter delegate:    The delegate.
 */
 public class func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil, text:  String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil)
-    
+
 /**
  Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
-     
+
  - parameter animated:  Pass true to animate the presentation.
  - parameter item:      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
  - parameter superview: A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
 */
 public func show(animated: Bool = true, forItem item: UIBarItem, withinSuperView superview: UIView? = nil)
-    
+
 /**
  Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-     
+
  - parameter animated:  Pass true to animate the presentation.
  - parameter view:      The UIView instance which the EasyTipView will be pointing to.
  - parameter superview: A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
@@ -260,7 +260,7 @@ public func show(animated: Bool = true, forView view: UIView, withinSuperview su
 
 /**
  Dismisses the EasyTipView
-     
+
  - parameter completion: Completion block to be executed after the EasyTipView is dismissed.
 */
 public func dismiss(withCompletion completion: (() -> ())? = nil)
