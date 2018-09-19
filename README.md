@@ -147,7 +147,7 @@ In order to customise the `EasyTipView` appearance and behaviour, you can play w
 * ```Animating``` - encapsulates customisable properties specifying how ```EasyTipView``` will animate on and off screen.
 
 | `Drawing ` attribute   |      Description      |
-|----------|-------------|------|
+| --- | --- |
 |`cornerRadius`| The corner radius of the tip view bubble.|
 |`arrowHeight`| The height of the arrow positioned at the top or bottom of the bubble.|
 |`arrowWidth`| The width of the above mentioned arrow.|
@@ -160,7 +160,7 @@ In order to customise the `EasyTipView` appearance and behaviour, you can play w
 |`font`| Font to be applied on the text. |
 
 | `Positioning ` attribute   |      Description      |
-|----------|-------------|------|
+| --- | --- |
 |`bubbleHInset`| Horizontal bubble inset witin its container.|
 |`bubbleVInset`| Vertical bubble inset within its container.|
 |`textHInset`| Text horizontal inset within the bubble.|
@@ -168,7 +168,7 @@ In order to customise the `EasyTipView` appearance and behaviour, you can play w
 |`maxWidth`| Max bubble width.|
 
 | `Animating ` attribute   |      Description      |
-|----------|-------------|------|
+| --- | --- |
 |`dismissTransform`| `CGAffineTransform` specifying how the bubble will be dismissed. |
 |`showInitialTransform`| `CGAffineTransform` specifying the initial transform to be applied on the bubble before it is animated on screen. |
 |`showFinalTransform`| `CGAffineTransform` specifying how the bubble will be animated on screen. |
