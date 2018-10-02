@@ -3,7 +3,7 @@
 # * https://github.com/supermarin/xcpretty#usage
 
 language: swift
-osx_image: xcode9.3beta
+osx_image: xcode10
 env:
   global:
     - WORKSPACE=EasyTipView.xcworkspace
@@ -17,6 +17,6 @@ before_deploy:
   - carthage archive $FRAMEWORK_NAME
 script:
 - set -o pipefail
-- xcodebuild -scheme $SCHEME -workspace $WORKSPACE -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=11.3' build test
+- xcodebuild -scheme $SCHEME -workspace $WORKSPACE -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X' build test
 - pod lib lint --quick
 - pod lib lint --quick
