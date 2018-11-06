@@ -26,7 +26,8 @@ Description
 10. [License](#license)
 11. [Contact](#contact)
 
-##<a name="features"> Features </a>
+<a name="features"> Features </a>
+--------------
 
 - [x] Can be shown pointing to any ``UIBarItem`` or ``UIView`` subclass.
 - [x] support for any arrow direction `←, →, ↑, ↓`
