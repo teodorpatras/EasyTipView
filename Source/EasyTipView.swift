@@ -192,6 +192,7 @@ open class EasyTipView: UIView {
             public var bubbleVInset         = CGFloat(1)
             public var textHInset           = CGFloat(10)
             public var textVInset           = CGFloat(10)
+            public var minWidth             = CGFloat(0)
             public var maxWidth             = CGFloat(200)
         }
         
@@ -271,7 +272,11 @@ open class EasyTipView: UIView {
         
         [unowned self] in
         
-        var contentSize = CGSize(width: self.textSize.width + self.preferences.positioning.textHInset * 2 + self.preferences.positioning.bubbleHInset * 2, height: self.textSize.height + self.preferences.positioning.textVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
+        var width = self.textSize.width + self.preferences.positioning.textHInset * 2 + self.preferences.positioning.bubbleHInset * 2
+        let minWidth = self.preferences.positioning.minWidth
+        width = width > minWidth ? width : minWidth
+        
+        var contentSize = CGSize(width: width, height: self.textSize.height + self.preferences.positioning.textVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
         
         return contentSize
         }()
