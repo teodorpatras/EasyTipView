@@ -263,11 +263,10 @@ open class EasyTipView: UIView {
         if (self.attributedText != nil)
         {
             textSize = self.attributedText!.boundingRect(with: boundingSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil).size
-            
         }
         else
         {
-            textSize = self.text.boundingRect(with: boundingSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName : self.preferences.drawing.font], context: nil).size
+            textSize = self.text.boundingRect(with: boundingSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
             
         }
         
@@ -326,7 +325,14 @@ open class EasyTipView: UIView {
         super.init(frame: CGRect.zero)
         
         self.backgroundColor = UIColor.clear
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        
+        #if swift(>=4.2)
+        let notificationName = UIDevice.orientationDidChangeNotification
+        #else
+        let notificationName = NSNotification.Name.UIDeviceOrientationDidChange
+        #endif
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: notificationName, object: nil)
     }
     
     deinit
