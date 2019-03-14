@@ -188,6 +188,7 @@ open class EasyTipView: UIView {
         }
         
         public struct Positioning {
+            public var fixedOrientation     = false
             public var bubbleHInset         = CGFloat(1)
             public var bubbleVInset         = CGFloat(1)
             public var textHInset           = CGFloat(10)
@@ -317,7 +318,7 @@ open class EasyTipView: UIView {
     
     @objc func handleRotation() {
         guard let sview = superview
-            , presentingView != nil else { return }
+            , presentingView != nil, !self.preferences.positioning.fixedOrientation else { return }
         
         UIView.animate(withDuration: 0.3) {
             self.arrange(withinSuperview: sview)
