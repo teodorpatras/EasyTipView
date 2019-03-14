@@ -20,7 +20,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-
 import UIKit
 
 public protocol EasyTipViewDelegate : class {
@@ -29,7 +28,6 @@ public protocol EasyTipViewDelegate : class {
 
 
 // MARK: - Public methods extension
-
 public extension EasyTipView {
     
     // MARK:- Class methods -
@@ -148,16 +146,14 @@ public extension EasyTipView {
 }
 
 // MARK: - UIGestureRecognizerDelegate implementation
-
 extension EasyTipView: UIGestureRecognizerDelegate {
-
+    
     open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return preferences.animating.dismissOnTap
     }
 }
 
 // MARK: - EasyTipView class implementation -
-
 open class EasyTipView: UIView {
     
     // MARK:- Nested types -
@@ -232,16 +228,16 @@ open class EasyTipView: UIView {
     
     override open var description: String {
         
-        let className = "'\(String(reflecting: type(of: self)))'".components(separatedBy: ".").last!
+        let type = "'\(String(reflecting: Swift.type(of: self)))'".components(separatedBy: ".").last!
         
-        return "<< \(className) with text : '\(text)' >>"
+        return "<< \(type) with text : '\(text)' >>"
     }
     
     fileprivate weak var presentingView: UIView?
     fileprivate weak var delegate: EasyTipViewDelegate?
     fileprivate var arrowTip = CGPoint.zero
     fileprivate(set) open var preferences: Preferences
-    open let text: String
+    public let text: String
     
     // MARK: - Lazy variables -
     
@@ -249,7 +245,11 @@ open class EasyTipView: UIView {
         
         [unowned self] in
         
-        var attributes: [NSAttributedStringKey: Any] = [.font : self.preferences.drawing.font]
+        #if swift(>=4.2)
+        var attributes = [NSAttributedString.Key.font : self.preferences.drawing.font]
+        #else
+        var attributes = [NSAttributedStringKey.font : self.preferences.drawing.font]
+        #endif
         
         var textSize = self.text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
         
@@ -274,7 +274,7 @@ open class EasyTipView: UIView {
     
     // MARK: - Static variables -
     
-    open static var globalPreferences = Preferences()
+    public static var globalPreferences = Preferences()
     
     // MARK:- Initializer -
     
@@ -287,7 +287,14 @@ open class EasyTipView: UIView {
         super.init(frame: CGRect.zero)
         
         self.backgroundColor = UIColor.clear
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        
+        #if swift(>=4.2)
+        let notificationName = UIDevice.orientationDidChangeNotification
+        #else
+        let notificationName = NSNotification.Name.UIDeviceOrientationDidChange
+        #endif
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: notificationName, object: nil)
     }
     
     deinit
@@ -308,10 +315,10 @@ open class EasyTipView: UIView {
         guard let sview = superview
             , presentingView != nil else { return }
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.3) {
             self.arrange(withinSuperview: sview)
             self.setNeedsDisplay()
-        })
+        }
     }
     
     // MARK: - Private methods -
@@ -369,9 +376,9 @@ open class EasyTipView: UIView {
         
         let superviewFrame: CGRect
         if let scrollview = superview as? UIScrollView {
-          superviewFrame = CGRect(origin: scrollview.frame.origin, size: scrollview.contentSize)
+            superviewFrame = CGRect(origin: scrollview.frame.origin, size: scrollview.contentSize)
         } else {
-          superviewFrame = superview.frame
+            superviewFrame = superview.frame
         }
         
         var frame = computeFrame(arrowPosition: position, refViewFrame: refViewFrame, superviewFrame: superviewFrame)
@@ -522,8 +529,13 @@ open class EasyTipView: UIView {
         
         let textRect = CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, width: textSize.width, height: textSize.height)
         
+        #if swift(>=4.2)
+        let attributes = [NSAttributedString.Key.font : preferences.drawing.font, NSAttributedString.Key.foregroundColor : preferences.drawing.foregroundColor, NSAttributedString.Key.paragraphStyle : paragraphStyle]
+        #else
+        let attributes = [NSAttributedStringKey.font : preferences.drawing.font, NSAttributedStringKey.foregroundColor : preferences.drawing.foregroundColor, NSAttributedStringKey.paragraphStyle : paragraphStyle]
+        #endif
         
-        text.draw(in: textRect, withAttributes: [.font : preferences.drawing.font, .foregroundColor : preferences.drawing.foregroundColor, .paragraphStyle : paragraphStyle])
+        text.draw(in: textRect, withAttributes: attributes)
     }
     
     override open func draw(_ rect: CGRect) {
@@ -560,5 +572,98 @@ open class EasyTipView: UIView {
         drawText(bubbleFrame, context: context)
         
         context.restoreGState()
+    }
+}
+
+//
+//  UIKitExtensions.swift
+//  EasyTipView
+//
+//  Created by Teodor Patras on 29/06/16.
+//  Copyright © 2016 teodorpatras. All rights reserved.
+//
+import Foundation
+
+// MARK: - UIBarItem extension -
+extension UIBarItem {
+    var view: UIView? {
+        if let item = self as? UIBarButtonItem, let customView = item.customView {
+            return customView
+        }
+        return self.value(forKey: "view") as? UIView
+    }
+}
+
+// MARK:- UIView extension -
+extension UIView {
+    
+    func hasSuperview(_ superview: UIView) -> Bool{
+        return viewHasSuperview(self, superview: superview)
+    }
+    
+    fileprivate func viewHasSuperview(_ view: UIView, superview: UIView) -> Bool {
+        if let sview = view.superview {
+            if sview === superview {
+                return true
+            }else{
+                return viewHasSuperview(sview, superview: superview)
+            }
+        }else{
+            return false
+        }
+    }
+}
+
+// MARK:- CGRect extension -
+extension CGRect {
+    var x: CGFloat {
+        get {
+            return self.origin.x
+        }
+        set {
+            self.origin.x = newValue
+        }
+    }
+    
+    var y: CGFloat {
+        get {
+            return self.origin.y
+        }
+        
+        set {
+            self.origin.y = newValue
+        }
+    }
+    //
+    //    var width: CGFloat {
+    //        get {
+    //         return self.size.width
+    //        }
+    //
+    //        set {
+    //            self.size.width = newValue
+    //        }
+    //    }
+    //
+    //    var height: CGFloat {
+    //        get {
+    //            return self.size.height
+    //        }
+    //
+    //        set{
+    //            self.size.height = newValue
+    //        }
+    //    }
+    
+    //    var maxX: CGFloat {
+    //        return self.maxX
+    //    }
+    //
+    //    var maxY: CGFloat {
+    //        return self.maxY
+    //    }
+    
+    var center: CGPoint {
+        return CGPoint(x: self.x + self.width / 2, y: self.y + self.height / 2)
     }
 }
