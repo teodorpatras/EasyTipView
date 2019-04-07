@@ -78,7 +78,13 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             })
         } else {
             let text = "EasyTipView is an easy to use tooltip view. It can point to any UIView or UIBarItem subclasses. Tap the buttons to see other tooltips."
-            let tip = EasyTipView(text: text, delegate: self)
+            
+            var preferences = EasyTipView.globalPreferences
+            preferences.drawing.shadowColor = UIColor.black
+            preferences.drawing.shadowRadius = 2
+            preferences.drawing.shadowOpacity = 0.75
+            
+            let tip = EasyTipView(text: text, preferences: preferences, delegate: self)
             tip.show(forItem: toolbarItem)
             tipView = tip
         }

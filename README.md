@@ -20,7 +20,7 @@ Description
 3. [Installation](#installation)
 4. [Supported OS & SDK versions](#supported-versions)
 5. [Usage](#usage)
-6. [Customising the appearance](#customising)
+6. [Customizing the appearance](#customising)
 7. [Customising the presentation and dismissal animations](#customising-animations)
 9. [Public interface](#public-interface)
 10. [License](#license)
@@ -159,6 +159,10 @@ In order to customize the `EasyTipView` appearance and behavior, you can play wi
 |`borderWidth`| Width of the optional border to be applied on the bubble.|
 |`borderColor`| Color of the optional border to be applied on the bubble. **In order for the border to be applied, `borderColor` needs to be different that `UIColor.clear` and `borderWidth` > 0**|
 |`font`| Font to be applied on the text. |
+|`shadowColor`| The color of the shadow (default `UIColor.clearcolor`).|
+|`shadowOpacity`| The opacity of the shadow (default `0`). **For the shadow to be drawn, both** `shadowColor` **and** `shadowOpacity` **must be set to a valid value.**|
+|`shadowRadius`| The radius of the shadow (default `0`).|
+|`shadowOffset` | The offset of the shadow. |
 
 | `Positioning ` attribute   |      Description      |
 |----------|-------------|
