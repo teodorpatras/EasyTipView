@@ -227,8 +227,8 @@ open class EasyTipView: UIView {
         public struct Positioning {
             public var bubbleHInset         = CGFloat(1)
             public var bubbleVInset         = CGFloat(1)
-            public var textHInset           = CGFloat(10)
-            public var textVInset           = CGFloat(10)
+            public var contentHInset        = CGFloat(10)
+            public var contentVInset        = CGFloat(10)
             public var maxWidth             = CGFloat(200)
         }
         
@@ -272,7 +272,6 @@ open class EasyTipView: UIView {
                 return "view : \(contentView)"
             }
         }
-
     }
 
     
@@ -289,7 +288,6 @@ open class EasyTipView: UIView {
     }
     
     override open var description: String {
-        
         let type = "'\(String(reflecting: Swift.type(of: self)))'".components(separatedBy: ".").last!
         
         return "<< \(type) with \(content) >>"
@@ -335,7 +333,7 @@ open class EasyTipView: UIView {
         
         [unowned self] in
         
-        var tipViewSize = CGSize(width: self.contentSize.width + self.preferences.positioning.textHInset * 2 + self.preferences.positioning.bubbleHInset * 2, height: self.contentSize.height + self.preferences.positioning.textVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
+        var tipViewSize = CGSize(width: self.contentSize.width + self.preferences.positioning.contentHInset * 2 + self.preferences.positioning.bubbleHInset * 2, height: self.contentSize.height + self.preferences.positioning.contentVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
         
         return tipViewSize
         }()
@@ -496,13 +494,13 @@ open class EasyTipView: UIView {
             
             arrowTip = CGPoint(x: preferences.drawing.arrowPosition == .left ? preferences.positioning.bubbleVInset : tipViewSize.width - preferences.positioning.bubbleVInset, y: arrowTipXOrigin)
         }
-        self.frame = frame
         
         if case .view(let contentView) = content {
             contentView.translatesAutoresizingMaskIntoConstraints = false
             contentView.frame = getContentRect(from: getBubbleFrame())
-            addSubview(contentView)
         }
+        
+        self.frame = frame
     }
     
     // MARK:- Callbacks -
@@ -640,9 +638,13 @@ open class EasyTipView: UIView {
         
         drawBubble(bubbleFrame, arrowPosition: preferences.drawing.arrowPosition, context: context)
         
-        if case .text = content {
+        switch content {
+        case .text:
             drawText(bubbleFrame, context: context)
+        case .view (let view):
+            addSubview(view)
         }
+        
         drawShadow()
         context.restoreGState()
     }

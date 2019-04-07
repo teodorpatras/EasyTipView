@@ -22,17 +22,16 @@ Description
 5. [Usage](#usage)
 6. [Customizing the appearance](#customising)
 7. [Customising the presentation and dismissal animations](#customising-animations)
-9. [Public interface](#public-interface)
-10. [License](#license)
-11. [Contact](#contact)
+8. [License](#license)
+9. [Contact](#contact)
 
 <a name="features"> Features </a>
 --------------
 
 - [x] Can be shown pointing to any ``UIBarItem`` or ``UIView`` subclass.
-- [x] support for any arrow direction `←, →, ↑, ↓`
+- [x] Support for any arrow direction `←, →, ↑, ↓`
 - [x] Automatic orientation change adjustments.
-- [x] Fully customizable appearance.
+- [x] Fully customizable appearance (text or custom content view).
 - [x] Fully customizable presentation and dismissal animations.
 
 
@@ -51,16 +50,16 @@ $ gem install cocoapods
 
 To integrate EasyTipView into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
-For **Swift 4.1**
+For **Swift 4.x**
 
 ```ruby
-pod 'EasyTipView', '~> 2.0.0'
+pod 'EasyTipView', '~> 2.0.4'
 ```
 
-For **Swift 3.2**
+For **Swift 3.x**
 
 ```ruby
-pod 'EasyTipView', '~> 1.0.2'
+pod 'EasyTipView', '~> 2.0.4'
 ```
 
 Then, run the following command:
@@ -168,8 +167,8 @@ In order to customize the `EasyTipView` appearance and behavior, you can play wi
 |----------|-------------|
 |`bubbleHInset`| Horizontal bubble inset within its container.|
 |`bubbleVInset`| Vertical bubble inset within its container.|
-|`textHInset`| Text horizontal inset within the bubble.|
-|`textVInset`| Text vertical inset within the bubble.|
+|`contentHInset`| Content horizontal inset within the bubble.|
+|`contentVInset`| Content vertical inset within the bubble.|
 |`maxWidth`| Max bubble width.|
 
 | `Animating ` attribute   |      Description      |
@@ -204,72 +203,6 @@ This produces the following animations:
 For more animations, checkout the example project.
 *Once you configured the animations, a good idea would be to __make these preferences global__, for all future instances of `EasyTipView` by assigning it to ```EasyTipView.globalPreferences```.*
 
-
-<a name="public-interface"> Public interface </a>
---------------
-
-### Delegate
-`EasyTipViewDelegate` is a custom protocol which defines one method to be called on the delegate after the ``EasyTipView`` has been dismissed.
-
-```swift
-
-public protocol EasyTipViewDelegate {
-    func easyTipViewDidDismiss(_ tipView : EasyTipView)
-}
-```
-
-### Public methods
-
-```swift
-/**
- Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
-
- - parameter animated:    Pass true to animate the presentation.
- - parameter item:        The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
- - parameter superview:   A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
- - parameter text:        The text to be displayed.
- - parameter preferences: The preferences which will configure the EasyTipView.
- - parameter delegate:    The delegate.
-*/
-public class func show(animated: Bool = true, forItem item: UIBarItem, withinSuperview superview: UIView? = nil, text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil)
-
- /**
- Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-
- - parameter animated:    Pass true to animate the presentation.
- - parameter view:        The UIView instance which the EasyTipView will be pointing to.
- - parameter superview:   A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
- - parameter text:        The text to be displayed.
- - parameter preferences: The preferences which will configure the EasyTipView.
- - parameter delegate:    The delegate.
-*/
-public class func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil, text:  String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil)
-
-/**
- Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
-
- - parameter animated:  Pass true to animate the presentation.
- - parameter item:      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
- - parameter superview: A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-*/
-public func show(animated: Bool = true, forItem item: UIBarItem, withinSuperView superview: UIView? = nil)
-
-/**
- Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-
- - parameter animated:  Pass true to animate the presentation.
- - parameter view:      The UIView instance which the EasyTipView will be pointing to.
- - parameter superview: A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
-*/
-public func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil)
-
-/**
- Dismisses the EasyTipView
-
- - parameter completion: Completion block to be executed after the EasyTipView is dismissed.
-*/
-public func dismiss(withCompletion completion: (() -> ())? = nil)
-```
 
 <a name="license"> License </a>
 --------------
