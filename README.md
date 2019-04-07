@@ -10,10 +10,10 @@
 Description
 --------------
 
-```EasyTipView``` is a fully customisable tooltip view written in Swift that can be used as a call to action or informative tip.
+```EasyTipView``` is a fully customizable tooltip view written in Swift that can be used as a call to action or informative tip.
 
 |<img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/easytipview.gif" width="320">|<img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/static.png" width="320">|
-|----------|-------------|------|
+|----------|-------------|
 
 # Contents
 1. [Features](#features)
@@ -26,13 +26,14 @@ Description
 10. [License](#license)
 11. [Contact](#contact)
 
-##<a name="features"> Features </a>
+<a name="features"> Features </a>
+--------------
 
 - [x] Can be shown pointing to any ``UIBarItem`` or ``UIView`` subclass.
 - [x] support for any arrow direction `←, →, ↑, ↓`
 - [x] Automatic orientation change adjustments.
-- [x] Fully customisable appearance.
-- [x] Fully customisable presentation and dismissal animations.
+- [x] Fully customizable appearance.
+- [x] Fully customizable presentation and dismissal animations.
 
 
 <a name="installation"> Installation </a>
@@ -49,6 +50,14 @@ $ gem install cocoapods
 ```
 
 To integrate EasyTipView into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+For **Swift 4.1**
+
+```ruby
+pod 'EasyTipView', '~> 2.0.0'
+```
+
+For **Swift 3.2**
 
 ```ruby
 pod 'EasyTipView', '~> 1.0.2'
@@ -131,15 +140,15 @@ tipView.show(forView: someView, withinSuperview: someSuperview)
 // later on you can dismiss it
 tipView.dismiss()
 ```
-<a name="customising"> Customising the appearance </a>
+<a name="customising"> Customizing the appearance </a>
 --------------
-In order to customise the `EasyTipView` appearance and behaviour, you can play with the `Preferences` structure which encapsulates all the customizable properties of the ``EasyTipView``. These preferences have been split into three structures:
-* ```Drawing``` - encapsulates customisable properties specifying how ```EastTipView``` will be drawn on screen.
-* ```Positioning``` - encapsulates customisable properties specifying where ```EasyTipView``` will be drawn within its own bounds.
-* ```Animating``` - encapsulates customisable properties specifying how ```EasyTipView``` will animate on and off screen.
+In order to customize the `EasyTipView` appearance and behavior, you can play with the `Preferences` structure which encapsulates all the customizable properties of the ``EasyTipView``. These preferences have been split into three structures:
+* ```Drawing``` - encapsulates customizable properties specifying how ```EastTipView``` will be drawn on screen.
+* ```Positioning``` - encapsulates customizable properties specifying where ```EasyTipView``` will be drawn within its own bounds.
+* ```Animating``` - encapsulates customizable properties specifying how ```EasyTipView``` will animate on and off screen.
 
 | `Drawing ` attribute   |      Description      |
-|----------|-------------|------|
+|----------|-------------|
 |`cornerRadius`| The corner radius of the tip view bubble.|
 |`arrowHeight`| The height of the arrow positioned at the top or bottom of the bubble.|
 |`arrowWidth`| The width of the above mentioned arrow.|
@@ -152,15 +161,15 @@ In order to customise the `EasyTipView` appearance and behaviour, you can play w
 |`font`| Font to be applied on the text. |
 
 | `Positioning ` attribute   |      Description      |
-|----------|-------------|------|
-|`bubbleHInset`| Horizontal bubble inset witin its container.|
+|----------|-------------|
+|`bubbleHInset`| Horizontal bubble inset within its container.|
 |`bubbleVInset`| Vertical bubble inset within its container.|
 |`textHInset`| Text horizontal inset within the bubble.|
 |`textVInset`| Text vertical inset within the bubble.|
 |`maxWidth`| Max bubble width.|
 
 | `Animating ` attribute   |      Description      |
-|----------|-------------|------|
+|----------|-------------|
 |`dismissTransform`| `CGAffineTransform` specifying how the bubble will be dismissed. |
 |`showInitialTransform`| `CGAffineTransform` specifying the initial transform to be applied on the bubble before it is animated on screen. |
 |`showFinalTransform`| `CGAffineTransform` specifying how the bubble will be animated on screen. |
@@ -175,7 +184,7 @@ In order to customise the `EasyTipView` appearance and behaviour, you can play w
 <a name="customising-animations"> Customising the presentation or dismissal animations </a>
 --------------
 
-The default animations for showing or dismissing are scale up and down. If you want to change the default behaviour, you need to change the attributes of the ``animating`` property within the preferences. An example could be:
+The default animations for showing or dismissing are scale up and down. If you want to change the default behavior, you need to change the attributes of the ``animating`` property within the preferences. An example could be:
 
 ```swift
 preferences.animating.dismissTransform = CGAffineTransform(translationX: 0, y: -15)
@@ -195,7 +204,7 @@ For more animations, checkout the example project.
 <a name="public-interface"> Public interface </a>
 --------------
 
-###Delegate
+### Delegate
 `EasyTipViewDelegate` is a custom protocol which defines one method to be called on the delegate after the ``EasyTipView`` has been dismissed.
 
 ```swift
@@ -205,7 +214,7 @@ public protocol EasyTipViewDelegate {
 }
 ```
 
-###Public methods
+### Public methods
 
 ```swift
 /**
@@ -219,10 +228,10 @@ public protocol EasyTipViewDelegate {
  - parameter delegate:    The delegate.
 */
 public class func show(animated: Bool = true, forItem item: UIBarItem, withinSuperview superview: UIView? = nil, text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil)
-    
+
  /**
  Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-     
+
  - parameter animated:    Pass true to animate the presentation.
  - parameter view:        The UIView instance which the EasyTipView will be pointing to.
  - parameter superview:   A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
@@ -231,19 +240,19 @@ public class func show(animated: Bool = true, forItem item: UIBarItem, withinSup
  - parameter delegate:    The delegate.
 */
 public class func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil, text:  String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil)
-    
+
 /**
  Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
-     
+
  - parameter animated:  Pass true to animate the presentation.
  - parameter item:      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
  - parameter superview: A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
 */
 public func show(animated: Bool = true, forItem item: UIBarItem, withinSuperView superview: UIView? = nil)
-    
+
 /**
  Presents an EasyTipView pointing to a particular UIView instance within the specified superview
-     
+
  - parameter animated:  Pass true to animate the presentation.
  - parameter view:      The UIView instance which the EasyTipView will be pointing to.
  - parameter superview: A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
@@ -252,7 +261,7 @@ public func show(animated: Bool = true, forView view: UIView, withinSuperview su
 
 /**
  Dismisses the EasyTipView
-     
+
  - parameter completion: Completion block to be executed after the EasyTipView is dismissed.
 */
 public func dismiss(withCompletion completion: (() -> ())? = nil)

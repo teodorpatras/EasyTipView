@@ -135,7 +135,7 @@ public extension EasyTipView {
         let damping = preferences.animating.springDamping
         let velocity = preferences.animating.springVelocity
         
-        UIView.animate(withDuration: preferences.animating.dismissDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [.curveEaseInOut], animations: { _ in
+        UIView.animate(withDuration: preferences.animating.dismissDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [.curveEaseInOut], animations: { 
             self.transform = self.preferences.animating.dismissTransform
             self.alpha = self.preferences.animating.dismissFinalAlpha
         }) { (finished) -> Void in
@@ -240,7 +240,7 @@ open class EasyTipView: UIView {
     
     override open var description: String {
         
-        let type = "'\(String(reflecting: type(of: self)))'".components(separatedBy: ".").last!
+        let type = "'\(String(reflecting: Swift.type(of: self)))'".components(separatedBy: ".").last!
         
         return "<< \(type) with text : '\(text)' >>"
     }
@@ -249,7 +249,7 @@ open class EasyTipView: UIView {
     fileprivate weak var delegate: EasyTipViewDelegate?
     fileprivate var arrowTip = CGPoint.zero
     fileprivate(set) open var preferences: Preferences
-    open let text: String
+    public let text: String
     
     // MARK: - Lazy variables -
     
@@ -257,7 +257,11 @@ open class EasyTipView: UIView {
         
         [unowned self] in
         
-        var attributes = [NSFontAttributeName : self.preferences.drawing.font]
+        #if swift(>=4.2)
+        var attributes = [NSAttributedString.Key.font : self.preferences.drawing.font]
+        #else
+        var attributes = [NSAttributedStringKey.font : self.preferences.drawing.font]
+        #endif
         
         var textSize = self.text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
         
@@ -282,7 +286,7 @@ open class EasyTipView: UIView {
     
     // MARK: - Static variables -
     
-    open static var globalPreferences = Preferences()
+    public static var globalPreferences = Preferences()
     
     // MARK:- Initializer -
     
@@ -295,7 +299,14 @@ open class EasyTipView: UIView {
         super.init(frame: CGRect.zero)
         
         self.backgroundColor = UIColor.clear
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        
+        #if swift(>=4.2)
+        let notificationName = UIDevice.orientationDidChangeNotification
+        #else
+        let notificationName = NSNotification.Name.UIDeviceOrientationDidChange
+        #endif
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: notificationName, object: nil)
     }
     
     deinit
@@ -312,14 +323,14 @@ open class EasyTipView: UIView {
     
     // MARK: - Rotation support -
     
-    func handleRotation() {
+    @objc func handleRotation() {
         guard let sview = superview
             , presentingView != nil else { return }
         
-        UIView.animate(withDuration: 0.3, animations: { _ in
+        UIView.animate(withDuration: 0.3) {
             self.arrange(withinSuperview: sview)
             self.setNeedsDisplay()
-        })
+        }
     }
     
     // MARK: - Private methods -
@@ -426,7 +437,7 @@ open class EasyTipView: UIView {
     
     // MARK:- Callbacks -
     
-    func handleTap() {
+    @objc func handleTap() {
         dismiss()
     }
     
@@ -530,8 +541,13 @@ open class EasyTipView: UIView {
         
         let textRect = CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, width: textSize.width, height: textSize.height)
         
+        #if swift(>=4.2)
+        let attributes = [NSAttributedString.Key.font : preferences.drawing.font, NSAttributedString.Key.foregroundColor : preferences.drawing.foregroundColor, NSAttributedString.Key.paragraphStyle : paragraphStyle]
+        #else
+        let attributes = [NSAttributedStringKey.font : preferences.drawing.font, NSAttributedStringKey.foregroundColor : preferences.drawing.foregroundColor, NSAttributedStringKey.paragraphStyle : paragraphStyle]
+        #endif
         
-        text.draw(in: textRect, withAttributes: [NSFontAttributeName : preferences.drawing.font, NSForegroundColorAttributeName : preferences.drawing.foregroundColor, NSParagraphStyleAttributeName : paragraphStyle])
+        text.draw(in: textRect, withAttributes: attributes)
     }
     
     fileprivate func drawShadow() {
