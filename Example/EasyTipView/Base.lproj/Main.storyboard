@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GeS-P3-dnS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GeS-P3-dnS">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,7 +16,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="jGU-h4-ugR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hks-eq-p1E">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -36,6 +38,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hWU-jR-9Ec">
+                                <rect key="frame" x="313" y="568" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.15756617710000001" green="0.76258680560000003" blue="0.59711381819999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="K7q-Mt-Bob"/>
@@ -55,6 +58,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rxZ-Qh-gs3">
+                                <rect key="frame" x="16" y="568" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.3523848684" green="0.2880859375" blue="0.63168174340000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="Ptw-NU-dCc"/>
@@ -74,6 +78,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdK-KQ-BEN">
+                                <rect key="frame" x="16" y="84" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.72958096589999999" green="0.24329157630000001" blue="0.31989725229999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="QD1-M2-j1d"/>
@@ -93,6 +98,7 @@
                                 </connections>
                             </button>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYe-y0-pin">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="krt-iC-GgA"/>
                                     <barButtonItem title="↑" id="L9z-Ee-Hcj">
@@ -104,9 +110,10 @@
                                 </items>
                             </toolbar>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NUT-CX-WGP">
+                                <rect key="frame" x="60.5" y="258.5" width="254" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69R-BC-43x">
-                                        <frame key="frameInset" minX="200" minY="8" width="46" height="30"/>
+                                        <rect key="frame" x="200" y="8" width="46" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.85868450129999996" green="0.85868450129999996" blue="0.85868450129999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="↓">
@@ -135,6 +142,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t2B-Ub-hJ7">
+                                <rect key="frame" x="114.5" y="184.5" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.20999990459177764" green="0.64271100905717482" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Huo-8Y-VFk"/>
@@ -154,6 +162,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCx-tc-eXO">
+                                <rect key="frame" x="328" y="84" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="7hJ-Jh-uYQ"/>
@@ -172,6 +181,26 @@
                                     <action selector="buttonActionWithSender:" destination="7mQ-RG-Clx" eventType="touchUpInside" id="l9C-eA-lNo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HS8-yg-j4l" userLabel="ButtonG">
+                                <rect key="frame" x="313" y="530" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.81499664997476007" green="0.82505833701148545" blue="0.82505833701148545" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="fir-Aj-AAW"/>
+                                    <constraint firstAttribute="height" constant="30" id="tod-6E-IPy"/>
+                                </constraints>
+                                <state key="normal" title="↑">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="buttonActionWithSender:" destination="7mQ-RG-Clx" eventType="touchUpInside" id="fUK-oR-Pnv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -182,10 +211,12 @@
                             <constraint firstItem="JdK-KQ-BEN" firstAttribute="top" secondItem="eSl-wY-dJ4" secondAttribute="bottom" constant="20" id="LNg-8b-fCT"/>
                             <constraint firstAttribute="trailing" secondItem="hWU-jR-9Ec" secondAttribute="trailing" constant="16" id="Ssy-Od-Vns"/>
                             <constraint firstAttribute="trailing" secondItem="lCx-tc-eXO" secondAttribute="trailing" constant="1" id="TIf-ok-bgI"/>
+                            <constraint firstAttribute="trailing" secondItem="HS8-yg-j4l" secondAttribute="trailing" constant="16" id="Ubd-Me-GUc"/>
                             <constraint firstItem="rxZ-Qh-gs3" firstAttribute="leading" secondItem="K9k-ME-Y4A" secondAttribute="leading" constant="16" id="Vbi-6g-5bg"/>
                             <constraint firstItem="t2B-Ub-hJ7" firstAttribute="centerX" secondItem="K9k-ME-Y4A" secondAttribute="centerX" constant="-50" id="Y8b-qI-fJJ"/>
                             <constraint firstItem="GeN-sW-a1D" firstAttribute="top" secondItem="jYe-y0-pin" secondAttribute="bottom" id="ZE3-ML-rjS"/>
                             <constraint firstItem="lCx-tc-eXO" firstAttribute="top" secondItem="eSl-wY-dJ4" secondAttribute="bottom" constant="20" id="dKF-Q1-pt8"/>
+                            <constraint firstItem="hWU-jR-9Ec" firstAttribute="top" secondItem="HS8-yg-j4l" secondAttribute="bottom" constant="8" id="daj-ga-W1L"/>
                             <constraint firstItem="jYe-y0-pin" firstAttribute="top" secondItem="hWU-jR-9Ec" secondAttribute="bottom" constant="25" id="eb5-de-OnU"/>
                             <constraint firstAttribute="trailing" secondItem="jYe-y0-pin" secondAttribute="trailing" id="jz0-h5-eWe"/>
                             <constraint firstAttribute="centerY" secondItem="NUT-CX-WGP" secondAttribute="centerY" id="p7a-iN-6vS"/>
@@ -206,6 +237,7 @@
                         <outlet property="buttonD" destination="JdK-KQ-BEN" id="ZVC-2M-0Zi"/>
                         <outlet property="buttonE" destination="lCx-tc-eXO" id="Gyl-pL-7Dw"/>
                         <outlet property="buttonF" destination="t2B-Ub-hJ7" id="Uzp-Qd-E26"/>
+                        <outlet property="buttonG" destination="HS8-yg-j4l" id="sv7-RK-cGC"/>
                         <outlet property="navBarItem" destination="HcR-vd-SJ7" id="PXK-2J-bNl"/>
                         <outlet property="smallContainerView" destination="NUT-CX-WGP" id="AO3-b9-Iky"/>
                         <outlet property="toolbarItem" destination="L9z-Ee-Hcj" id="cow-BG-IkN"/>
@@ -222,7 +254,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="DCQ-vb-ipy"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="s3i-fJ-tav">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

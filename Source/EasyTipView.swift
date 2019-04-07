@@ -67,6 +67,39 @@ public extension EasyTipView {
         ev.show(animated: animated, forView: view, withinSuperview: superview)
     }
     
+    /**
+     Presents an EasyTipView pointing to a particular UIBarItem instance within the specified superview
+     
+     - parameter animated:    Pass true to animate the presentation.
+     - parameter item:        The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
+     - parameter superview:   A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+     - parameter contentView: The view to be displayed.
+     - parameter preferences: The preferences which will configure the EasyTipView.
+     - parameter delegate:    The delegate.
+     */
+    class func show(animated: Bool = true, forItem item: UIBarItem, withinSuperview superview: UIView? = nil, contentView: UIView, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
+        
+        if let view = item.view {
+            show(animated: animated, forView: view, withinSuperview: superview, contentView: contentView, preferences: preferences, delegate: delegate)
+        }
+    }
+    
+    /**
+     Presents an EasyTipView pointing to a particular UIView instance within the specified superview
+     
+     - parameter animated:    Pass true to animate the presentation.
+     - parameter view:        The UIView instance which the EasyTipView will be pointing to.
+     - parameter superview:   A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+     - parameter contentView: The view to be displayed.
+     - parameter preferences: The preferences which will configure the EasyTipView.
+     - parameter delegate:    The delegate.
+     */
+    class func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil, contentView: UIView, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
+        
+        let ev = EasyTipView(contentView: contentView, preferences: preferences, delegate: delegate)
+        ev.show(animated: animated, forView: view, withinSuperview: superview)
+    }
+    
     // MARK:- Instance methods -
     
     /**
@@ -194,8 +227,8 @@ open class EasyTipView: UIView {
         public struct Positioning {
             public var bubbleHInset         = CGFloat(1)
             public var bubbleVInset         = CGFloat(1)
-            public var textHInset           = CGFloat(10)
-            public var textVInset           = CGFloat(10)
+            public var contentHInset        = CGFloat(10)
+            public var contentVInset        = CGFloat(10)
             public var maxWidth             = CGFloat(200)
         }
         
@@ -226,6 +259,22 @@ open class EasyTipView: UIView {
         public init() {}
     }
     
+    private enum Content: CustomStringConvertible {
+        
+        case text(String)
+        case view(UIView)
+        
+        var description: String {
+            switch self {
+            case .text(let text):
+                return "text : '\(text)'"
+            case .view(let contentView):
+                return "view : \(contentView)"
+            }
+        }
+    }
+
+    
     // MARK:- Variables -
     
     override open var backgroundColor: UIColor? {
@@ -239,49 +288,54 @@ open class EasyTipView: UIView {
     }
     
     override open var description: String {
-        
         let type = "'\(String(reflecting: Swift.type(of: self)))'".components(separatedBy: ".").last!
         
-        return "<< \(type) with text : '\(text)' >>"
+        return "<< \(type) with \(content) >>"
     }
     
     fileprivate weak var presentingView: UIView?
     fileprivate weak var delegate: EasyTipViewDelegate?
     fileprivate var arrowTip = CGPoint.zero
     fileprivate(set) open var preferences: Preferences
-    public let text: String
+    private let content: Content
     
     // MARK: - Lazy variables -
-    
-    fileprivate lazy var textSize: CGSize = {
-        
-        [unowned self] in
-        
-        #if swift(>=4.2)
-        var attributes = [NSAttributedString.Key.font : self.preferences.drawing.font]
-        #else
-        var attributes = [NSAttributedStringKey.font : self.preferences.drawing.font]
-        #endif
-        
-        var textSize = self.text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
-        
-        textSize.width = ceil(textSize.width)
-        textSize.height = ceil(textSize.height)
-        
-        if textSize.width < self.preferences.drawing.arrowWidth {
-            textSize.width = self.preferences.drawing.arrowWidth
-        }
-        
-        return textSize
-        }()
     
     fileprivate lazy var contentSize: CGSize = {
         
         [unowned self] in
         
-        var contentSize = CGSize(width: self.textSize.width + self.preferences.positioning.textHInset * 2 + self.preferences.positioning.bubbleHInset * 2, height: self.textSize.height + self.preferences.positioning.textVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
+        switch content {
+        case .text(let text):
+            #if swift(>=4.2)
+            var attributes = [NSAttributedString.Key.font : self.preferences.drawing.font]
+            #else
+            var attributes = [NSAttributedStringKey.font : self.preferences.drawing.font]
+            #endif
+            
+            var textSize = text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
+            
+            textSize.width = ceil(textSize.width)
+            textSize.height = ceil(textSize.height)
+            
+            if textSize.width < self.preferences.drawing.arrowWidth {
+                textSize.width = self.preferences.drawing.arrowWidth
+            }
+            
+            return textSize
+            
+        case .view(let contentView):
+            return contentView.frame.size
+        }
+        }()
+
+    fileprivate lazy var tipViewSize: CGSize = {
         
-        return contentSize
+        [unowned self] in
+        
+        var tipViewSize = CGSize(width: self.contentSize.width + self.preferences.positioning.contentHInset * 2 + self.preferences.positioning.bubbleHInset * 2, height: self.contentSize.height + self.preferences.positioning.contentVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
+        
+        return tipViewSize
         }()
     
     // MARK: - Static variables -
@@ -290,9 +344,17 @@ open class EasyTipView: UIView {
     
     // MARK:- Initializer -
     
-    public init (text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
+    public convenience init (text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil) {
+        self.init(content: .text(text), preferences: preferences, delegate: delegate)
+    }
+    
+    public convenience init (contentView: UIView, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil) {
+        self.init(content: .view(contentView), preferences: preferences, delegate: delegate)
+    }
+    
+    private init (content: Content, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil) {
         
-        self.text = text
+        self.content = content
         self.preferences = preferences
         self.delegate = delegate
         
@@ -341,20 +403,20 @@ open class EasyTipView: UIView {
         
         switch position {
         case .top, .any:
-            xOrigin = refViewFrame.center.x - contentSize.width / 2
+            xOrigin = refViewFrame.center.x - tipViewSize.width / 2
             yOrigin = refViewFrame.y + refViewFrame.height
         case .bottom:
-            xOrigin = refViewFrame.center.x - contentSize.width / 2
-            yOrigin = refViewFrame.y - contentSize.height
+            xOrigin = refViewFrame.center.x - tipViewSize.width / 2
+            yOrigin = refViewFrame.y - tipViewSize.height
         case .right:
-            xOrigin = refViewFrame.x - contentSize.width
-            yOrigin = refViewFrame.center.y - contentSize.height / 2
+            xOrigin = refViewFrame.x - tipViewSize.width
+            yOrigin = refViewFrame.center.y - tipViewSize.height / 2
         case .left:
             xOrigin = refViewFrame.x + refViewFrame.width
-            yOrigin = refViewFrame.y - contentSize.height / 2
+            yOrigin = refViewFrame.y - tipViewSize.height / 2
         }
         
-        var frame = CGRect(x: xOrigin, y: yOrigin, width: contentSize.width, height: contentSize.height)
+        var frame = CGRect(x: xOrigin, y: yOrigin, width: tipViewSize.width, height: tipViewSize.height)
         adjustFrame(&frame, forSuperviewFrame: superviewFrame)
         return frame
     }
@@ -417,21 +479,27 @@ open class EasyTipView: UIView {
         switch position {
         case .bottom, .top, .any:
             if frame.width < refViewFrame.width {
-                arrowTipXOrigin = contentSize.width / 2
+                arrowTipXOrigin = tipViewSize.width / 2
             } else {
                 arrowTipXOrigin = abs(frame.x - refViewFrame.x) + refViewFrame.width / 2
             }
             
-            arrowTip = CGPoint(x: arrowTipXOrigin, y: position == .bottom ? contentSize.height - preferences.positioning.bubbleVInset :  preferences.positioning.bubbleVInset)
+            arrowTip = CGPoint(x: arrowTipXOrigin, y: position == .bottom ? tipViewSize.height - preferences.positioning.bubbleVInset :  preferences.positioning.bubbleVInset)
         case .right, .left:
             if frame.height < refViewFrame.height {
-                arrowTipXOrigin = contentSize.height / 2
+                arrowTipXOrigin = tipViewSize.height / 2
             } else {
                 arrowTipXOrigin = abs(frame.y - refViewFrame.y) + refViewFrame.height / 2
             }
             
-            arrowTip = CGPoint(x: preferences.drawing.arrowPosition == .left ? preferences.positioning.bubbleVInset : contentSize.width - preferences.positioning.bubbleVInset, y: arrowTipXOrigin)
+            arrowTip = CGPoint(x: preferences.drawing.arrowPosition == .left ? preferences.positioning.bubbleVInset : tipViewSize.width - preferences.positioning.bubbleVInset, y: arrowTipXOrigin)
         }
+        
+        if case .view(let contentView) = content {
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.frame = getContentRect(from: getBubbleFrame())
+        }
+        
         self.frame = frame
     }
     
@@ -534,12 +602,13 @@ open class EasyTipView: UIView {
     }
     
     fileprivate func drawText(_ bubbleFrame: CGRect, context : CGContext) {
+        guard case .text(let text) = content else { return }
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = preferences.drawing.textAlignment
         paragraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         
-        let textRect = CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - textSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - textSize.height) / 2, width: textSize.width, height: textSize.height)
+        let textRect = getContentRect(from: bubbleFrame)
         
         #if swift(>=4.2)
         let attributes = [NSAttributedString.Key.font : preferences.drawing.font, NSAttributedString.Key.foregroundColor : preferences.drawing.foregroundColor, NSAttributedString.Key.paragraphStyle : paragraphStyle]
@@ -552,7 +621,6 @@ open class EasyTipView: UIView {
     
     fileprivate func drawShadow() {
         if preferences.hasShadow {
-            
             self.layer.masksToBounds = false
             self.layer.shadowColor = preferences.drawing.shadowColor.cgColor
             self.layer.shadowOffset = preferences.drawing.shadowOffset
@@ -563,6 +631,25 @@ open class EasyTipView: UIView {
     
     override open func draw(_ rect: CGRect) {
         
+        let bubbleFrame = getBubbleFrame()
+        
+        let context = UIGraphicsGetCurrentContext()!
+        context.saveGState ()
+        
+        drawBubble(bubbleFrame, arrowPosition: preferences.drawing.arrowPosition, context: context)
+        
+        switch content {
+        case .text:
+            drawText(bubbleFrame, context: context)
+        case .view (let view):
+            addSubview(view)
+        }
+        
+        drawShadow()
+        context.restoreGState()
+    }
+    
+    private func getBubbleFrame() -> CGRect {
         let arrowPosition = preferences.drawing.arrowPosition
         let bubbleWidth: CGFloat
         let bubbleHeight: CGFloat
@@ -571,30 +658,25 @@ open class EasyTipView: UIView {
         switch arrowPosition {
         case .bottom, .top, .any:
             
-            bubbleWidth = contentSize.width - 2 * preferences.positioning.bubbleHInset
-            bubbleHeight = contentSize.height - 2 * preferences.positioning.bubbleVInset - preferences.drawing.arrowHeight
+            bubbleWidth = tipViewSize.width - 2 * preferences.positioning.bubbleHInset
+            bubbleHeight = tipViewSize.height - 2 * preferences.positioning.bubbleVInset - preferences.drawing.arrowHeight
             
             bubbleXOrigin = preferences.positioning.bubbleHInset
             bubbleYOrigin = arrowPosition == .bottom ? preferences.positioning.bubbleVInset : preferences.positioning.bubbleVInset + preferences.drawing.arrowHeight
             
         case .left, .right:
             
-            bubbleWidth = contentSize.width - 2 * preferences.positioning.bubbleHInset - preferences.drawing.arrowHeight
-            bubbleHeight = contentSize.height - 2 * preferences.positioning.bubbleVInset
+            bubbleWidth = tipViewSize.width - 2 * preferences.positioning.bubbleHInset - preferences.drawing.arrowHeight
+            bubbleHeight = tipViewSize.height - 2 * preferences.positioning.bubbleVInset
             
             bubbleXOrigin = arrowPosition == .right ? preferences.positioning.bubbleHInset : preferences.positioning.bubbleHInset + preferences.drawing.arrowHeight
             bubbleYOrigin = preferences.positioning.bubbleVInset
             
         }
-        let bubbleFrame = CGRect(x: bubbleXOrigin, y: bubbleYOrigin, width: bubbleWidth, height: bubbleHeight)
-        
-        let context = UIGraphicsGetCurrentContext()!
-        context.saveGState ()
-        
-        drawBubble(bubbleFrame, arrowPosition: preferences.drawing.arrowPosition, context: context)
-        drawText(bubbleFrame, context: context)
-        drawShadow()
-        
-        context.restoreGState()
+        return CGRect(x: bubbleXOrigin, y: bubbleYOrigin, width: bubbleWidth, height: bubbleHeight)
+    }
+    
+    private func getContentRect(from bubbleFrame: CGRect) -> CGRect {
+        return CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - contentSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - contentSize.height) / 2, width: contentSize.width, height: contentSize.height)
     }
 }

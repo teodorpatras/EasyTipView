@@ -36,6 +36,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     @IBOutlet weak var buttonD: UIButton!
     @IBOutlet weak var buttonE: UIButton!
     @IBOutlet weak var buttonF: UIButton!
+    @IBOutlet weak var buttonG: UIButton!
     
     weak var tipView: EasyTipView?
     
@@ -187,6 +188,27 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             let view = EasyTipView(text: "Tip view positioned with the arrow on the left. Tap won't dismiss.", preferences: preferences)
             view.show(forView: buttonF, withinSuperview: self.navigationController?.view!)
             
+        case buttonG:
+            
+            var preferences = EasyTipView.globalPreferences
+            preferences.drawing.backgroundColor = buttonG.backgroundColor!
+
+            preferences.animating.dismissTransform = CGAffineTransform(translationX: 0, y: -15)
+            preferences.animating.showInitialTransform = CGAffineTransform(translationX: 0, y: 15)
+            preferences.animating.showInitialAlpha = 0
+            preferences.animating.showDuration = 1
+            preferences.animating.dismissDuration = 1
+            preferences.drawing.arrowPosition = .bottom
+            
+            preferences.positioning.contentHInset = 5
+            preferences.positioning.contentVInset = 5
+            
+            let contentView = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 82))
+            contentView.image = UIImage(named: "easytipview")
+            EasyTipView.show(forView: self.buttonG,
+                             contentView: contentView,
+                             preferences: preferences)
+
         default:
             
             var preferences = EasyTipView.globalPreferences
