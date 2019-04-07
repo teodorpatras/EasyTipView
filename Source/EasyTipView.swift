@@ -185,6 +185,10 @@ open class EasyTipView: UIView {
             public var borderWidth         = CGFloat(0)
             public var borderColor         = UIColor.clear
             public var font                = UIFont.systemFont(ofSize: 15)
+            public var shadowColor         = UIColor.clear
+            public var shadowOffset        = CGSize(width: 0.0, height: 0.0)
+            public var shadowRadius        = CGFloat(0)
+            public var shadowOpacity       = CGFloat(0)
         }
         
         public struct Positioning {
@@ -215,6 +219,10 @@ open class EasyTipView: UIView {
             return drawing.borderWidth > 0 && drawing.borderColor != UIColor.clear
         }
         
+        public var hasShadow : Bool {
+            return drawing.shadowOpacity > 0 && drawing.shadowColor != UIColor.clear
+        }
+        
         public init() {}
     }
     
@@ -223,7 +231,7 @@ open class EasyTipView: UIView {
     override open var backgroundColor: UIColor? {
         didSet {
             guard let color = backgroundColor
-                , color != UIColor.clear else {return}
+                , color != UIColor.clear else {return}  
             
             preferences.drawing.backgroundColor = color
             backgroundColor = UIColor.clear
@@ -542,6 +550,17 @@ open class EasyTipView: UIView {
         text.draw(in: textRect, withAttributes: attributes)
     }
     
+    fileprivate func drawShadow() {
+        if preferences.hasShadow {
+            
+            self.layer.masksToBounds = false
+            self.layer.shadowColor = preferences.drawing.shadowColor.cgColor
+            self.layer.shadowOffset = preferences.drawing.shadowOffset
+            self.layer.shadowRadius = preferences.drawing.shadowRadius
+            self.layer.shadowOpacity = Float(preferences.drawing.shadowOpacity)
+        }
+    }
+    
     override open func draw(_ rect: CGRect) {
         
         let arrowPosition = preferences.drawing.arrowPosition
@@ -574,6 +593,7 @@ open class EasyTipView: UIView {
         
         drawBubble(bubbleFrame, arrowPosition: preferences.drawing.arrowPosition, context: context)
         drawText(bubbleFrame, context: context)
+        drawShadow()
         
         context.restoreGState()
     }
