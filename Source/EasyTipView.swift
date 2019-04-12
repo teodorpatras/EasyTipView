@@ -360,6 +360,10 @@ open class EasyTipView: UIView {
     public convenience init (text: String, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil) {
         self.init(content: .text(text), preferences: preferences, delegate: delegate)
     }
+
+    public init (attributedText: NSAttributedString, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
+        self.init(content: .attributedText(attributedText), preferences: preferences, delegate: delegate)
+    }
     
     public convenience init (contentView: UIView, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil) {
         self.init(content: .view(contentView), preferences: preferences, delegate: delegate)
