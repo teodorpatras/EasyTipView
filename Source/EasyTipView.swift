@@ -262,12 +262,15 @@ open class EasyTipView: UIView {
     private enum Content: CustomStringConvertible {
         
         case text(String)
+        case attributedText(NSAttributedString)
         case view(UIView)
         
         var description: String {
             switch self {
             case .text(let text):
                 return "text : '\(text)'"
+            case .attributedText(let attributedText):
+                return "attributedText : '\(attributedText.string)'"
             case .view(let contentView):
                 return "view : \(contentView)"
             }
@@ -315,19 +318,29 @@ open class EasyTipView: UIView {
             
             var textSize = text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil).size
             
-            textSize.width = ceil(textSize.width)
-            textSize.height = ceil(textSize.height)
-            
-            if textSize.width < self.preferences.drawing.arrowWidth {
-                textSize.width = self.preferences.drawing.arrowWidth
-            }
-            
-            return textSize
-            
+            return preprocessTextSize(textSize)
+
+        case .attributedText(let attributedText):
+            var textSize = attributedText.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil).size
+
+            return preprocessTextSize(textSize)
         case .view(let contentView):
             return contentView.frame.size
         }
         }()
+
+    fileprivate func preprocessTextSize(_ size: CGSize) -> CGSize {
+        var textSize = size
+
+        textSize.width = ceil(textSize.width)
+        textSize.height = ceil(textSize.height)
+
+        if textSize.width < self.preferences.drawing.arrowWidth {
+            textSize.width = self.preferences.drawing.arrowWidth
+        }
+
+        return textSize
+    }
 
     fileprivate lazy var tipViewSize: CGSize = {
         
@@ -601,8 +614,7 @@ open class EasyTipView: UIView {
         context.strokePath()
     }
     
-    fileprivate func drawText(_ bubbleFrame: CGRect, context : CGContext) {
-        guard case .text(let text) = content else { return }
+    fileprivate func drawText(_ text: String, _ bubbleFrame: CGRect, context : CGContext) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = preferences.drawing.textAlignment
         paragraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -617,6 +629,11 @@ open class EasyTipView: UIView {
         #endif
         
         text.draw(in: textRect, withAttributes: attributes)
+    }
+
+    fileprivate func drawAttributedText(_ attributedText: NSAttributedString, _ bubbleFrame: CGRect) {
+        let textRect = getContentRect(from: bubbleFrame)
+        attributedText.draw(in: textRect)
     }
     
     fileprivate func drawShadow() {
@@ -639,8 +656,10 @@ open class EasyTipView: UIView {
         drawBubble(bubbleFrame, arrowPosition: preferences.drawing.arrowPosition, context: context)
         
         switch content {
-        case .text:
-            drawText(bubbleFrame, context: context)
+        case .text(let text):
+            drawText(text, bubbleFrame, context: context)
+        case .attributedText(let attributedText):
+            drawAttributedText(attributedText, bubbleFrame)
         case .view (let view):
             addSubview(view)
         }
