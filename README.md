@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/teodorpatras/EasyTipView/master/assets/easytipview.png" alt="EasyTipView: fully customisable tooltip view written in Swift" style="width: 500px;"/>
 
-![Swift3](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat")
+![Swift5](https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat")
 [![Platform](https://img.shields.io/cocoapods/p/EasyTipView.svg?style=flat)](http://cocoapods.org/pods/EasyTipView)
 [![Build Status](https://travis-ci.org/teodorpatras/EasyTipView.svg)](https://travis-ci.org/teodorpatras/EasyTipView)
 [![Version](https://img.shields.io/cocoapods/v/EasyTipView.svg?style=flat)](http://cocoapods.org/pods/EasyTipView)
@@ -49,6 +49,12 @@ $ gem install cocoapods
 ```
 
 To integrate EasyTipView into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+For **Swift 5.x**
+
+```ruby
+pod 'EasyTipView', '~> 2.1.0'
+```
 
 For **Swift 4.x**
 
