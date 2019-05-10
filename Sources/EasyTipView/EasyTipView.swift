@@ -359,12 +359,10 @@ open class EasyTipView: UIView {
         
         [unowned self] in
         
-        let contentHInset = self.preferences.positioning.contentInsets.left + self.preferences.positioning.contentInsets.right
-        let contentVInset = self.preferences.positioning.contentInsets.top + self.preferences.positioning.contentInsets.bottom
-        let bubbleHInset = self.preferences.positioning.bubbleInsets.left + self.preferences.positioning.bubbleInsets.right
-        let bubbleVInset = self.preferences.positioning.bubbleInsets.top + self.preferences.positioning.bubbleInsets.bottom
-
-        var tipViewSize = CGSize(width: self.contentSize.width + contentHInset + bubbleHInset, height: self.contentSize.height + contentVInset + bubbleVInset + self.preferences.drawing.arrowHeight)
+        var tipViewSize =
+            CGSize(
+                width: self.contentSize.width + self.preferences.positioning.contentInsets.left + self.preferences.positioning.contentInsets.right + self.preferences.positioning.bubbleInsets.left + self.preferences.positioning.bubbleInsets.right,
+                height: self.contentSize.height + self.preferences.positioning.contentInsets.top + self.preferences.positioning.contentInsets.bottom + self.preferences.positioning.bubbleInsets.top + self.preferences.positioning.bubbleInsets.bottom + self.preferences.drawing.arrowHeight)
         
         return tipViewSize
     }()
@@ -732,7 +730,7 @@ open class EasyTipView: UIView {
     }
     
     private func getContentRect(from bubbleFrame: CGRect) -> CGRect {
-        return CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - contentSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - contentSize.height) / 2, width: contentSize.width, height: contentSize.height)
+        return CGRect(x: bubbleFrame.origin.x + preferences.positioning.contentInsets.left, y: bubbleFrame.origin.y + preferences.positioning.contentInsets.top, width: contentSize.width, height: contentSize.height)
     }
 }
 #endif
