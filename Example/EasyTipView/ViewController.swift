@@ -60,6 +60,10 @@ class ViewController: UIViewController, EasyTipViewDelegate {
         self.toolbarItemAction()
     }
     
+    func easyTipViewDidTap(_ tipView: EasyTipView) {
+        print("\(tipView) did tap!")
+    }
+    
     func easyTipViewDidDismiss(_ tipView: EasyTipView) {
         print("\(tipView) did dismiss!")
     }
