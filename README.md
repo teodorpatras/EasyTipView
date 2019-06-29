@@ -180,6 +180,7 @@ In order to customize the `EasyTipView` appearance and behavior, you can play wi
 |`springVelocity`| Spring animation velocity.|
 |`showInitialAlpha`|Initial alpha to be applied on the tip view before it is animated on screen.|
 |`dismissFinalAlpha`|The alpha to be applied on the tip view when it is animating off screen.|
+|`duration`|Animation duration for TipView. (Default value is infinity.)|
 |`showDuration`|Show animation duration.|
 |`dismissDuration`|Dismiss animation duration.|
 |`dismissOnTap`|Prevents view from dismissing on tap if it is set to false. (Default value is true.)|
