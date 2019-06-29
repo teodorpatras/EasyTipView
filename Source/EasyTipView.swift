@@ -151,10 +151,20 @@ public extension EasyTipView {
             self.alpha = 1
         }
         
+        let completion : (Bool) -> () = { finished in
+            let duration = self.preferences.animating.duration
+            if finished && duration != .infinity {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(duration)) {
+                    self.dismiss()
+                }
+            }
+        }
+        
         if animated {
-            UIView.animate(withDuration: preferences.animating.showDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [.curveEaseInOut], animations: animations, completion: nil)
+            UIView.animate(withDuration: preferences.animating.showDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [.curveEaseInOut], animations: animations, completion: completion)
         }else{
             animations()
+            completion(true)
         }
     }
     
@@ -240,6 +250,7 @@ open class EasyTipView: UIView {
             public var springVelocity       = CGFloat(0.7)
             public var showInitialAlpha     = CGFloat(0)
             public var dismissFinalAlpha    = CGFloat(0)
+            public var duration             = CGFloat.infinity
             public var showDuration         = 0.7
             public var dismissDuration      = 0.7
             public var dismissOnTap         = true
