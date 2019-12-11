@@ -413,7 +413,7 @@ open class EasyTipView: UIView {
             yOrigin = refViewFrame.center.y - tipViewSize.height / 2
         case .left:
             xOrigin = refViewFrame.x + refViewFrame.width
-            yOrigin = refViewFrame.y - tipViewSize.height / 2
+            yOrigin = refViewFrame.center.y - tipViewSize.height / 2
         }
         
         var frame = CGRect(x: xOrigin, y: yOrigin, width: tipViewSize.width, height: tipViewSize.height)
