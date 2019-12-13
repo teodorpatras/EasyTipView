@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1310EC961D0C53800000E71E /* EasyTipView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1310EC8B1D0C537F0000E71E /* EasyTipView.framework */; };
-		13609E071D23AB8500593B38 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13609E061D23AB8500593B38 /* UIKitExtensions.swift */; };
-		13FB32A21D0C53CB001ACE20 /* EasyTipView.h in Headers */ = {isa = PBXBuildFile; fileRef = 13FB329F1D0C53CB001ACE20 /* EasyTipView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		13FB32A31D0C53CB001ACE20 /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB32A01D0C53CB001ACE20 /* EasyTipView.swift */; };
 		13FB32A91D0C53E5001ACE20 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB32A61D0C53E2001ACE20 /* Tests.swift */; };
+		3DEF6DAB23A39E4F007B8C3C /* EasyTipView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DEF6DA823A39E4F007B8C3C /* EasyTipView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3DEF6DAC23A39E4F007B8C3C /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEF6DA923A39E4F007B8C3C /* UIKitExtensions.swift */; };
+		3DEF6DAD23A39E4F007B8C3C /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEF6DAA23A39E4F007B8C3C /* EasyTipView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,12 +27,12 @@
 /* Begin PBXFileReference section */
 		1310EC8B1D0C537F0000E71E /* EasyTipView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyTipView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1310EC951D0C53800000E71E /* EasyTipViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyTipViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		13609E061D23AB8500593B38 /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIKitExtensions.swift; path = Source/UIKitExtensions.swift; sourceTree = SOURCE_ROOT; };
-		13FB329F1D0C53CB001ACE20 /* EasyTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EasyTipView.h; path = Source/EasyTipView.h; sourceTree = SOURCE_ROOT; };
-		13FB32A01D0C53CB001ACE20 /* EasyTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EasyTipView.swift; path = Source/EasyTipView.swift; sourceTree = SOURCE_ROOT; };
 		13FB32A11D0C53CB001ACE20 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
 		13FB32A51D0C53E2001ACE20 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Info.plist; sourceTree = SOURCE_ROOT; };
-		13FB32A61D0C53E2001ACE20 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tests.swift; path = Tests/Tests.swift; sourceTree = SOURCE_ROOT; };
+		13FB32A61D0C53E2001ACE20 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tests.swift; path = Tests/EasyTipViewTests/Tests.swift; sourceTree = SOURCE_ROOT; };
+		3DEF6DA823A39E4F007B8C3C /* EasyTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTipView.h; sourceTree = "<group>"; };
+		3DEF6DA923A39E4F007B8C3C /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
+		3DEF6DAA23A39E4F007B8C3C /* EasyTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTipView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +57,8 @@
 		1310EC811D0C537F0000E71E = {
 			isa = PBXGroup;
 			children = (
-				1310EC8D1D0C537F0000E71E /* EasyTipView */,
-				1310EC991D0C53800000E71E /* EasyTipViewTests */,
+				1310EC8D1D0C537F0000E71E /* Sources */,
+				1310EC991D0C53800000E71E /* Tests */,
 				1310EC8C1D0C537F0000E71E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,21 +72,37 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1310EC8D1D0C537F0000E71E /* EasyTipView */ = {
+		1310EC8D1D0C537F0000E71E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				13FB329F1D0C53CB001ACE20 /* EasyTipView.h */,
-				13FB32A01D0C53CB001ACE20 /* EasyTipView.swift */,
+				3DEF6DA623A39E20007B8C3C /* EasyTipView */,
 				13FB32A11D0C53CB001ACE20 /* Info.plist */,
-				13609E061D23AB8500593B38 /* UIKitExtensions.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		1310EC991D0C53800000E71E /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				13FB32A51D0C53E2001ACE20 /* Info.plist */,
+				3DEF6DA723A39E3E007B8C3C /* EasyTipViewTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		3DEF6DA623A39E20007B8C3C /* EasyTipView */ = {
+			isa = PBXGroup;
+			children = (
+				3DEF6DA823A39E4F007B8C3C /* EasyTipView.h */,
+				3DEF6DAA23A39E4F007B8C3C /* EasyTipView.swift */,
+				3DEF6DA923A39E4F007B8C3C /* UIKitExtensions.swift */,
 			);
 			path = EasyTipView;
 			sourceTree = "<group>";
 		};
-		1310EC991D0C53800000E71E /* EasyTipViewTests */ = {
+		3DEF6DA723A39E3E007B8C3C /* EasyTipViewTests */ = {
 			isa = PBXGroup;
 			children = (
-				13FB32A51D0C53E2001ACE20 /* Info.plist */,
 				13FB32A61D0C53E2001ACE20 /* Tests.swift */,
 			);
 			path = EasyTipViewTests;
@@ -99,7 +115,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13FB32A21D0C53CB001ACE20 /* EasyTipView.h in Headers */,
+				3DEF6DAB23A39E4F007B8C3C /* EasyTipView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,7 +170,7 @@
 				TargetAttributes = {
 					1310EC8A1D0C537F0000E71E = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 					1310EC941D0C53800000E71E = {
@@ -204,8 +220,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13609E071D23AB8500593B38 /* UIKitExtensions.swift in Sources */,
-				13FB32A31D0C53CB001ACE20 /* EasyTipView.swift in Sources */,
+				3DEF6DAD23A39E4F007B8C3C /* EasyTipView.swift in Sources */,
+				3DEF6DAC23A39E4F007B8C3C /* UIKitExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +406,7 @@
 		1310ECA31D0C53800000E71E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.teodorpatras.EasyTipViewTests;
@@ -401,6 +418,7 @@
 		1310ECA41D0C53800000E71E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.teodorpatras.EasyTipViewTests;

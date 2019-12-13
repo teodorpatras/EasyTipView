@@ -6,7 +6,8 @@
 //  Copyright © 2016 teodorpatras. All rights reserved.
 //
 
-import Foundation
+#if canImport(UIKit)
+import UIKit
 
 // MARK: - UIBarItem extension -
 
@@ -31,10 +32,10 @@ extension UIView {
         if let sview = view.superview {
             if sview === superview {
                 return true
-            }else{
+            } else{
                 return viewHasSuperview(sview, superview: superview)
             }
-        }else{
+        } else{
             return false
         }
     }
@@ -61,36 +62,9 @@ extension CGRect {
             self.origin.y = newValue
         }
     }
-//
-//    var width: CGFloat {
-//        get {
-//         return self.size.width
-//        }
-//        
-//        set {
-//            self.size.width = newValue
-//        }
-//    }
-//    
-//    var height: CGFloat {
-//        get {
-//            return self.size.height
-//        }
-//        
-//        set{
-//            self.size.height = newValue
-//        }
-//    }
-    
-//    var maxX: CGFloat {
-//        return self.maxX
-//    }
-//    
-//    var maxY: CGFloat {
-//        return self.maxY
-//    }
     
     var center: CGPoint {
         return CGPoint(x: self.x + self.width / 2, y: self.y + self.height / 2)
     }
 }
+#endif

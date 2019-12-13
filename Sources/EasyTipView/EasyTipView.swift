@@ -21,6 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#if canImport(UIKit)
 import UIKit
 
 public protocol EasyTipViewDelegate : class {
@@ -680,3 +681,4 @@ open class EasyTipView: UIView {
         return CGRect(x: bubbleFrame.origin.x + (bubbleFrame.size.width - contentSize.width) / 2, y: bubbleFrame.origin.y + (bubbleFrame.size.height - contentSize.height) / 2, width: contentSize.width, height: contentSize.height)
     }
 }
+#endif
