@@ -109,7 +109,7 @@ var preferences = EasyTipView.Preferences()
 preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
 preferences.drawing.foregroundColor = UIColor.whiteColor()
 preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
-preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.Top
+preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
 
 /*
  * Optionally you can make these preferences global for all future EasyTipViews
