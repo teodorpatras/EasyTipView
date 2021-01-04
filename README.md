@@ -31,7 +31,7 @@ Description
 - [x] Can be shown pointing to any ``UIBarItem`` or ``UIView`` subclass.
 - [x] Support for any arrow direction `←, →, ↑, ↓`
 - [x] Automatic orientation change adjustments.
-- [x] Fully customizable appearance (text or custom content view).
+- [x] Fully customizable appearance (custom content view or simply just text - including `NSAttributedString` - see the Example app).
 - [x] Fully customizable presentation and dismissal animations.
 
 

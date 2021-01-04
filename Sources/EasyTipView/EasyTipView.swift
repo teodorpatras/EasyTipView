@@ -100,7 +100,22 @@ public extension EasyTipView {
         let ev = EasyTipView(contentView: contentView, preferences: preferences, delegate: delegate)
         ev.show(animated: animated, forView: view, withinSuperview: superview)
     }
-    
+
+    /**
+     Presents an EasyTipView pointing to a particular UIView instance within the specified superview containing attributed text.
+     - parameter animated:       Pass true to animate the presentation.
+     - parameter view:           The UIView instance which the EasyTipView will be pointing to.
+     - parameter superview:      A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+     - parameter attributedText: The attributed text to be displayed.
+     - parameter preferences:    The preferences which will configure the EasyTipView.
+     - parameter delegate:       The delegate.
+     */
+    class func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil, attributedText:  NSAttributedString, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil){
+
+        let ev = EasyTipView(text: attributedText, preferences: preferences, delegate: delegate)
+        ev.show(animated: animated, forView: view, withinSuperview: superview)
+    }
+
     // MARK:- Instance methods -
     
     /**
@@ -269,12 +284,15 @@ open class EasyTipView: UIView {
     public enum Content: CustomStringConvertible {
         
         case text(String)
+        case attributedText(NSAttributedString)
         case view(UIView)
         
         public var description: String {
             switch self {
             case .text(let text):
                 return "text : '\(text)'"
+            case .attributedText(let text):
+                return "attributed text : '\(text)'"
             case .view(let contentView):
                 return "view : \(contentView)"
             }
@@ -330,7 +348,19 @@ open class EasyTipView: UIView {
             }
             
             return textSize
-            
+
+        case .attributedText(let text):
+            var textSize = text.boundingRect(with: CGSize(width: self.preferences.positioning.maxWidth, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil).size
+
+            textSize.width = ceil(textSize.width)
+            textSize.height = ceil(textSize.height)
+
+            if textSize.width < self.preferences.drawing.arrowWidth {
+                textSize.width = self.preferences.drawing.arrowWidth
+            }
+
+            return textSize
+
         case .view(let contentView):
             return contentView.frame.size
         }
@@ -357,6 +387,10 @@ open class EasyTipView: UIView {
     
     public convenience init (contentView: UIView, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil) {
         self.init(content: .view(contentView), preferences: preferences, delegate: delegate)
+    }
+
+    public convenience init (text: NSAttributedString, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil) {
+        self.init(content: .attributedText(text), preferences: preferences, delegate: delegate)
     }
     
     public init (content: Content, preferences: Preferences = EasyTipView.globalPreferences, delegate: EasyTipViewDelegate? = nil) {
@@ -625,7 +659,19 @@ open class EasyTipView: UIView {
         
         text.draw(in: textRect, withAttributes: attributes)
     }
-    
+
+    fileprivate func drawAttributedText(_ bubbleFrame: CGRect, context : CGContext) {
+        guard
+            case .attributedText(let text) = content
+            else {
+                return
+        }
+
+        let textRect = getContentRect(from: bubbleFrame)
+
+        text.draw(with: textRect, options: .usesLineFragmentOrigin, context: .none)
+    }
+
     fileprivate func drawShadow() {
         if preferences.hasShadow {
             self.layer.masksToBounds = false
@@ -648,6 +694,8 @@ open class EasyTipView: UIView {
         switch content {
         case .text:
             drawText(bubbleFrame, context: context)
+        case .attributedText:
+            drawAttributedText(bubbleFrame, context: context)
         case .view (let view):
             addSubview(view)
         }

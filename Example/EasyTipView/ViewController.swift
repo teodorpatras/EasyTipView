@@ -210,23 +210,37 @@ class ViewController: UIViewController, EasyTipViewDelegate {
                              preferences: preferences)
 
         default:
-            
+
             var preferences = EasyTipView.globalPreferences
             preferences.drawing.arrowPosition = .bottom
             preferences.drawing.font = UIFont.systemFont(ofSize: 14)
             preferences.drawing.textAlignment = .center
             preferences.drawing.backgroundColor = buttonD.backgroundColor!
-            
-            preferences.positioning.maxWidth = 130
-            
+
+            preferences.positioning.maxWidth = 230
+
             preferences.animating.dismissTransform = CGAffineTransform(translationX: 100, y: 0)
             preferences.animating.showInitialTransform = CGAffineTransform(translationX: 100, y: 0)
             preferences.animating.showInitialAlpha = 0
             preferences.animating.showDuration = 1
             preferences.animating.dismissDuration = 1
-            
+
+            let firstAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor(hue:0.07, saturation:0.82, brightness:0.89, alpha:1.00), .font: UIFont.systemFont(ofSize: 14)]
+            let secondAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.white, .backgroundColor: UIColor(hue:0.79, saturation:0.67, brightness:0.63, alpha:1.00), .font: UIFont.systemFont(ofSize: 14)]
+            let thirdAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.white, .font: UIFont.systemFont(ofSize: 14)]
+            let fourthAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.white, .backgroundColor: UIColor(hue:0.59, saturation:0.44, brightness:0.27, alpha:1.00), .font: UIFont.systemFont(ofSize: 14)]
+
+            let firstString = NSMutableAttributedString(string: "Tooltip in ", attributes: firstAttributes)
+            let secondString = NSAttributedString(string: "top most ", attributes: secondAttributes)
+            let thirdString = NSAttributedString(string: " window.\n", attributes: thirdAttributes)
+            let fourthString = NSAttributedString(string: "Tap to dismiss.", attributes: fourthAttributes)
+
+            firstString.append(secondString)
+            firstString.append(thirdString)
+            firstString.append(fourthString)
+
             EasyTipView.show(forView: self.buttonD,
-                text: "Tip view within the topmost window. Tap to dismiss.",
+                attributedText: firstString,
                 preferences: preferences)
         }
     }
