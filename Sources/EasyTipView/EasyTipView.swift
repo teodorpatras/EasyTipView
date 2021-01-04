@@ -190,7 +190,7 @@ public extension EasyTipView {
 // MARK: - UIGestureRecognizerDelegate implementation
 
 extension EasyTipView: UIGestureRecognizerDelegate {
-
+    
     open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return preferences.animating.dismissOnTap
     }
@@ -280,14 +280,14 @@ open class EasyTipView: UIView {
             }
         }
     }
-
+    
     
     // MARK:- Variables -
     
     override open var backgroundColor: UIColor? {
         didSet {
             guard let color = backgroundColor
-                , color != UIColor.clear else {return}  
+                  , color != UIColor.clear else {return}  
             
             preferences.drawing.backgroundColor = color
             backgroundColor = UIColor.clear
@@ -334,8 +334,8 @@ open class EasyTipView: UIView {
         case .view(let contentView):
             return contentView.frame.size
         }
-        }()
-
+    }()
+    
     fileprivate lazy var tipViewSize: CGSize = {
         
         [unowned self] in
@@ -343,7 +343,7 @@ open class EasyTipView: UIView {
         var tipViewSize = CGSize(width: self.contentSize.width + self.preferences.positioning.contentHInset * 2 + self.preferences.positioning.bubbleHInset * 2, height: self.contentSize.height + self.preferences.positioning.contentVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
         
         return tipViewSize
-        }()
+    }()
     
     // MARK: - Static variables -
     
@@ -394,7 +394,7 @@ open class EasyTipView: UIView {
     
     @objc func handleRotation() {
         guard let sview = superview
-            , presentingView != nil else { return }
+              , presentingView != nil else { return }
         
         UIView.animate(withDuration: 0.3) {
             self.arrange(withinSuperview: sview)
@@ -457,9 +457,9 @@ open class EasyTipView: UIView {
         
         let superviewFrame: CGRect
         if let scrollview = superview as? UIScrollView {
-          superviewFrame = CGRect(origin: scrollview.frame.origin, size: scrollview.contentSize)
+            superviewFrame = CGRect(origin: scrollview.frame.origin, size: scrollview.contentSize)
         } else {
-          superviewFrame = superview.frame
+            superviewFrame = superview.frame
         }
         
         var frame = computeFrame(arrowPosition: position, refViewFrame: refViewFrame, superviewFrame: superviewFrame)
