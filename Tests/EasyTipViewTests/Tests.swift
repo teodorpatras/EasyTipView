@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import UIKit
 import XCTest
 import EasyTipView
@@ -163,3 +164,4 @@ class Tests: XCTestCase {
         XCTAssert((tipView.frame).minY == (view.frame).maxY, "EasyTipView should be below the presenting view")
     }
 }
+#endif
