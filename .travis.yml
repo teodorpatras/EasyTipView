@@ -10,13 +10,7 @@ env:
     - FRAMEWORK_NAME=EasyTipView
     - PROJECT=EasyTipView.xcodeproj
     - SCHEME=EasyTipView
-install:
-- gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 before_deploy:
   - carthage build --no-skip-current
   - carthage archive $FRAMEWORK_NAME
-script:
-- set -o pipefail
-- xcodebuild -scheme $SCHEME -workspace $WORKSPACE -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X' build test
-- pod lib lint --quick
-- pod lib lint --quick
+script: xcodebuild -scheme $SCHEME -workspace $WORKSPACE -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X' build test
