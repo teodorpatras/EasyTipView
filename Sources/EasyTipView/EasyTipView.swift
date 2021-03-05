@@ -533,7 +533,13 @@ open class EasyTipView: UIView {
         }
         
         if case .view(let contentView) = content {
-            contentView.translatesAutoresizingMaskIntoConstraints = false
+			// When using `.view(contentView)`, pre-iOS 12 devices will have displaced text (outside of the "bubble").
+			// This ensures the view is within the bubble frame
+			if UIDevice.current.systemVersion.compare("12.0", options: String.CompareOptions.numeric) == ComparisonResult.orderedAscending {
+				contentView.translatesAutoresizingMaskIntoConstraints = true
+			} else {
+				contentView.translatesAutoresizingMaskIntoConstraints = false
+			}
             contentView.frame = getContentRect(from: getBubbleFrame())
         }
         
