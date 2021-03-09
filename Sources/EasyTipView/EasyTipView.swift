@@ -533,7 +533,13 @@ open class EasyTipView: UIView {
         }
         
         if case .view(let contentView) = content {
-            contentView.translatesAutoresizingMaskIntoConstraints = false
+			// When using `.view(contentView)`, pre-iOS 12 devices will have displaced text (outside of the "bubble").
+			// This ensures the view is within the bubble frame
+			if UIDevice.current.systemVersion.compare("12.0", options: String.CompareOptions.numeric) == ComparisonResult.orderedAscending {
+				contentView.translatesAutoresizingMaskIntoConstraints = true
+			} else {
+				contentView.translatesAutoresizingMaskIntoConstraints = false
+			}
             contentView.frame = getContentRect(from: getBubbleFrame())
         }
         
@@ -616,8 +622,7 @@ open class EasyTipView: UIView {
         path.addArc(tangent1End: CGPoint(x: frame.x + frame.width, y: frame.y), tangent2End: CGPoint(x: frame.x, y: frame.y), radius: cornerRadius)
         path.addArc(tangent1End: CGPoint(x: frame.x, y: frame.y), tangent2End: CGPoint(x: frame.x, y: frame.y + frame.height), radius: cornerRadius)
         path.addArc(tangent1End: CGPoint(x: frame.x, y: frame.y + frame.height), tangent2End: CGPoint(x: frame.x + frame.width, y: frame.y + frame.height), radius: cornerRadius)
-        path.addArc(tangent1End: CGPoint(x: frame.x + frame.width, y: frame.y + frame.height), tangent2End: CGPoint(x: frame.x + frame.width, y: frame.height), radius: cornerRadius)
-        
+        path.addArc(tangent1End: CGPoint(x: frame.x + frame.width, y: frame.y + frame.height), tangent2End: CGPoint(x: frame.x + frame.width, y: frame.y), radius: cornerRadius)
     }
     
     fileprivate func drawBubbleLeftShape(_ frame: CGRect, cornerRadius: CGFloat, path: CGMutablePath) {
