@@ -405,7 +405,7 @@ open class EasyTipView: UIView {
         let notificationName = NSNotification.Name.UIDeviceOrientationDidChange
         #endif
 
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: UIDevice.orientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: notificationName, object: nil)
     }
     
     deinit
