@@ -404,7 +404,7 @@ open class EasyTipView: UIView {
         #else
         let notificationName = NSNotification.Name.UIDeviceOrientationDidChange
         #endif
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(handleRotation), name: notificationName, object: nil)
     }
     
@@ -534,7 +534,9 @@ open class EasyTipView: UIView {
         
         if case .view(let contentView) = content {
             contentView.translatesAutoresizingMaskIntoConstraints = false
-            contentView.frame = getContentRect(from: getBubbleFrame())
+            DispatchQueue.main.async {
+                contentView.frame = self.getContentRect(from: self.getBubbleFrame())
+            }
         }
         
         self.frame = frame
