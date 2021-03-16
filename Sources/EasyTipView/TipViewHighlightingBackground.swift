@@ -60,10 +60,16 @@ public final class TipViewHighlightingBackground: UIView {
         let path = CGMutablePath()
         
         let viewFrame = viewToHighlight.superview?.convert(viewToHighlight.frame, to: self) ?? .zero
-        let size = max(viewFrame.width, viewFrame.height)
-        let radius = circleRadius ?? size / 2 + circleMargin
+        let width = viewFrame.width / 2
+        let height = viewFrame.height / 2
+        let radius = ((width * width) + (height * height)).squareRoot()
 
-        path.addArc(center: viewFrame.center, radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        path.addArc(center: viewFrame.center,
+                    radius: circleRadius ?? radius + circleMargin,
+                    startAngle: 0,
+                    endAngle: 2 * CGFloat.pi,
+                    clockwise: true)
+        
         path.addRect(bounds)
         
         mask.path = path
