@@ -227,7 +227,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             preferences.animating.dismissOnTap = true
             
             preferences.positioning.maxWidth = 150
-            preferences.positioning.bubbleInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+            preferences.positioning.bubbleInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 4)
             
             preferences.highlighting.showsOverlay = true
             
