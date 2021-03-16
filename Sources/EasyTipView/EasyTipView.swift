@@ -214,6 +214,13 @@ public extension EasyTipView {
             self.removeFromSuperview()
             self.transform = CGAffineTransform.identity
         }
+        
+        UIView.animate(withDuration: preferences.animating.dismissDuration * 0.2) {
+            self.overlay.alpha = 0
+        } completion: { _ in
+            self.overlay.removeFromSuperview()
+        }
+
     }
 }
 
@@ -579,7 +586,6 @@ open class EasyTipView: UIView {
     @objc func handleTap() {
         self.delegate?.easyTipViewDidTap(self)
         guard preferences.animating.dismissOnTap else { return }
-        overlay.removeFromSuperview()
         dismiss()
     }
     
