@@ -8,23 +8,23 @@
 
 import UIKit
 
-public final class TipViewHighlightingBackground: UIView {
+final class TipViewHighlightingBackground: UIView {
     
     // MARK: - Public interface
     
     /// The view around which the highlighting will be shown
-    public var viewToHighlight: UIView?
+    var viewToHighlight: UIView?
     
     /// A closure to execute when the view is tapped
-    public var tapAction: (() -> Void)?
+    var tapAction: (() -> Void)?
 
     /// The default margin of the highlighting circle to the frame of `viewToHighlight.
     /// This property only takes effect if `circleRadius` is nil.
-    public var circleMargin: CGFloat = 4
+    var circleMargin: CGFloat = 4
     
     /// The radius of the highlighting circle.
     /// If this property has a non-nil value the `circleMargin` property is ignored.
-    public var circleRadius: CGFloat?
+    var circleRadius: CGFloat?
     
     // MARK: - Initialization
     
