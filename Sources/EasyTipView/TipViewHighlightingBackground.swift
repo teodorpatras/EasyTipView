@@ -26,6 +26,10 @@ final class TipViewHighlightingBackground: UIView {
     /// If this property has a non-nil value the `circleMargin` property is ignored.
     var circleRadius: CGFloat?
     
+    /// The background color of the highlighting circle.
+    /// If this property is nil the backgound will not be colored differently.
+    var highlightingBackground: UIColor?
+    
     // MARK: - Initialization
     
     public override init(frame: CGRect) {
@@ -59,13 +63,16 @@ final class TipViewHighlightingBackground: UIView {
         let mask = CAShapeLayer()
         let path = CGMutablePath()
         
+        // for the radius of the circle either take the provided `circleRadius` value
+        // or compute a radius so the circle has `circleMargin` distance from the corner of the view
         let viewFrame = viewToHighlight.superview?.convert(viewToHighlight.frame, to: self) ?? .zero
         let width = viewFrame.width / 2
         let height = viewFrame.height / 2
-        let radius = ((width * width) + (height * height)).squareRoot()
+        let distanceToEdge = ((width * width) + (height * height)).squareRoot()
+        let radius = circleRadius ?? distanceToEdge + circleMargin
 
         path.addArc(center: viewFrame.center,
-                    radius: circleRadius ?? radius + circleMargin,
+                    radius: radius,
                     startAngle: 0,
                     endAngle: 2 * CGFloat.pi,
                     clockwise: true)
@@ -75,10 +82,41 @@ final class TipViewHighlightingBackground: UIView {
         mask.path = path
         mask.fillRule = .evenOdd
         self.layer.mask = mask
+        
+        addCircleBackground(radius: radius)
     }
     
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setNeedsDisplay()
+    private lazy var circleBackground = UIView()
+    
+    private func addCircleBackground(radius: CGFloat) {
+        guard let color = highlightingBackground, let viewToHighlight = viewToHighlight else { return }
+        
+        circleBackground.bounds = CGRect(origin: .zero, size: CGSize(width: 2 * radius, height: 2 * radius))
+        circleBackground.center = viewToHighlight.center
+        
+        let mask = CAShapeLayer()
+        let path = CGMutablePath()
+
+        path.addEllipse(in: circleBackground.bounds)
+        mask.path = path
+        mask.fillRule = .evenOdd
+        circleBackground.layer.mask = mask
+        
+        circleBackground.backgroundColor = color
+        
+        if circleBackground.superview == nil {
+            viewToHighlight.superview?.insertSubview(circleBackground, belowSubview: viewToHighlight)
+        }
+    }
+    
+    public override func removeFromSuperview() {
+        super.removeFromSuperview()
+        circleBackground.removeFromSuperview()
+    }
+    
+    override var alpha: CGFloat {
+        didSet {
+            circleBackground.alpha = alpha
+        }
     }
 }

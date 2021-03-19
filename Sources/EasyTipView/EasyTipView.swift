@@ -280,7 +280,8 @@ open class EasyTipView: UIView {
         
         public struct Highlighting {
             public var showsOverlay             = false
-            public var backgroundColor          = UIColor.black.withAlphaComponent(0.7)
+            public var overlayColor             = UIColor.black.withAlphaComponent(0.7)
+            public var circleColor: UIColor?    = nil
             public var circleMargin             = CGFloat(4)
             public var circleRadius: CGFloat?   = nil
         }
@@ -345,7 +346,8 @@ open class EasyTipView: UIView {
     
     fileprivate lazy var overlay: TipViewHighlightingBackground = {
         let background = TipViewHighlightingBackground(frame: UIScreen.main.bounds)
-        background.backgroundColor = preferences.highlighting.backgroundColor
+        background.backgroundColor = preferences.highlighting.overlayColor
+        background.highlightingBackground = preferences.highlighting.circleColor
         background.alpha = 0
         background.circleRadius = preferences.highlighting.circleRadius
         background.circleMargin = preferences.highlighting.circleMargin
@@ -467,8 +469,9 @@ open class EasyTipView: UIView {
               , presentingView != nil else { return }
         
         UIView.animate(withDuration: 0.3) {
-            self.arrange(withinSuperview: sview)
             self.overlay.frame = UIScreen.main.bounds
+            self.overlay.setNeedsDisplay()
+            self.arrange(withinSuperview: sview)
             self.setNeedsDisplay()
         }
     }
