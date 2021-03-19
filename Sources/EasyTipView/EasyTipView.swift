@@ -470,7 +470,6 @@ open class EasyTipView: UIView {
         
         UIView.animate(withDuration: 0.3) {
             self.overlay.frame = UIScreen.main.bounds
-            self.overlay.setNeedsDisplay()
             self.arrange(withinSuperview: sview)
             self.setNeedsDisplay()
         }

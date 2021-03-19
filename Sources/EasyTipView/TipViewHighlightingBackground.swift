@@ -43,6 +43,8 @@ final class TipViewHighlightingBackground: UIView {
     }
     
     private func setup() {
+        contentMode = .redraw
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         addGestureRecognizer(tapGesture)
     }
