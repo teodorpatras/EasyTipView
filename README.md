@@ -182,8 +182,9 @@ In order to customize the `EasyTipView` appearance and behavior, you can play wi
 | `Highlighting ` attribute   |      Description      |
 |----------|-------------|
 |`showsOverlay`| Wether or not to display a highlighting overlay. (Default value is false.) |
-|`backgroundColor`| The color of the highlighting background. |
-|`circleMargin`| The margin of the highlighting circle to the view the tip view is attached to.This property only takes effect if `circleRadius` is nil. |
+|`overlayColor`| The color of the highlighting background. |
+|`circleColor`| The background color of the highlighting circle. |
+|`circleMargin`| The margin of the highlighting circle to the corner of the view the tip view is attached to.This property only takes effect if `circleRadius` is nil. |
 |`circleRadius`| The radius of the highlighting circle. If this property has a non-nil value the `circleMargin` property is ignored.|
 
 <a name="customising-animations"> Customising the presentation or dismissal animations </a>
