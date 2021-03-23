@@ -187,7 +187,7 @@ In order to customize the `EasyTipView` appearance and behavior, you can play wi
 |`circleMargin`| The margin of the highlighting circle to the corner of the view the tip view is attached to.This property only takes effect if `circleRadius` is nil. |
 |`circleRadius`| The radius of the highlighting circle. If this property has a non-nil value the `circleMargin` property is ignored.|
 
-![Animation Highlight Demo](assets/animation_highlight.gif)
+![Animation Highlight Demo](assets/animation_highlight.gif | width=200)
 
 <a name="customising-animations"> Customising the presentation or dismissal animations </a>
 --------------
