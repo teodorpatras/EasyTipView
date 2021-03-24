@@ -163,6 +163,11 @@ public extension EasyTipView {
         transform = initialTransform
         alpha = initialAlpha
         
+        if preferences.highlighting.showsOverlay {
+            overlay.viewToHighlight = view
+            superview.addSubview(overlay)
+        }
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         addGestureRecognizer(tap)
         
@@ -174,8 +179,18 @@ public extension EasyTipView {
         }
         
         if animated {
-            UIView.animate(withDuration: preferences.animating.showDuration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: [.curveEaseInOut], animations: animations, completion: nil)
-        }else{
+            UIView.animate(withDuration: preferences.animating.showDuration,
+                           delay: 0,
+                           usingSpringWithDamping: damping,
+                           initialSpringVelocity: velocity,
+                           options: [.curveEaseInOut],
+                           animations: animations,
+                           completion: nil)
+            
+            UIView.animate(withDuration: preferences.animating.showDuration * 0.2) {
+                self.overlay.alpha = 1
+            }
+        } else {
             animations()
         }
     }
@@ -199,6 +214,13 @@ public extension EasyTipView {
             self.removeFromSuperview()
             self.transform = CGAffineTransform.identity
         }
+        
+        UIView.animate(withDuration: preferences.animating.dismissDuration * 0.2) {
+            self.overlay.alpha = 0
+        } completion: { _ in
+            self.overlay.removeFromSuperview()
+        }
+
     }
 }
 
@@ -256,9 +278,18 @@ open class EasyTipView: UIView {
             public var dismissOnTap         = true
         }
         
+        public struct Highlighting {
+            public var showsOverlay             = false
+            public var overlayColor             = UIColor.black.withAlphaComponent(0.7)
+            public var circleColor: UIColor?    = nil
+            public var circleMargin             = CGFloat(4)
+            public var circleRadius: CGFloat?   = nil
+        }
+        
         public var drawing      = Drawing()
         public var positioning  = Positioning()
         public var animating    = Animating()
+        public var highlighting = Highlighting()
         public var hasBorder : Bool {
             return drawing.borderWidth > 0 && drawing.borderColor != UIColor.clear
         }
@@ -312,6 +343,17 @@ open class EasyTipView: UIView {
     fileprivate var arrowTip = CGPoint.zero
     fileprivate(set) open var preferences: Preferences
     private let content: Content
+    
+    fileprivate lazy var overlay: TipViewHighlightingBackground = {
+        let background = TipViewHighlightingBackground(frame: UIScreen.main.bounds)
+        background.backgroundColor = preferences.highlighting.overlayColor
+        background.highlightingBackground = preferences.highlighting.circleColor
+        background.alpha = 0
+        background.circleRadius = preferences.highlighting.circleRadius
+        background.circleMargin = preferences.highlighting.circleMargin
+        background.tapAction = { [weak self] in self?.handleTap() }
+        return background
+    }()
     
     // MARK: - Lazy variables -
     
@@ -427,6 +469,7 @@ open class EasyTipView: UIView {
               , presentingView != nil else { return }
         
         UIView.animate(withDuration: 0.3) {
+            self.overlay.frame = UIScreen.main.bounds
             self.arrange(withinSuperview: sview)
             self.setNeedsDisplay()
         }

@@ -37,6 +37,7 @@ class ViewController: UIViewController, EasyTipViewDelegate {
     @IBOutlet weak var buttonE: UIButton!
     @IBOutlet weak var buttonF: UIButton!
     @IBOutlet weak var buttonG: UIButton!
+    @IBOutlet weak var buttonH: UIButton!
     
     weak var tipView: EasyTipView?
     
@@ -211,6 +212,27 @@ class ViewController: UIViewController, EasyTipViewDelegate {
             EasyTipView.show(forView: self.buttonG,
                              contentView: contentView,
                              preferences: preferences)
+            
+        case buttonH:
+            
+            var preferences = EasyTipView.Preferences()
+            preferences.drawing.backgroundColor = buttonH.backgroundColor!
+            preferences.drawing.foregroundColor = UIColor.white
+            preferences.drawing.textAlignment = NSTextAlignment.center
+            
+            preferences.drawing.arrowPosition = .top
+            preferences.animating.showInitialAlpha = 0
+            preferences.animating.showDuration = 0.7
+            preferences.animating.dismissDuration = 0.7
+            preferences.animating.dismissOnTap = true
+            
+            preferences.positioning.maxWidth = 150
+            preferences.positioning.bubbleInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 4)
+            
+            preferences.highlighting.showsOverlay = true
+            
+            let view = EasyTipView(text: "Tip view with highlighting overlay", preferences: preferences)
+            view.show(forView: buttonH, withinSuperview: self.navigationController?.view!)
 
         default:
 

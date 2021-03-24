@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1310EC961D0C53800000E71E /* EasyTipView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1310EC8B1D0C537F0000E71E /* EasyTipView.framework */; };
 		13FB32A91D0C53E5001ACE20 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB32A61D0C53E2001ACE20 /* Tests.swift */; };
+		3D0E3EA525FA2CC600899BB7 /* TipViewHighlightingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E3EA425FA2CC600899BB7 /* TipViewHighlightingBackground.swift */; };
 		3DEF6DAB23A39E4F007B8C3C /* EasyTipView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DEF6DA823A39E4F007B8C3C /* EasyTipView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DEF6DAC23A39E4F007B8C3C /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEF6DA923A39E4F007B8C3C /* UIKitExtensions.swift */; };
 		3DEF6DAD23A39E4F007B8C3C /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEF6DAA23A39E4F007B8C3C /* EasyTipView.swift */; };
@@ -30,6 +31,7 @@
 		13FB32A11D0C53CB001ACE20 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/EasyTipView/info.plist; sourceTree = SOURCE_ROOT; };
 		13FB32A51D0C53E2001ACE20 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Info.plist; sourceTree = SOURCE_ROOT; };
 		13FB32A61D0C53E2001ACE20 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tests.swift; path = Tests/EasyTipViewTests/Tests.swift; sourceTree = SOURCE_ROOT; };
+		3D0E3EA425FA2CC600899BB7 /* TipViewHighlightingBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewHighlightingBackground.swift; sourceTree = "<group>"; };
 		3DEF6DA823A39E4F007B8C3C /* EasyTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTipView.h; sourceTree = "<group>"; };
 		3DEF6DA923A39E4F007B8C3C /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		3DEF6DAA23A39E4F007B8C3C /* EasyTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTipView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				3DEF6DA823A39E4F007B8C3C /* EasyTipView.h */,
 				3DEF6DAA23A39E4F007B8C3C /* EasyTipView.swift */,
 				3DEF6DA923A39E4F007B8C3C /* UIKitExtensions.swift */,
+				3D0E3EA425FA2CC600899BB7 /* TipViewHighlightingBackground.swift */,
 			);
 			path = EasyTipView;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0E3EA525FA2CC600899BB7 /* TipViewHighlightingBackground.swift in Sources */,
 				3DEF6DAD23A39E4F007B8C3C /* EasyTipView.swift in Sources */,
 				3DEF6DAC23A39E4F007B8C3C /* UIKitExtensions.swift in Sources */,
 			);

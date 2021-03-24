@@ -33,6 +33,7 @@ Description
 - [x] Automatic orientation change adjustments.
 - [x] Fully customizable appearance (custom content view or simply just text - including `NSAttributedString` - see the Example app).
 - [x] Fully customizable presentation and dismissal animations.
+- [x] Optional highlighting overlay.
 
 
 <a name="installation"> Installation </a>
@@ -134,10 +135,11 @@ tipView.dismiss()
 ```
 <a name="customising"> Customizing the appearance </a>
 --------------
-In order to customize the `EasyTipView` appearance and behavior, you can play with the `Preferences` structure which encapsulates all the customizable properties of the ``EasyTipView``. These preferences have been split into three structures:
+In order to customize the `EasyTipView` appearance and behavior, you can play with the `Preferences` structure which encapsulates all the customizable properties of the ``EasyTipView``. These preferences have been split into four structures:
 * ```Drawing``` - encapsulates customizable properties specifying how ```EastTipView``` will be drawn on screen.
 * ```Positioning``` - encapsulates customizable properties specifying where ```EasyTipView``` will be drawn within its own bounds.
 * ```Animating``` - encapsulates customizable properties specifying how ```EasyTipView``` will animate on and off screen.
+* ```Highlighting``` - encapsulates customizable properties specifying if and how ```EasyTipView``` will show a highlighting overlay.
 
 | `Drawing ` attribute   |      Description      |
 |----------|-------------|
@@ -176,6 +178,17 @@ In order to customize the `EasyTipView` appearance and behavior, you can play wi
 |`showDuration`|Show animation duration.|
 |`dismissDuration`|Dismiss animation duration.|
 |`dismissOnTap`|Prevents view from dismissing on tap if it is set to false. (Default value is true.)|
+
+| `Highlighting ` attribute   |      Description      |
+|----------|-------------|
+|`showsOverlay`| Wether or not to display a highlighting overlay. (Default value is false.) |
+|`overlayColor`| The color of the highlighting background. |
+|`circleColor`| The background color of the highlighting circle. |
+|`circleMargin`| The margin of the highlighting circle to the corner of the view the tip view is attached to.This property only takes effect if `circleRadius` is nil. |
+|`circleRadius`| The radius of the highlighting circle. If this property has a non-nil value the `circleMargin` property is ignored.|
+
+<br><img src="https://raw.githubusercontent.com/KitchenStories/EasyTipView/feature/highlightingOverlay/assets/animation_highlight.gif" width="200">
+
 
 <a name="customising-animations"> Customising the presentation or dismissal animations </a>
 --------------

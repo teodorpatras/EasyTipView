@@ -141,7 +141,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t2B-Ub-hJ7">
                                 <rect key="frame" x="114.5" y="184.5" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.20999990459177764" green="0.64271100905717482" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.21176470588235294" green="0.64313725490196072" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Huo-8Y-VFk"/>
                                     <constraint firstAttribute="width" constant="46" id="bpW-qX-mX4"/>
@@ -199,6 +199,27 @@
                                     <action selector="buttonActionWithSender:" destination="7mQ-RG-Clx" eventType="touchUpInside" id="fUK-oR-Pnv"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfZ-et-If5" userLabel="ButtonH">
+                                <rect key="frame" x="329" y="114" width="30" height="30"/>
+                                <color key="backgroundColor" red="0.21176470588235294" green="0.64313725490196072" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="3lf-zS-2SH"/>
+                                    <constraint firstAttribute="height" constant="30" id="78G-IW-7yF"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="info.circle" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="buttonActionWithSender:" destination="7mQ-RG-Clx" eventType="touchUpInside" id="ohx-MO-csS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -218,11 +239,13 @@
                             <constraint firstItem="jYe-y0-pin" firstAttribute="top" secondItem="hWU-jR-9Ec" secondAttribute="bottom" constant="25" id="eb5-de-OnU"/>
                             <constraint firstAttribute="trailing" secondItem="jYe-y0-pin" secondAttribute="trailing" id="jz0-h5-eWe"/>
                             <constraint firstAttribute="centerY" secondItem="NUT-CX-WGP" secondAttribute="centerY" id="p7a-iN-6vS"/>
+                            <constraint firstItem="gfZ-et-If5" firstAttribute="top" secondItem="lCx-tc-eXO" secondAttribute="bottom" constant="20" id="uhL-Ri-ED2"/>
+                            <constraint firstAttribute="trailing" secondItem="gfZ-et-If5" secondAttribute="trailing" constant="16" id="vCl-Hb-e4I"/>
                             <constraint firstItem="JdK-KQ-BEN" firstAttribute="leading" secondItem="K9k-ME-Y4A" secondAttribute="leadingMargin" id="xZL-MK-bZb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="EasyTipView - Demo" id="gPI-yp-aVH">
-                        <barButtonItem key="rightBarButtonItem" title="↓" id="HcR-vd-SJ7">
+                        <barButtonItem key="rightBarButtonItem" image="arrow.down.circle" catalog="system" id="HcR-vd-SJ7">
                             <connections>
                                 <action selector="barButtonActionWithSender:" destination="7mQ-RG-Clx" id="DWI-ft-6oN"/>
                             </connections>
@@ -236,6 +259,7 @@
                         <outlet property="buttonE" destination="lCx-tc-eXO" id="Gyl-pL-7Dw"/>
                         <outlet property="buttonF" destination="t2B-Ub-hJ7" id="Uzp-Qd-E26"/>
                         <outlet property="buttonG" destination="HS8-yg-j4l" id="sv7-RK-cGC"/>
+                        <outlet property="buttonH" destination="gfZ-et-If5" id="InF-wX-ENn"/>
                         <outlet property="navBarItem" destination="HcR-vd-SJ7" id="PXK-2J-bNl"/>
                         <outlet property="smallContainerView" destination="NUT-CX-WGP" id="AO3-b9-Iky"/>
                         <outlet property="toolbarItem" destination="L9z-Ee-Hcj" id="cow-BG-IkN"/>
@@ -265,4 +289,8 @@
             <point key="canvasLocation" x="1197" y="-264"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrow.down.circle" catalog="system" width="128" height="121"/>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
+    </resources>
 </document>
