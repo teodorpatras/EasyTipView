@@ -13,6 +13,10 @@ let package = Package(
         .library(
             name: "EasyTipView",
             targets: ["EasyTipView"]),
+        .library(
+            name: "EasyTipView-Dynamic",
+            type: .dynamic,
+            targets: ["EasyTipView"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
