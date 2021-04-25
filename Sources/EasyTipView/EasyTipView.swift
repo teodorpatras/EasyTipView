@@ -137,7 +137,7 @@ public extension EasyTipView {
      
      - parameter animated:  Pass true to animate the presentation.
      - parameter view:      The UIView instance which the EasyTipView will be pointing to.
-     - parameter superview: A view which is part of the UIView instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
+     - parameter superview: A view which is part of the UIView instances superview hierarchy or a custom UIWindow. Ignore this parameter in order to display the EasyTipView within the main window.
      */
     func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil) {
         
@@ -146,8 +146,8 @@ public extension EasyTipView {
         
         let superview = superview!
         #else
-        precondition(superview == nil || view.hasSuperview(superview!), "The supplied superview <\(superview!)> is not a direct nor an indirect superview of the supplied reference view <\(view)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip within the main window, ignore the superview parameter.")
-        
+        precondition(superview == nil || superview is UIWindow || view.hasSuperview(superview!), "The supplied superview <\(superview!)> is not a direct nor an indirect superview of the supplied reference view <\(view)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip within the main window, ignore the superview parameter.")
+
         let superview = superview ?? UIApplication.shared.windows.first!
         #endif
         
