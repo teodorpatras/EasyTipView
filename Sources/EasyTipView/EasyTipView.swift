@@ -126,7 +126,7 @@ public extension EasyTipView {
      - parameter item:      The UIBarButtonItem or UITabBarItem instance which the EasyTipView will be pointing to.
      - parameter superview: A view which is part of the UIBarButtonItem instances superview hierarchy. Ignore this parameter in order to display the EasyTipView within the main window.
      */
-    func show(animated: Bool = true, forItem item: UIBarItem, withinSuperView superview: UIView? = nil) {
+    func show(animated: Bool = true, forItem item: UIBarItem, withinSuperview superview: UIView? = nil) {
         if let view = item.view {
             show(animated: animated, forView: view, withinSuperview: superview)
         }
