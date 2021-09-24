@@ -316,9 +316,7 @@ open class EasyTipView: UIView {
     // MARK: - Lazy variables -
     
     fileprivate lazy var contentSize: CGSize = {
-        
-        [unowned self] in
-        
+
         switch content {
         case .text(let text):
             #if swift(>=4.2)
@@ -356,9 +354,7 @@ open class EasyTipView: UIView {
     }()
     
     fileprivate lazy var tipViewSize: CGSize = {
-        
-        [unowned self] in
-        
+
         var tipViewSize =
             CGSize(
                 width: self.contentSize.width + self.preferences.positioning.contentInsets.left + self.preferences.positioning.contentInsets.right + self.preferences.positioning.bubbleInsets.left + self.preferences.positioning.bubbleInsets.right,
