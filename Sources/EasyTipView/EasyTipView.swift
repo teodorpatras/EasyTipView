@@ -142,11 +142,17 @@ public extension EasyTipView {
     func show(animated: Bool = true, forView view: UIView, withinSuperview superview: UIView? = nil) {
         
         #if TARGET_APP_EXTENSIONS
-        precondition(superview != nil, "The supplied superview parameter cannot be nil for app extensions.")
+        guard superview != nil else {
+            debugPrint("The supplied superview parameter cannot be nil for app extensions.")
+            return
+        }
         
         let superview = superview!
         #else
-        precondition(superview == nil || view.hasSuperview(superview!), "The supplied superview <\(superview!)> is not a direct nor an indirect superview of the supplied reference view <\(view)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip within the main window, ignore the superview parameter.")
+        guard superview == nil || view.hasSuperview(superview!) else {
+            debugPrint("The supplied superview <\(superview!)> is not a direct nor an indirect superview of the supplied reference view <\(view)>. The superview passed to this method should be a direct or an indirect superview of the reference view. To display the tooltip within the main window, ignore the superview parameter.")
+            return
+        }
         
         let superview = superview ?? UIApplication.shared.windows.first!
         #endif
