@@ -227,6 +227,7 @@ open class EasyTipView: UIView {
             public var foregroundColor     = UIColor.white
             public var backgroundColor     = UIColor.red
             public var arrowPosition       = ArrowPosition.any
+            public var arrowPadding         = CGFloat(0)
             public var textAlignment       = NSTextAlignment.center
             public var borderWidth         = CGFloat(0)
             public var borderColor         = UIColor.clear
@@ -441,16 +442,16 @@ open class EasyTipView: UIView {
         switch position {
         case .top, .any:
             xOrigin = refViewFrame.center.x - tipViewSize.width / 2
-            yOrigin = refViewFrame.y + refViewFrame.height
+            yOrigin = refViewFrame.y + refViewFrame.height + preferences.drawing.arrowPadding
         case .bottom:
             xOrigin = refViewFrame.center.x - tipViewSize.width / 2
-            yOrigin = refViewFrame.y - tipViewSize.height
+            yOrigin = refViewFrame.y - tipViewSize.height - preferences.drawing.arrowPadding
         case .right:
             xOrigin = refViewFrame.x - tipViewSize.width
-            yOrigin = refViewFrame.center.y - tipViewSize.height / 2
+            yOrigin = refViewFrame.center.y - tipViewSize.height / 2 + preferences.drawing.arrowPadding
         case .left:
             xOrigin = refViewFrame.x + refViewFrame.width
-            yOrigin = refViewFrame.center.y - tipViewSize.height / 2
+            yOrigin = refViewFrame.center.y - tipViewSize.height / 2 - preferences.drawing.arrowPadding
         }
         
         var frame = CGRect(x: xOrigin, y: yOrigin, width: tipViewSize.width, height: tipViewSize.height)
