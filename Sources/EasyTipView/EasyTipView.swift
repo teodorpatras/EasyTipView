@@ -720,7 +720,7 @@ open class EasyTipView: UIView {
         case .left, .right:
             
             bubbleWidth = tipViewSize.width - preferences.positioning.bubbleInsets.left - preferences.positioning.bubbleInsets.right - preferences.drawing.arrowHeight
-            bubbleHeight = tipViewSize.height - preferences.positioning.bubbleInsets.top - preferences.positioning.bubbleInsets.left
+            bubbleHeight = tipViewSize.height - preferences.positioning.bubbleInsets.top - preferences.positioning.bubbleInsets.bottom
 
             bubbleXOrigin = arrowPosition == .right ? preferences.positioning.bubbleInsets.left : preferences.positioning.bubbleInsets.left + preferences.drawing.arrowHeight
             bubbleYOrigin = preferences.positioning.bubbleInsets.top
