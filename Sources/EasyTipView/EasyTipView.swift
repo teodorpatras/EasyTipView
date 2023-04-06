@@ -533,7 +533,7 @@ open class EasyTipView: UIView {
         }
         
         if case .view(let contentView) = content {
-            contentView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.translatesAutoresizingMaskIntoConstraints = true
             contentView.frame = getContentRect(from: getBubbleFrame())
         }
         
